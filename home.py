@@ -7,7 +7,7 @@ def render():
     # PREMIUM CSS
     # =====================================================
 
-    st.markdown("""
+    HOME_CSS = """
     <style>
 
     .block-container{
@@ -16,7 +16,7 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO */
+    /* HERO SECTION */
 
     .hero-box{
 
@@ -185,7 +185,12 @@ def render():
     }
 
     </style>
-    """, unsafe_allow_html=True)
+    """
+
+    st.markdown(
+        HOME_CSS,
+        unsafe_allow_html=True
+    )
 
     # =====================================================
     # HERO SECTION
@@ -213,14 +218,14 @@ def render():
     )
 
     # =====================================================
-    # MAIN MODULE CARDS
+    # MAIN CARDS
     # =====================================================
 
     col1, col2 = st.columns(2)
 
     with col1:
 
-        card1 = """
+        accident_card = """
         <div class="main-card blue-card">
 
             <div class="card-title">
@@ -237,13 +242,13 @@ def render():
         """
 
         st.markdown(
-            card1,
+            accident_card,
             unsafe_allow_html=True
         )
 
     with col2:
 
-        card2 = """
+        churn_card = """
         <div class="main-card orange-card">
 
             <div class="card-title">
@@ -259,7 +264,7 @@ def render():
         """
 
         st.markdown(
-            card2,
+            churn_card,
             unsafe_allow_html=True
         )
 
