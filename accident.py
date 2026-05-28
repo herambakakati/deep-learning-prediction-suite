@@ -18,18 +18,24 @@ def load_accident_model():
         return None
 
     try:
-        model = tf.keras.models.load_model(model_path)
+
+        model = tf.keras.models.load_model(
+            model_path
+        )
+
         return model
 
     except Exception as e:
 
-        st.error(f"Model loading failed: {e}")
+        st.error(
+            f"Model loading failed: {e}"
+        )
 
         return None
 
 
 # =====================================================
-# PREPROCESS IMAGE
+# IMAGE PREPROCESS
 # =====================================================
 
 def preprocess_image(uploaded_file):
@@ -52,9 +58,14 @@ def preprocess_image(uploaded_file):
         cv2.COLOR_BGR2RGB
     )
 
-    resized = cv2.resize(img_rgb, (224, 224))
+    resized = cv2.resize(
+        img_rgb,
+        (224, 224)
+    )
 
-    resized = resized.astype(np.float32) / 255.0
+    resized = resized.astype(
+        np.float32
+    ) / 255.0
 
     img_input = np.expand_dims(
         resized,
@@ -71,20 +82,15 @@ def preprocess_image(uploaded_file):
 def render():
 
     # =====================================================
-    # CUSTOM CSS
+    # UNIQUE ACCIDENT CSS
     # =====================================================
 
     st.markdown("""
     <style>
 
-    .block-container{
-        max-width:1450px;
-        padding-top:2rem;
-    }
-
     /* HERO */
 
-    .hero-banner{
+    .accident-hero-banner{
 
         background:
         linear-gradient(
@@ -106,7 +112,7 @@ def render():
         0 18px 45px rgba(0,0,0,0.18);
     }
 
-    .hero-title{
+    .accident-hero-title{
 
         color:white;
 
@@ -117,7 +123,7 @@ def render():
         margin-bottom:14px;
     }
 
-    .hero-text{
+    .accident-hero-text{
 
         color:rgba(255,255,255,0.95);
 
@@ -130,32 +136,34 @@ def render():
         font-weight:500;
     }
 
-    /* MAIN CARDS */
+    /* MAIN CARD */
 
-    .card{
+    .accident-main-card{
 
         background:white;
 
-        padding:26px;
+        padding:28px;
 
         border-radius:24px;
 
         box-shadow:
-        0 10px 25px rgba(0,0,0,0.08);
+        0 10px 30px rgba(0,0,0,0.08);
 
-        margin-bottom:18px;
+        margin-bottom:20px;
     }
 
-    .card-title{
+    .accident-card-title{
 
         color:#1e3a8a;
 
         font-size:30px;
 
         font-weight:800;
+
+        margin-bottom:10px;
     }
 
-    .card-text{
+    .accident-card-text{
 
         color:#475569;
 
@@ -163,14 +171,12 @@ def render():
 
         font-weight:600;
 
-        margin-top:8px;
-
         line-height:1.7;
     }
 
     /* ENGINE ITEMS */
 
-    .engine-item{
+    .accident-engine-item{
 
         background:
         linear-gradient(
@@ -183,7 +189,7 @@ def render():
 
         padding:18px;
 
-        border-radius:16px;
+        border-radius:18px;
 
         margin-bottom:14px;
 
@@ -195,38 +201,9 @@ def render():
         0 8px 18px rgba(0,0,0,0.05);
     }
 
-    /* BUTTON */
+    /* PREDICTION BOX */
 
-    div.stButton > button{
-
-        width:100%;
-
-        height:70px;
-
-        border-radius:18px;
-
-        border:none;
-
-        background:
-        linear-gradient(
-            135deg,
-            #6366f1,
-            #8b5cf6
-        );
-
-        color:white !important;
-
-        font-size:20px;
-
-        font-weight:800;
-
-        box-shadow:
-        0 14px 30px rgba(99,102,241,0.28);
-    }
-
-    /* PREDICTION */
-
-    .prediction-box{
+    .accident-prediction-box{
 
         background:
         linear-gradient(
@@ -241,11 +218,13 @@ def render():
 
         text-align:center;
 
+        margin-top:20px;
+
         box-shadow:
         0 12px 25px rgba(0,0,0,0.08);
     }
 
-    .prediction-box h3{
+    .accident-prediction-box h3{
 
         color:#1e3a8a;
 
@@ -254,7 +233,7 @@ def render():
         font-weight:700;
     }
 
-    .prediction-box h1{
+    .accident-prediction-box h1{
 
         color:#1e40af;
 
@@ -265,7 +244,7 @@ def render():
 
     /* DANGER */
 
-    .danger-box{
+    .accident-danger-box{
 
         background:
         linear-gradient(
@@ -280,11 +259,13 @@ def render():
 
         text-align:center;
 
+        margin-top:20px;
+
         box-shadow:
         0 12px 25px rgba(0,0,0,0.08);
     }
 
-    .danger-box h1{
+    .accident-danger-box h1{
 
         color:#991b1b;
 
@@ -293,7 +274,7 @@ def render():
         font-weight:800;
     }
 
-    .danger-box h2{
+    .accident-danger-box h2{
 
         color:#b91c1c;
 
@@ -304,7 +285,7 @@ def render():
 
     /* SAFE */
 
-    .safe-box{
+    .accident-safe-box{
 
         background:
         linear-gradient(
@@ -319,11 +300,13 @@ def render():
 
         text-align:center;
 
+        margin-top:20px;
+
         box-shadow:
         0 12px 25px rgba(0,0,0,0.08);
     }
 
-    .safe-box h1{
+    .accident-safe-box h1{
 
         color:#166534;
 
@@ -332,7 +315,7 @@ def render():
         font-weight:800;
     }
 
-    .safe-box h2{
+    .accident-safe-box h2{
 
         color:#15803d;
 
@@ -349,13 +332,13 @@ def render():
     # =====================================================
 
     st.markdown("""
-    <div class="hero-banner">
+    <div class="accident-hero-banner">
 
-        <div class="hero-title">
+        <div class="accident-hero-title">
             🚗 AI Accident Detection Intelligence
         </div>
 
-        <div class="hero-text">
+        <div class="accident-hero-text">
             Upload traffic images and let the AI engine instantly detect
             accident scenarios using deep learning intelligence.
         </div>
@@ -369,14 +352,10 @@ def render():
 
     model = load_accident_model()
 
-    # =====================================================
-    # MODEL WARNING
-    # =====================================================
-
     if model is None:
 
         st.warning("""
-        Accident model file is missing.
+        Model file missing.
 
         Upload:
         models/best_accident_model.keras
@@ -391,13 +370,13 @@ def render():
     with left:
 
         st.markdown("""
-        <div class="card">
+        <div class="accident-main-card">
 
-            <div class="card-title">
+            <div class="accident-card-title">
                 📤 Upload Traffic Image
             </div>
 
-            <div class="card-text">
+            <div class="accident-card-text">
                 Supported formats: JPG, JPEG, PNG
             </div>
 
@@ -406,16 +385,15 @@ def render():
 
         uploaded_file = st.file_uploader(
             "Choose traffic image",
-            type=["jpg", "jpeg", "png"],
-            key="accident_upload"
+            type=["jpg", "jpeg", "png"]
         )
 
     with right:
 
         st.markdown("""
-        <div class="card">
+        <div class="accident-main-card">
 
-            <div class="card-title">
+            <div class="accident-card-title">
                 🧠 AI Detection Engine
             </div>
 
@@ -424,24 +402,24 @@ def render():
 
         features = [
 
-            "⚡ Real-time CNN image inference",
+            "⚡ Real-time CNN inference",
 
-            "🎯 Confidence-based classification",
+            "🎯 Confidence classification",
 
-            "🚀 Fast local processing",
+            "🚀 Fast image processing",
 
-            "🧠 Deep learning detection engine"
+            "🧠 Deep learning engine"
         ]
 
         for item in features:
 
             st.markdown(
-                f'<div class="engine-item">{item}</div>',
+                f'<div class="accident-engine-item">{item}</div>',
                 unsafe_allow_html=True
             )
 
     # =====================================================
-    # IMAGE PROCESS
+    # IMAGE PREVIEW
     # =====================================================
 
     if uploaded_file is not None:
@@ -459,13 +437,13 @@ def render():
         st.markdown("---")
 
         st.markdown("""
-        <div class="card">
+        <div class="accident-main-card">
 
-            <div class="card-title">
+            <div class="accident-card-title">
                 🖼 Uploaded Preview
             </div>
 
-            <div class="card-text">
+            <div class="accident-card-text">
                 Uploaded image ready for intelligent analysis
             </div>
 
@@ -510,17 +488,12 @@ def render():
                     verbose=0
                 )[0][0]
 
-                st.markdown(
-                    "<br>",
-                    unsafe_allow_html=True
-                )
-
                 col1, col2 = st.columns(2)
 
                 with col1:
 
                     st.markdown(f"""
-                    <div class="prediction-box">
+                    <div class="accident-prediction-box">
 
                         <h3>Prediction Score</h3>
 
@@ -538,7 +511,7 @@ def render():
                         ) * 100
 
                         st.markdown(f"""
-                        <div class="danger-box">
+                        <div class="accident-danger-box">
 
                             <h1>
                                 ⚠️ Accident Detected
@@ -558,7 +531,7 @@ def render():
                         ) * 100
 
                         st.markdown(f"""
-                        <div class="safe-box">
+                        <div class="accident-safe-box">
 
                             <h1>
                                 ✅ No Accident Detected
