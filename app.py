@@ -4,121 +4,128 @@ import accident
 import churn
 
 
-# =====================================================
-# PAGE CONFIG
-# =====================================================
-
 st.set_page_config(
-    page_title="AI Smart Analytics Dashboard",
-    page_icon="🤖",
+    page_title="AI Analytics Suite",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 
-# =====================================================
-# GLOBAL CSS
-# =====================================================
-
 st.markdown("""
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+html, body, [class*="css"]{
+    font-family:'Poppins',sans-serif;
+}
+
 .stApp{
-    background: linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #f8fbff 0%,
-        #eef4ff 50%,
+        #eef4ff 45%,
         #ffffff 100%
     );
 }
 
+/* main container */
 .block-container{
-    max-width:1400px;
-    padding-top:2rem;
+    max-width:1450px;
+    padding-top:1.5rem;
     padding-bottom:2rem;
 }
 
+/* sidebar */
 section[data-testid="stSidebar"]{
     background:
     linear-gradient(
         180deg,
-        #ffffff,
-        #eef4ff
+        #0f172a,
+        #1e3a8a
     );
 }
 
 section[data-testid="stSidebar"] *{
-    color:#1e3a8a !important;
+    color:white !important;
 }
 
+/* buttons */
 .stButton > button{
+    width:100%;
+    height:52px;
     border:none;
     border-radius:18px;
-    height:55px;
     font-weight:700;
     color:white;
+    font-size:16px;
+
     background:
     linear-gradient(
         135deg,
         #6366f1,
         #8b5cf6
     );
+
+    transition:0.3s;
+}
+
+.stButton > button:hover{
+    transform:translateY(-2px);
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-# =====================================================
-# SIDEBAR
-# =====================================================
-
 st.sidebar.markdown("""
+
 <div style="text-align:center;padding-top:20px;">
 
-<h1 style="font-size:42px;">🤖</h1>
+<h1 style="
+font-size:48px;
+margin-bottom:0;
+">
+🚀
+</h1>
 
 <h1 style="
-font-size:34px;
-color:#1e3a8a;
-margin:0;
+font-size:30px;
+margin-top:0;
+font-weight:700;
 ">
-AI Suite
+AI Analytics
 </h1>
 
 <p style="
-color:#64748b;
-font-size:15px;
+font-size:14px;
+opacity:0.85;
 ">
-Smart Detection & Analytics
+Deep Learning Dashboard
 </p>
 
 </div>
+
 """, unsafe_allow_html=True)
 
 
 page = st.sidebar.radio(
-    "📌 Navigation",
+    "Navigation",
     [
         "🏠 Home",
         "🚗 Accident Detection",
-        "📉 Customer Churn Prediction"
+        "📉 Churn Prediction"
     ]
 )
 
 
-# =====================================================
-# ROUTING
-# =====================================================
-
 if page == "🏠 Home":
-
     home.render()
 
 elif page == "🚗 Accident Detection":
-
     accident.render()
 
-elif page == "📉 Customer Churn Prediction":
-
+elif page == "📉 Churn Prediction":
     churn.render()
