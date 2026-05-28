@@ -17,19 +17,19 @@ st.set_page_config(
 
 
 # =====================================================
-# MINIMAL GLOBAL CSS
+# GLOBAL CSS
 # =====================================================
 
 st.markdown("""
 <style>
 
-/* MAIN APP */
+/* APP */
 
 .stApp{
     background-color:#f1f5f9;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 
 .block-container{
     max-width:1450px;
@@ -58,18 +58,7 @@ section[data-testid="stSidebar"] *{
     color:#1e3a8a !important;
 }
 
-/* SIDEBAR RADIO */
-
-.stRadio label{
-
-    font-size:16px !important;
-
-    font-weight:700 !important;
-
-    padding:6px 4px;
-}
-
-/* BUTTONS */
+/* BUTTON */
 
 .stButton > button{
 
@@ -89,23 +78,7 @@ section[data-testid="stSidebar"] *{
     border-radius:14px !important;
 }
 
-/* FILE UPLOADER */
-
-[data-testid="stFileUploader"]{
-
-    border-radius:18px;
-}
-
-/* ALERTS */
-
-.stSuccess,
-.stError,
-.stWarning{
-
-    border-radius:18px;
-}
-
-/* REMOVE STREAMLIT MENU */
+/* HIDE DEFAULT */
 
 #MainMenu{
     visibility:hidden;
@@ -124,7 +97,7 @@ header{
 
 
 # =====================================================
-# SIDEBAR HEADER
+# SIDEBAR
 # =====================================================
 
 st.sidebar.markdown("""
@@ -163,7 +136,7 @@ st.sidebar.markdown("""
 
 
 # =====================================================
-# SIDEBAR NAVIGATION
+# NAVIGATION
 # =====================================================
 
 page = st.sidebar.radio(
@@ -177,7 +150,7 @@ page = st.sidebar.radio(
 
 
 # =====================================================
-# PAGE ROUTING
+# ROUTING
 # =====================================================
 
 if page == "🏠 Home":
@@ -191,7 +164,3 @@ elif page == "🚗 Accident Detection":
 elif page == "📉 Customer Churn Prediction":
 
     churn.render()
-
-else:
-
-    st.error("Page not found.")
