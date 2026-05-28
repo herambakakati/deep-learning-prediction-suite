@@ -1,9 +1,10 @@
+```python
 import streamlit as st
 
 
 def render():
 
-    # ================= CUSTOM CSS =================
+    # ================= PAGE STYLE =================
     st.markdown("""
     <style>
 
@@ -13,52 +14,54 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* REMOVE STREAMLIT DEFAULT TOP SPACE */
-    .stApp {
-        background-color:#020617;
-    }
-
     /* HERO SECTION */
     .hero-box{
         background-image:
-        linear-gradient(rgba(15,23,42,0.82),
-        rgba(30,58,138,0.82)),
+        linear-gradient(
+            rgba(15,23,42,0.78),
+            rgba(30,58,138,0.78)
+        ),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
         background-size:cover;
         background-position:center;
+        background-repeat:no-repeat;
 
         padding:70px 60px;
-        border-radius:30px;
-        margin-bottom:35px;
 
-        box-shadow:0 15px 40px rgba(0,0,0,0.35);
+        border-radius:28px;
+
+        margin-bottom:40px;
+
+        box-shadow:0 16px 40px rgba(0,0,0,0.20);
     }
 
     .hero-title{
-        color:white;
+        color:white !important;
         font-size:54px;
         font-weight:800;
         margin-bottom:18px;
     }
 
     .hero-text{
-        color:#e2e8f0;
-        font-size:20px;
-        line-height:1.9;
-        max-width:850px;
+        color:rgba(255,255,255,0.96) !important;
+        font-size:21px;
+        line-height:1.8;
+        max-width:900px;
+        font-weight:500;
     }
 
     /* MAIN CARDS */
     .card{
-        padding:35px;
-        border-radius:26px;
-        min-height:230px;
-        margin-bottom:25px;
+        padding:32px;
 
-        box-shadow:0 10px 28px rgba(0,0,0,0.18);
+        border-radius:24px;
 
-        transition:0.3s;
+        min-height:240px;
+
+        box-shadow:0 10px 28px rgba(0,0,0,0.10);
+
+        transition:0.3s ease;
     }
 
     .card:hover{
@@ -66,60 +69,65 @@ def render():
     }
 
     .blue-card{
-        background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+        background:linear-gradient(135deg,#eef4ff,#dbeafe);
     }
 
     .orange-card{
-        background:linear-gradient(135deg,#ffedd5,#fed7aa);
+        background:linear-gradient(135deg,#fff7ed,#ffedd5);
     }
 
     .card-title{
-        color:#0f172a;
-        font-size:32px;
+        color:#1e3a8a !important;
+        font-size:30px;
         font-weight:800;
         margin-bottom:18px;
     }
 
     .card-text{
-        color:#334155;
+        color:#334155 !important;
         font-size:18px;
-        line-height:1.9;
+        line-height:1.8;
         font-weight:500;
     }
 
     /* FEATURE CARDS */
     .feature-card{
         background:white;
+
         padding:28px;
-        border-radius:24px;
+
+        border-radius:22px;
+
         text-align:center;
-        min-height:220px;
 
-        box-shadow:0 8px 20px rgba(0,0,0,0.12);
+        min-height:240px;
 
-        transition:0.3s;
+        box-shadow:0 8px 24px rgba(0,0,0,0.08);
+
+        transition:0.3s ease;
     }
 
     .feature-card:hover{
-        transform:translateY(-6px);
+        transform:translateY(-8px);
+        box-shadow:0 14px 30px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
-        font-size:48px;
+        font-size:46px;
         margin-bottom:16px;
     }
 
     .feature-title{
-        color:#1e293b;
+        color:#1e293b !important;
         font-size:24px;
         font-weight:800;
-        margin-bottom:12px;
+        margin-bottom:14px;
     }
 
     .feature-text{
-        color:#475569;
+        color:#475569 !important;
         font-size:16px;
-        line-height:1.8;
+        line-height:1.7;
         font-weight:500;
     }
 
@@ -137,14 +145,14 @@ def render():
         <div class="hero-text">
             Premium intelligent platform for real-time accident detection,
             customer churn prediction, and advanced business analytics
-            powered by advanced deep learning intelligence systems.
+            powered by deep learning intelligence systems.
         </div>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # ================= MAIN SECTION =================
-    col1, col2 = st.columns(2)
+    # ================= MAIN CARDS =================
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
@@ -185,7 +193,7 @@ def render():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ================= FEATURES =================
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
 
     features = [
         (
@@ -235,3 +243,4 @@ def render():
 
             </div>
             """, unsafe_allow_html=True)
+```
