@@ -21,11 +21,11 @@ def download_assets():
 
         # SCALER FILE
         "models/scaler.pkl":
-        "PASTE_SCALER_FILE_ID",
+        "1aLjkPl5i8h_jhCAjB6oly0ckX-bxkDFK",
 
         # FEATURE COLUMNS FILE
         "models/feature_columns.pkl":
-        "PASTE_FEATURE_COLUMNS_FILE_ID"
+        "1HmIgx9lTcdlFXUcymLd-QHskgKisIFSX"
     }
 
     for path, file_id in files.items():
@@ -47,7 +47,7 @@ def download_assets():
                 )
 
 # =====================================================
-# LOAD MODEL + FILES
+# LOAD ASSETS
 # =====================================================
 
 @st.cache_resource
@@ -218,7 +218,7 @@ def render():
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO
+    # HERO SECTION
     # =====================================================
 
     st.html("""
@@ -238,7 +238,7 @@ def render():
     """)
 
     # =====================================================
-    # LOAD FILES
+    # LOAD MODEL
     # =====================================================
 
     try:
@@ -251,15 +251,10 @@ def render():
             f"Model loading failed: {str(e)}"
         )
 
-        st.info(
-            "Upload scaler.pkl and feature_columns.pkl "
-            "to Google Drive and replace their file IDs."
-        )
-
         return
 
     # =====================================================
-    # INPUT AREA
+    # INPUT SECTIONS
     # =====================================================
 
     left, right = st.columns(2)
