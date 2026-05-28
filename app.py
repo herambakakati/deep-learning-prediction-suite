@@ -1,13 +1,13 @@
 import streamlit as st
 
-# MUST BE FIRST STREAMLIT COMMAND
+# ================= PAGE CONFIG =================
 st.set_page_config(
     page_title="AI Smart Analytics Dashboard",
     page_icon="🤖",
     layout="wide"
 )
 
-# IMPORT AFTER PAGE CONFIG
+# ================= IMPORT PAGES =================
 import home
 import accident
 import churn
@@ -18,14 +18,14 @@ st.sidebar.caption("Smart Detection & Analytics")
 
 page = st.sidebar.radio(
     "Navigation",
-    [
+    (
         "🏠 Home",
         "🚗 Accident Detection",
         "📉 Customer Churn Prediction"
-    ]
+    )
 )
 
-# ================= ROUTING =================
+# ================= PAGE ROUTING =================
 if page == "🏠 Home":
     home.render()
 
