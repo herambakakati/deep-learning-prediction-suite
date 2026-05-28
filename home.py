@@ -51,19 +51,19 @@ def render():
     }
 
     /* MAIN CARDS */
-    .card{
+    .custom-card{
         padding:30px;
 
         border-radius:22px;
 
-        box-shadow:0 10px 30px rgba(0,0,0,0.08);
-
         min-height:240px;
+
+        box-shadow:0 10px 30px rgba(0,0,0,0.08);
 
         transition:0.3s ease;
     }
 
-    .card:hover{
+    .custom-card:hover{
         transform:translateY(-6px);
     }
 
@@ -97,7 +97,7 @@ def render():
         font-weight:500;
     }
 
-    /* FEATURE CARDS */
+    /* FEATURES */
     .feature-card{
         background:white;
 
@@ -105,11 +105,11 @@ def render():
 
         border-radius:20px;
 
-        box-shadow:0 8px 24px rgba(0,0,0,0.08);
-
         text-align:center;
 
-        min-height:250px;
+        min-height:220px;
+
+        box-shadow:0 8px 24px rgba(0,0,0,0.08);
 
         transition:0.3s ease;
     }
@@ -129,26 +129,13 @@ def render():
         color:#1e3a8a;
         font-size:22px;
         font-weight:700;
-        margin-bottom:14px;
+        margin-bottom:12px;
     }
 
     .feature-text{
         color:#475569;
         font-size:16px;
         line-height:1.7;
-    }
-
-    /* SIDEBAR */
-    section[data-testid="stSidebar"]{
-        background:linear-gradient(
-            180deg,
-            #111827,
-            #1e293b
-        );
-    }
-
-    section[data-testid="stSidebar"] *{
-        color:white !important;
     }
 
     </style>
@@ -176,7 +163,7 @@ def render():
     with col1:
 
         st.markdown("""
-        <div class="card blue-card">
+        <div class="custom-card blue-card">
 
             <div class="card-title">
                 🚗 Accident Detection
@@ -193,7 +180,7 @@ def render():
     with col2:
 
         st.markdown("""
-        <div class="card orange-card">
+        <div class="custom-card orange-card">
 
             <div class="card-title">
                 📉 Customer Churn Prediction
