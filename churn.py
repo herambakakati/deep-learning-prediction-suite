@@ -6,7 +6,7 @@ import os
 import gdown
 
 # =====================================================
-# DOWNLOAD MODEL FILES
+# DOWNLOAD REQUIRED FILES
 # =====================================================
 
 def download_assets():
@@ -15,23 +15,30 @@ def download_assets():
 
     files = {
 
+        # CHURN MODEL
         "models/churn_model.keras":
-        "YOUR_CHURN_MODEL_FILE_ID",
+        "1L0nfzsarjH-dK9_pqNxeCKa5d7_YvVzX",
 
+        # SCALER FILE
         "models/scaler.pkl":
-        "YOUR_SCALER_FILE_ID",
+        "PASTE_SCALER_FILE_ID",
 
+        # FEATURE COLUMNS FILE
         "models/feature_columns.pkl":
-        "YOUR_FEATURE_COLUMNS_FILE_ID"
+        "PASTE_FEATURE_COLUMNS_FILE_ID"
     }
 
     for path, file_id in files.items():
 
         if not os.path.exists(path):
 
-            with st.spinner(f"Downloading {os.path.basename(path)}..."):
+            with st.spinner(
+                f"Downloading {os.path.basename(path)}..."
+            ):
 
-                url = f"https://drive.google.com/uc?id={file_id}"
+                url = (
+                    f"https://drive.google.com/uc?id={file_id}"
+                )
 
                 gdown.download(
                     url,
@@ -40,7 +47,7 @@ def download_assets():
                 )
 
 # =====================================================
-# LOAD ASSETS
+# LOAD MODEL + FILES
 # =====================================================
 
 @st.cache_resource
@@ -48,21 +55,21 @@ def load_assets():
 
     download_assets()
 
-    model_path = "models/churn_model.keras"
-
-    scaler_path = "models/scaler.pkl"
-
-    columns_path = "models/feature_columns.pkl"
-
     model = tf.keras.models.load_model(
-        model_path
+        "models/churn_model.keras"
     )
 
-    with open(scaler_path, "rb") as f:
+    with open(
+        "models/scaler.pkl",
+        "rb"
+    ) as f:
 
         scaler = pickle.load(f)
 
-    with open(columns_path, "rb") as f:
+    with open(
+        "models/feature_columns.pkl",
+        "rb"
+    ) as f:
 
         feature_columns = pickle.load(f)
 
@@ -75,7 +82,7 @@ def load_assets():
 def render():
 
     # =====================================================
-    # CSS
+    # PREMIUM CSS
     # =====================================================
 
     st.markdown("""
@@ -85,8 +92,8 @@ def render():
 
         background:
         linear-gradient(
-            rgba(15,23,42,0.78),
-            rgba(30,58,138,0.78)
+            rgba(15,23,42,0.80),
+            rgba(30,58,138,0.80)
         ),
         url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
@@ -111,7 +118,7 @@ def render():
 
         color:white;
 
-        margin-bottom:14px;
+        margin-bottom:15px;
     }
 
     .hero-text{
@@ -211,7 +218,7 @@ def render():
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO SECTION
+    # HERO
     # =====================================================
 
     st.html("""
@@ -231,7 +238,7 @@ def render():
     """)
 
     # =====================================================
-    # LOAD MODEL
+    # LOAD FILES
     # =====================================================
 
     try:
@@ -244,10 +251,15 @@ def render():
             f"Model loading failed: {str(e)}"
         )
 
+        st.info(
+            "Upload scaler.pkl and feature_columns.pkl "
+            "to Google Drive and replace their file IDs."
+        )
+
         return
 
     # =====================================================
-    # INPUT SECTIONS
+    # INPUT AREA
     # =====================================================
 
     left, right = st.columns(2)
