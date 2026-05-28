@@ -1,32 +1,30 @@
 import streamlit as st
 
-def render():
 
-    # PAGE CONFIG
-    st.set_page_config(
-        page_title="AI Smart Analytics Dashboard",
-        layout="wide"
-    )
+def render():
 
     # CUSTOM CSS
     st.markdown("""
     <style>
+
+    /* MAIN PAGE */
 
     .stApp{
         background-color:#f1f5f9;
     }
 
     .block-container{
-        max-width:1400px;
         padding-top:2rem;
         padding-bottom:2rem;
+        max-width:1400px;
     }
 
     /* HERO SECTION */
 
-    .hero{
+    .hero-box{
+
         background-image:
-        linear-gradient(rgba(15,23,42,0.82),
+        linear-gradient(rgba(15,23,42,0.78),
         rgba(30,58,138,0.78)),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
@@ -41,20 +39,20 @@ def render():
         margin-bottom:40px;
 
         box-shadow:
-        0 15px 40px rgba(0,0,0,0.18);
+        0 16px 40px rgba(0,0,0,0.18);
     }
 
-    .hero h1{
-        color:white;
-        font-size:60px;
+    .hero-title{
+        font-size:58px;
         font-weight:800;
+        color:white;
         margin-bottom:20px;
         line-height:1.2;
     }
 
-    .hero p{
-        color:rgba(255,255,255,0.94);
+    .hero-text{
         font-size:23px;
+        color:rgba(255,255,255,0.94);
         line-height:1.9;
         max-width:1000px;
         font-weight:500;
@@ -62,12 +60,13 @@ def render():
 
     /* MAIN CARDS */
 
-    .main-card{
-        padding:38px;
+    .card{
 
-        border-radius:26px;
+        padding:35px;
 
-        min-height:260px;
+        border-radius:24px;
+
+        min-height:250px;
 
         box-shadow:
         0 10px 30px rgba(0,0,0,0.08);
@@ -75,11 +74,12 @@ def render():
         transition:0.3s ease;
     }
 
-    .main-card:hover{
+    .card:hover{
+
         transform:translateY(-8px);
 
         box-shadow:
-        0 18px 40px rgba(0,0,0,0.12);
+        0 18px 35px rgba(0,0,0,0.12);
     }
 
     .blue-card{
@@ -94,14 +94,14 @@ def render():
 
     .card-title{
         color:#1e3a8a;
-        font-size:38px;
+        font-size:34px;
         font-weight:800;
         margin-bottom:20px;
     }
 
     .card-text{
         color:#334155;
-        font-size:21px;
+        font-size:20px;
         line-height:1.9;
         font-weight:500;
     }
@@ -109,15 +109,16 @@ def render():
     /* FEATURE CARDS */
 
     .feature-card{
+
         background:white;
 
-        padding:32px 24px;
+        padding:28px 24px;
 
-        border-radius:24px;
+        border-radius:22px;
 
         text-align:center;
 
-        min-height:270px;
+        min-height:250px;
 
         box-shadow:
         0 8px 24px rgba(0,0,0,0.08);
@@ -126,7 +127,8 @@ def render():
     }
 
     .feature-card:hover{
-        transform:translateY(-10px);
+
+        transform:translateY(-8px);
 
         box-shadow:
         0 18px 35px rgba(0,0,0,0.12);
@@ -139,38 +141,48 @@ def render():
 
     .feature-title{
         color:#1e3a8a;
-        font-size:28px;
+        font-size:26px;
         font-weight:800;
-        margin-bottom:15px;
+        margin-bottom:14px;
     }
 
     .feature-text{
         color:#475569;
-        font-size:18px;
+        font-size:17px;
         line-height:1.8;
         font-weight:500;
     }
 
+    /* RESPONSIVE */
+
     @media(max-width: 992px){
 
-        .hero{
+        .hero-box{
             padding:40px 30px;
         }
 
-        .hero h1{
-            font-size:42px;
+        .hero-title{
+            font-size:40px;
         }
 
-        .hero p{
+        .hero-text{
             font-size:18px;
         }
 
         .card-title{
-            font-size:28px;
+            font-size:26px;
         }
 
         .card-text{
-            font-size:18px;
+            font-size:17px;
+        }
+
+        .feature-title{
+            font-size:22px;
+        }
+
+        .feature-text{
+            font-size:15px;
         }
     }
 
@@ -178,29 +190,31 @@ def render():
     """, unsafe_allow_html=True)
 
     # HERO SECTION
+
     st.markdown("""
-    <div class="hero">
+    <div class="hero-box">
 
-        <h1>
+        <div class="hero-title">
             🤖 AI Smart Analytics Dashboard
-        </h1>
+        </div>
 
-        <p>
+        <div class="hero-text">
             Premium intelligent platform for real-time accident detection,
             customer churn prediction, and advanced business analytics
             powered by deep learning intelligence.
-        </p>
+        </div>
 
     </div>
     """, unsafe_allow_html=True)
 
     # MAIN CARDS
+
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
         st.markdown("""
-        <div class="main-card blue-card">
+        <div class="card blue-card">
 
             <div class="card-title">
                 🚗 Accident Detection
@@ -217,7 +231,7 @@ def render():
     with col2:
 
         st.markdown("""
-        <div class="main-card orange-card">
+        <div class="card orange-card">
 
             <div class="card-title">
                 📉 Customer Churn Prediction
@@ -231,10 +245,11 @@ def render():
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    # FEATURES
-    c1, c2, c3, c4 = st.columns(4, gap="large")
+    # FEATURE SECTION
+
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
 
     features = [
 
