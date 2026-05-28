@@ -12,7 +12,7 @@ import os
 @st.cache_resource
 def load_accident_model():
 
-    model_path = "models/best_accident_weights.weights.h5"
+    model_path = "models/best_accident_model.keras"
 
     if not os.path.exists(model_path):
 
@@ -20,54 +20,9 @@ def load_accident_model():
             f"Model file not found: {model_path}"
         )
 
-    model = tf.keras.Sequential([
-
-        tf.keras.layers.Input(
-            shape=(224, 224, 3)
-        ),
-
-        tf.keras.layers.Conv2D(
-            32,
-            (3, 3),
-            activation="relu"
-        ),
-
-        tf.keras.layers.MaxPooling2D(2, 2),
-
-        tf.keras.layers.Conv2D(
-            64,
-            (3, 3),
-            activation="relu"
-        ),
-
-        tf.keras.layers.MaxPooling2D(2, 2),
-
-        tf.keras.layers.Conv2D(
-            128,
-            (3, 3),
-            activation="relu"
-        ),
-
-        tf.keras.layers.MaxPooling2D(2, 2),
-
-        tf.keras.layers.Flatten(),
-
-        tf.keras.layers.Dense(
-            128,
-            activation="relu"
-        ),
-
-        tf.keras.layers.Dropout(0.5),
-
-        tf.keras.layers.Dense(
-            1,
-            activation="sigmoid"
-        )
-    ])
-
-    model.build((None, 224, 224, 3))
-
-    model.load_weights(model_path)
+    model = tf.keras.models.load_model(
+        model_path
+    )
 
     return model
 
@@ -126,11 +81,11 @@ def render():
     .hero-banner{
 
         background:
-            linear-gradient(
-                rgba(15,23,42,0.75),
-                rgba(30,58,138,0.75)
-            ),
-            url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+        linear-gradient(
+            rgba(15,23,42,0.75),
+            rgba(30,58,138,0.75)
+        ),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
 
         background-size:cover;
         background-position:center;
@@ -142,7 +97,7 @@ def render():
         margin-bottom:30px;
 
         box-shadow:
-            0 18px 45px rgba(0,0,0,0.18);
+        0 18px 45px rgba(0,0,0,0.18);
     }
 
     .hero-title{
@@ -178,7 +133,7 @@ def render():
         border-radius:24px;
 
         box-shadow:
-            0 10px 25px rgba(0,0,0,0.08);
+        0 10px 25px rgba(0,0,0,0.08);
 
         margin-bottom:18px;
     }
@@ -206,11 +161,11 @@ def render():
     .engine-item{
 
         background:
-            linear-gradient(
-                135deg,
-                #ecfdf5,
-                #d1fae5
-            );
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #d1fae5
+        );
 
         color:#065f46;
 
@@ -228,11 +183,11 @@ def render():
     .prediction-box{
 
         background:
-            linear-gradient(
-                135deg,
-                #dbeafe,
-                #bfdbfe
-            );
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #bfdbfe
+        );
 
         padding:35px;
 
@@ -244,11 +199,11 @@ def render():
     .danger-box{
 
         background:
-            linear-gradient(
-                135deg,
-                #fee2e2,
-                #fecaca
-            );
+        linear-gradient(
+            135deg,
+            #fee2e2,
+            #fecaca
+        );
 
         padding:35px;
 
@@ -260,11 +215,11 @@ def render():
     .safe-box{
 
         background:
-            linear-gradient(
-                135deg,
-                #dcfce7,
-                #bbf7d0
-            );
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #bbf7d0
+        );
 
         padding:35px;
 
@@ -328,13 +283,13 @@ def render():
 
         features = [
 
-            "⚡ Real-time CNN image inference",
+            "⚡ Real-time CNN inference",
 
-            "🎯 Confidence-based classification",
+            "🎯 Confidence-based prediction",
 
             "🚀 Fast local processing",
 
-            "🧠 Deep learning detection engine"
+            "🧠 Deep learning intelligence"
         ]
 
         for item in features:
@@ -358,7 +313,7 @@ def render():
 
         st.image(
             display_img,
-            width=950
+            use_column_width=True
         )
 
         if st.button(
@@ -420,9 +375,7 @@ def render():
 
                     else:
 
-                        confidence = (
-                            prediction
-                        ) * 100
+                        confidence = prediction * 100
 
                         st.markdown(f"""
                         <div class="safe-box">
