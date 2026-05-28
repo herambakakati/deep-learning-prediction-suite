@@ -3,59 +3,79 @@ import streamlit as st
 
 def render():
 
+    # ================= CUSTOM CSS =================
     st.markdown("""
     <style>
 
     .block-container{
         max-width:1400px;
         padding-top:2rem;
+        padding-bottom:2rem;
     }
 
+    /* REMOVE STREAMLIT DEFAULT TOP SPACE */
+    .stApp {
+        background-color:#020617;
+    }
+
+    /* HERO SECTION */
     .hero-box{
         background-image:
-        linear-gradient(rgba(15,23,42,0.75),
-        rgba(30,58,138,0.75)),
+        linear-gradient(rgba(15,23,42,0.82),
+        rgba(30,58,138,0.82)),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
         background-size:cover;
         background-position:center;
-        padding:60px;
-        border-radius:28px;
+
+        padding:70px 60px;
+        border-radius:30px;
         margin-bottom:35px;
+
+        box-shadow:0 15px 40px rgba(0,0,0,0.35);
     }
 
     .hero-title{
         color:white;
-        font-size:52px;
+        font-size:54px;
         font-weight:800;
         margin-bottom:18px;
     }
 
     .hero-text{
-        color:white;
+        color:#e2e8f0;
         font-size:20px;
-        line-height:1.8;
+        line-height:1.9;
         max-width:850px;
     }
 
+    /* MAIN CARDS */
     .card{
-        padding:30px;
-        border-radius:24px;
-        min-height:220px;
+        padding:35px;
+        border-radius:26px;
+        min-height:230px;
         margin-bottom:25px;
+
+        box-shadow:0 10px 28px rgba(0,0,0,0.18);
+
+        transition:0.3s;
+    }
+
+    .card:hover{
+        transform:translateY(-6px);
     }
 
     .blue-card{
-        background:#dbeafe;
+        background:linear-gradient(135deg,#dbeafe,#bfdbfe);
     }
 
     .orange-card{
-        background:#ffedd5;
+        background:linear-gradient(135deg,#ffedd5,#fed7aa);
     }
 
     .card-title{
-        color:#1e3a8a;
-        font-size:30px;
+        color:#0f172a;
+        font-size:32px;
         font-weight:800;
         margin-bottom:18px;
     }
@@ -63,40 +83,50 @@ def render():
     .card-text{
         color:#334155;
         font-size:18px;
-        line-height:1.8;
+        line-height:1.9;
+        font-weight:500;
     }
 
+    /* FEATURE CARDS */
     .feature-card{
         background:white;
-        padding:25px;
-        border-radius:22px;
+        padding:28px;
+        border-radius:24px;
         text-align:center;
         min-height:220px;
-        box-shadow:0 8px 20px rgba(0,0,0,0.08);
+
+        box-shadow:0 8px 20px rgba(0,0,0,0.12);
+
+        transition:0.3s;
+    }
+
+    .feature-card:hover{
+        transform:translateY(-6px);
     }
 
     .feature-icon{
-        font-size:42px;
-        margin-bottom:12px;
+        font-size:48px;
+        margin-bottom:16px;
     }
 
     .feature-title{
-        color:#1e3a8a;
-        font-size:22px;
-        font-weight:700;
-        margin-bottom:10px;
+        color:#1e293b;
+        font-size:24px;
+        font-weight:800;
+        margin-bottom:12px;
     }
 
     .feature-text{
         color:#475569;
         font-size:16px;
-        line-height:1.7;
+        line-height:1.8;
+        font-weight:500;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # HERO
+    # ================= HERO =================
     st.markdown("""
     <div class="hero-box">
 
@@ -107,13 +137,13 @@ def render():
         <div class="hero-text">
             Premium intelligent platform for real-time accident detection,
             customer churn prediction, and advanced business analytics
-            powered by deep learning intelligence.
+            powered by advanced deep learning intelligence systems.
         </div>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # MAIN CARDS
+    # ================= MAIN SECTION =================
     col1, col2 = st.columns(2)
 
     with col1:
@@ -127,7 +157,8 @@ def render():
 
             <div class="card-text">
                 Upload road traffic images and instantly detect
-                accident scenarios using trained deep learning CNN models.
+                accident scenarios using trained deep learning
+                convolutional neural network models.
             </div>
 
         </div>
@@ -139,12 +170,13 @@ def render():
         <div class="card orange-card">
 
             <div class="card-title">
-                📉 Churn Prediction
+                📉 Customer Churn Prediction
             </div>
 
             <div class="card-text">
-                Predict customer churn risk using AI-powered analytics
-                and actionable business intelligence.
+                Predict customer churn probability using
+                AI-powered analytics and business intelligence
+                prediction systems.
             </div>
 
         </div>
@@ -152,14 +184,30 @@ def render():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # FEATURES
+    # ================= FEATURES =================
     c1, c2, c3, c4 = st.columns(4)
 
     features = [
-        ("🚀", "Fast Performance", "Optimized AI inference."),
-        ("🧠", "Deep Learning", "Advanced neural networks."),
-        ("📊", "Analytics Ready", "Business-focused prediction output."),
-        ("🔒", "Reliable", "Stable deployment architecture.")
+        (
+            "🚀",
+            "Fast Performance",
+            "Optimized AI inference engine for real-time prediction."
+        ),
+        (
+            "🧠",
+            "Deep Learning",
+            "Advanced neural network architecture for smart analytics."
+        ),
+        (
+            "📊",
+            "Analytics Ready",
+            "Business-focused prediction and reporting intelligence."
+        ),
+        (
+            "🔒",
+            "Reliable",
+            "Stable deployment architecture with scalable design."
+        )
     ]
 
     cols = [c1, c2, c3, c4]
