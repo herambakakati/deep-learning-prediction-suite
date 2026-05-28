@@ -17,7 +17,7 @@ st.set_page_config(
 
 
 # =====================================================
-# GLOBAL PREMIUM CSS
+# GLOBAL CSS
 # =====================================================
 
 st.markdown(
@@ -30,8 +30,6 @@ st.markdown(
         font-family:'Inter',sans-serif;
     }
 
-    /* MAIN APP */
-
     .stApp{
         background:
             linear-gradient(
@@ -42,15 +40,11 @@ st.markdown(
             );
     }
 
-    /* CONTAINER */
-
     .block-container{
         max-width:1450px;
         padding-top:2rem;
         padding-bottom:2rem;
     }
-
-    /* SIDEBAR */
 
     section[data-testid="stSidebar"]{
 
@@ -63,20 +57,14 @@ st.markdown(
             1px solid rgba(99,102,241,0.12);
     }
 
-    /* SIDEBAR TEXT */
-
     section[data-testid="stSidebar"] *{
         color:#1e3a8a !important;
     }
-
-    /* RADIO BUTTONS */
 
     .stRadio label{
         font-size:16px !important;
         font-weight:700 !important;
     }
-
-    /* BUTTONS */
 
     .stButton > button{
 
@@ -115,8 +103,6 @@ st.markdown(
             0 18px 35px rgba(99,102,241,0.40);
     }
 
-    /* INPUTS */
-
     .stTextInput input,
     .stNumberInput input,
     .stSelectbox div[data-baseweb="select"] > div{
@@ -129,8 +115,6 @@ st.markdown(
         background:
             rgba(255,255,255,0.95) !important;
     }
-
-    /* FILE UPLOADER */
 
     [data-testid="stFileUploader"]{
 
@@ -145,16 +129,6 @@ st.markdown(
         padding:18px;
     }
 
-    /* ALERTS */
-
-    .stSuccess,
-    .stError,
-    .stWarning,
-    .stInfo{
-
-        border-radius:18px;
-    }
-
     </style>
     """,
     unsafe_allow_html=True
@@ -162,7 +136,7 @@ st.markdown(
 
 
 # =====================================================
-# SIDEBAR HEADER
+# SIDEBAR
 # =====================================================
 
 st.sidebar.markdown(
@@ -218,46 +192,22 @@ page = st.sidebar.radio(
 
 
 # =====================================================
-# SAFE PAGE ROUTING
+# ROUTING
 # =====================================================
 
 try:
 
     if page == "🏠 Home":
 
-        if hasattr(home, "render"):
-
-            home.render()
-
-        else:
-
-            st.error(
-                "home.py missing render() function"
-            )
+        home.render()
 
     elif page == "🚗 Accident Detection":
 
-        if hasattr(accident, "render"):
-
-            accident.render()
-
-        else:
-
-            st.error(
-                "accident.py missing render() function"
-            )
+        accident.render()
 
     elif page == "📉 Customer Churn Prediction":
 
-        if hasattr(churn, "render"):
-
-            churn.render()
-
-        else:
-
-            st.error(
-                "churn.py missing render() function"
-            )
+        churn.render()
 
 except Exception as e:
 
