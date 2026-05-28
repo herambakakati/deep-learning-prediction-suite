@@ -1,188 +1,178 @@
+```python
 import streamlit as st
 
 
 def render():
 
+    # PAGE CONFIG
+    st.set_page_config(
+        page_title="AI Smart Analytics Dashboard",
+        layout="wide"
+    )
+
+    # CUSTOM CSS
     st.markdown("""
     <style>
 
-    /* PAGE */
     .stApp{
-        background: #f1f5f9;
+        background-color:#f1f5f9;
     }
 
     .block-container{
-        max-width: 1450px;
-        padding-top: 1.8rem;
-        padding-bottom: 2rem;
-    }
-
-    /* SIDEBAR */
-    section[data-testid="stSidebar"]{
-        background: #ffffff;
-        border-right: 1px solid #e2e8f0;
-    }
-
-    section[data-testid="stSidebar"] .css-ng1t4o{
-        padding-top: 1rem;
+        max-width:1400px;
+        padding-top:2rem;
+        padding-bottom:2rem;
     }
 
     /* HERO SECTION */
-    .hero-box{
+
+    .hero{
         background-image:
-        linear-gradient(rgba(15,23,42,0.78),
-        rgba(30,41,59,0.80)),
+        linear-gradient(rgba(15,23,42,0.82),
+        rgba(30,58,138,0.78)),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
 
-        padding: 65px 70px;
-        border-radius: 28px;
+        padding:65px;
+
+        border-radius:28px;
+
+        margin-bottom:40px;
 
         box-shadow:
-        0 10px 40px rgba(15,23,42,0.18);
-
-        margin-bottom: 40px;
+        0 15px 40px rgba(0,0,0,0.18);
     }
 
-    .hero-title{
-        color: white;
-        font-size: 64px;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 22px;
-        letter-spacing: -1px;
+    .hero h1{
+        color:white;
+        font-size:60px;
+        font-weight:800;
+        margin-bottom:20px;
+        line-height:1.2;
     }
 
-    .hero-text{
-        color: rgba(255,255,255,0.92);
-        font-size: 24px;
-        line-height: 1.8;
-        max-width: 1050px;
-        font-weight: 500;
+    .hero p{
+        color:rgba(255,255,255,0.94);
+        font-size:23px;
+        line-height:1.9;
+        max-width:1000px;
+        font-weight:500;
     }
 
-    /* MAIN FEATURE CARDS */
+    /* MAIN CARDS */
+
     .main-card{
-        padding: 38px;
-        border-radius: 28px;
-        min-height: 270px;
+        padding:38px;
+
+        border-radius:26px;
+
+        min-height:260px;
 
         box-shadow:
-        0 8px 30px rgba(15,23,42,0.08);
+        0 10px 30px rgba(0,0,0,0.08);
 
-        transition: all 0.35s ease;
+        transition:0.3s ease;
     }
 
     .main-card:hover{
-        transform: translateY(-8px);
+        transform:translateY(-8px);
+
         box-shadow:
-        0 20px 40px rgba(15,23,42,0.14);
+        0 18px 40px rgba(0,0,0,0.12);
     }
 
     .blue-card{
         background:
-        linear-gradient(135deg,
-        #edf4ff 0%,
-        #dbeafe 100%);
+        linear-gradient(135deg,#edf4ff,#dbeafe);
     }
 
     .orange-card{
         background:
-        linear-gradient(135deg,
-        #fff7ed 0%,
-        #ffedd5 100%);
+        linear-gradient(135deg,#fff7ed,#ffedd5);
     }
 
     .card-title{
-        color: #1e3a8a;
-        font-size: 42px;
-        font-weight: 800;
-        margin-bottom: 24px;
-        letter-spacing: -0.5px;
+        color:#1e3a8a;
+        font-size:38px;
+        font-weight:800;
+        margin-bottom:20px;
     }
 
     .card-text{
-        color: #334155;
-        font-size: 24px;
-        line-height: 1.9;
-        font-weight: 500;
+        color:#334155;
+        font-size:21px;
+        line-height:1.9;
+        font-weight:500;
     }
 
-    /* FEATURE BOXES */
+    /* FEATURE CARDS */
+
     .feature-card{
-        background: white;
-        border-radius: 24px;
+        background:white;
 
-        padding: 35px 25px;
+        padding:32px 24px;
 
-        text-align: center;
+        border-radius:24px;
 
-        min-height: 290px;
+        text-align:center;
+
+        min-height:270px;
 
         box-shadow:
-        0 8px 25px rgba(15,23,42,0.07);
+        0 8px 24px rgba(0,0,0,0.08);
 
-        transition: all 0.3s ease;
+        transition:0.3s ease;
     }
 
     .feature-card:hover{
-        transform: translateY(-10px);
+        transform:translateY(-10px);
+
         box-shadow:
-        0 18px 35px rgba(15,23,42,0.12);
+        0 18px 35px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
-        font-size: 54px;
-        margin-bottom: 22px;
+        font-size:48px;
+        margin-bottom:18px;
     }
 
     .feature-title{
-        color: #1e3a8a;
-        font-size: 34px;
-        font-weight: 800;
-        margin-bottom: 18px;
-        letter-spacing: -0.5px;
+        color:#1e3a8a;
+        font-size:28px;
+        font-weight:800;
+        margin-bottom:15px;
     }
 
     .feature-text{
-        color: #475569;
-        font-size: 21px;
-        line-height: 1.9;
-        font-weight: 500;
+        color:#475569;
+        font-size:18px;
+        line-height:1.8;
+        font-weight:500;
     }
 
-    /* MOBILE RESPONSIVE */
     @media(max-width: 992px){
 
-        .hero-box{
-            padding: 40px 30px;
+        .hero{
+            padding:40px 30px;
         }
 
-        .hero-title{
-            font-size: 42px;
+        .hero h1{
+            font-size:42px;
         }
 
-        .hero-text{
-            font-size: 18px;
+        .hero p{
+            font-size:18px;
         }
 
         .card-title{
-            font-size: 30px;
+            font-size:28px;
         }
 
         .card-text{
-            font-size: 18px;
-        }
-
-        .feature-title{
-            font-size: 24px;
-        }
-
-        .feature-text{
-            font-size: 16px;
+            font-size:18px;
         }
     }
 
@@ -191,17 +181,17 @@ def render():
 
     # HERO SECTION
     st.markdown("""
-    <div class="hero-box">
+    <div class="hero">
 
-        <div class="hero-title">
+        <h1>
             🤖 AI Smart Analytics Dashboard
-        </div>
+        </h1>
 
-        <div class="hero-text">
+        <p>
             Premium intelligent platform for real-time accident detection,
             customer churn prediction, and advanced business analytics
             powered by deep learning intelligence.
-        </div>
+        </p>
 
     </div>
     """, unsafe_allow_html=True)
@@ -232,12 +222,12 @@ def render():
         <div class="main-card orange-card">
 
             <div class="card-title">
-                📉 Churn Prediction
+                📉 Customer Churn Prediction
             </div>
 
             <div class="card-text">
-                Predict customer churn risk using AI-powered analytics
-                and actionable business intelligence.
+                Predict customer churn probability using
+                AI-powered analytics systems.
             </div>
 
         </div>
@@ -245,7 +235,7 @@ def render():
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
-    # FEATURE SECTION
+    # FEATURES
     c1, c2, c3, c4 = st.columns(4, gap="large")
 
     features = [
@@ -300,3 +290,8 @@ def render():
 
             </div>
             """, unsafe_allow_html=True)
+
+
+# RUN FUNCTION
+render()
+```
