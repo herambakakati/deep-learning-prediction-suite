@@ -12,7 +12,6 @@ def load_accident_model():
 
     model_path = "models/best_accident_model.keras"
 
-    # Model not uploaded yet
     if not os.path.exists(model_path):
         return None
 
@@ -72,9 +71,11 @@ def render():
 
         background-size:cover;
         background-position:center;
+
         border-radius:28px;
         padding:60px;
         margin-bottom:30px;
+
         box-shadow:0 18px 45px rgba(0,0,0,0.18);
     }
 
@@ -130,18 +131,25 @@ def render():
         height:70px;
         border-radius:18px;
         border:none;
+
         background:linear-gradient(135deg,#6366f1,#8b5cf6);
+
         color:white !important;
+
         font-size:20px;
         font-weight:800;
+
         box-shadow:0 14px 30px rgba(99,102,241,0.28);
     }
 
     .prediction-box{
         background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+
         padding:35px;
         border-radius:24px;
+
         text-align:center;
+
         box-shadow:0 12px 25px rgba(0,0,0,0.08);
     }
 
@@ -159,9 +167,12 @@ def render():
 
     .danger-box{
         background:linear-gradient(135deg,#fee2e2,#fecaca);
+
         padding:35px;
         border-radius:24px;
+
         text-align:center;
+
         box-shadow:0 12px 25px rgba(0,0,0,0.08);
     }
 
@@ -179,9 +190,12 @@ def render():
 
     .safe-box{
         background:linear-gradient(135deg,#dcfce7,#bbf7d0);
+
         padding:35px;
         border-radius:24px;
+
         text-align:center;
+
         box-shadow:0 12px 25px rgba(0,0,0,0.08);
     }
 
@@ -219,7 +233,7 @@ def render():
     # ================= LOAD MODEL =================
     model = load_accident_model()
 
-    # ================= MODEL MISSING =================
+    # ================= MODEL WARNING =================
     if model is None:
 
         st.warning("""
@@ -232,7 +246,6 @@ def render():
     # ================= TOP SECTION =================
     left, right = st.columns([1.2, 1])
 
-    # ================= LEFT =================
     with left:
 
         st.markdown("""
@@ -253,10 +266,8 @@ def render():
             "Choose traffic image",
             type=["jpg", "jpeg", "png"],
             key="accident_upload"
-            key="accident_upload"
         )
 
-    # ================= RIGHT =================
     with right:
 
         st.markdown("""
@@ -283,7 +294,7 @@ def render():
                 unsafe_allow_html=True
             )
 
-    # ================= PROCESS IMAGE =================
+    # ================= IMAGE PROCESS =================
     if uploaded_file is not None:
 
         display_img, img_input = preprocess_image(uploaded_file)
@@ -315,16 +326,11 @@ def render():
         b1, b2, b3 = st.columns([1,2,1])
 
         with b2:
-
-            analyze = st.button(
-                "✨ Analyze Accident Risk",
-                key="analyze_accident_button"
-            )
+            analyze = st.button("✨ Analyze Accident Risk")
 
         # ================= PREDICTION =================
         if analyze:
 
-            # MODEL MISSING
             if model is None:
 
                 st.error("""
@@ -347,7 +353,6 @@ def render():
 
                 col1, col2 = st.columns(2)
 
-                # ================= SCORE =================
                 with col1:
 
                     st.markdown(f"""
@@ -360,7 +365,6 @@ def render():
                     </div>
                     """, unsafe_allow_html=True)
 
-                # ================= RESULT =================
                 with col2:
 
                     if prediction < 0.5:
@@ -390,4 +394,3 @@ def render():
 
                         </div>
                         """, unsafe_allow_html=True)
-
