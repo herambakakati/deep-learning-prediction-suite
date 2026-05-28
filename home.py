@@ -1,32 +1,29 @@
 import streamlit as st
 
+
 def render():
 
-    # ================= CUSTOM CSS =================
+    # =====================================================
+    # UNIQUE HOME CSS
+    # =====================================================
 
     st.markdown("""
     <style>
 
-    /* PAGE */
+    /* HOME PAGE */
 
-    .stApp{
-        background-color:#f1f5f9;
+    .home-wrapper{
+        padding-top:10px;
     }
 
-    .block-container{
-        padding-top:2rem;
-        padding-bottom:2rem;
-        max-width:1400px;
-    }
+    /* HERO */
 
-    /* HERO BANNER */
-
-    .hero-box{
+    .home-hero-box{
 
         background-image:
         linear-gradient(
-            rgba(15,23,42,0.75),
-            rgba(30,58,138,0.75)
+            rgba(15,23,42,0.78),
+            rgba(30,58,138,0.78)
         ),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
@@ -34,67 +31,67 @@ def render():
         background-position:center;
         background-repeat:no-repeat;
 
-        padding:60px;
+        padding:65px;
 
-        border-radius:24px;
-
-        box-shadow:
-        0 16px 40px rgba(0,0,0,0.20);
+        border-radius:28px;
 
         margin-bottom:35px;
+
+        box-shadow:
+        0 18px 45px rgba(0,0,0,0.18);
     }
 
-    .hero-title{
+    .home-hero-title{
 
-        font-size:54px;
+        font-size:56px;
 
         font-weight:800;
 
-        color:white !important;
+        color:white;
 
         margin-bottom:18px;
 
         line-height:1.2;
     }
 
-    .hero-text{
+    .home-hero-text{
 
         font-size:21px;
 
-        color:rgba(255,255,255,0.95) !important;
+        color:rgba(255,255,255,0.95);
 
         line-height:1.8;
 
-        font-weight:500;
-
         max-width:900px;
+
+        font-weight:500;
     }
 
     /* MAIN CARDS */
 
-    .card{
+    .home-main-card{
 
-        padding:30px;
+        padding:32px;
 
-        border-radius:22px;
+        border-radius:24px;
 
-        box-shadow:
-        0 10px 30px rgba(0,0,0,0.08);
-
-        min-height:240px;
+        min-height:250px;
 
         transition:0.3s ease;
+
+        box-shadow:
+        0 12px 35px rgba(0,0,0,0.08);
     }
 
-    .card:hover{
+    .home-main-card:hover{
 
         transform:translateY(-6px);
 
         box-shadow:
-        0 14px 30px rgba(0,0,0,0.12);
+        0 18px 40px rgba(0,0,0,0.12);
     }
 
-    .blue-card{
+    .home-blue-card{
 
         background:
         linear-gradient(
@@ -104,7 +101,7 @@ def render():
         );
     }
 
-    .orange-card{
+    .home-orange-card{
 
         background:
         linear-gradient(
@@ -114,9 +111,9 @@ def render():
         );
     }
 
-    .card-title{
+    .home-card-title{
 
-        color:#1e3a8a !important;
+        color:#1e3a8a;
 
         font-size:30px;
 
@@ -125,9 +122,9 @@ def render():
         margin-bottom:18px;
     }
 
-    .card-text{
+    .home-card-text{
 
-        color:#334155 !important;
+        color:#334155;
 
         font-size:18px;
 
@@ -138,42 +135,42 @@ def render():
 
     /* FEATURE CARDS */
 
-    .feature-card{
+    .home-feature-card{
 
         background:white;
 
         padding:24px;
 
-        border-radius:20px;
-
-        box-shadow:
-        0 8px 24px rgba(0,0,0,0.08);
+        border-radius:22px;
 
         text-align:center;
 
         min-height:250px;
 
         transition:0.3s ease;
+
+        box-shadow:
+        0 10px 28px rgba(0,0,0,0.08);
     }
 
-    .feature-card:hover{
+    .home-feature-card:hover{
 
         transform:translateY(-8px);
 
         box-shadow:
-        0 14px 30px rgba(0,0,0,0.12);
+        0 16px 35px rgba(0,0,0,0.12);
     }
 
-    .feature-icon{
+    .home-feature-icon{
 
         font-size:42px;
 
         margin-bottom:14px;
     }
 
-    .feature-title{
+    .home-feature-title{
 
-        color:#1e3a8a !important;
+        color:#1e3a8a;
 
         font-size:22px;
 
@@ -182,9 +179,9 @@ def render():
         margin-bottom:14px;
     }
 
-    .feature-text{
+    .home-feature-text{
 
-        color:#475569 !important;
+        color:#475569;
 
         font-size:16px;
 
@@ -195,31 +192,31 @@ def render():
 
     @media(max-width: 992px){
 
-        .hero-box{
+        .home-hero-box{
             padding:40px 30px;
         }
 
-        .hero-title{
+        .home-hero-title{
             font-size:40px;
         }
 
-        .hero-text{
+        .home-hero-text{
             font-size:18px;
         }
 
-        .card-title{
+        .home-card-title{
             font-size:24px;
         }
 
-        .card-text{
+        .home-card-text{
             font-size:16px;
         }
 
-        .feature-title{
+        .home-feature-title{
             font-size:20px;
         }
 
-        .feature-text{
+        .home-feature-text{
             font-size:15px;
         }
     }
@@ -227,38 +224,46 @@ def render():
     </style>
     """, unsafe_allow_html=True)
 
-    # ================= HERO SECTION =================
+    # =====================================================
+    # HERO SECTION
+    # =====================================================
 
     st.markdown("""
-    <div class="hero-box">
+    <div class="home-wrapper">
 
-        <div class="hero-title">
-            🤖 AI Smart Analytics Dashboard
-        </div>
+        <div class="home-hero-box">
 
-        <div class="hero-text">
-            Premium intelligent platform for real-time accident detection,
-            customer churn prediction, and advanced business analytics
-            powered by deep learning intelligence.
+            <div class="home-hero-title">
+                🤖 AI Smart Analytics Dashboard
+            </div>
+
+            <div class="home-hero-text">
+                Premium intelligent platform for real-time accident detection,
+                customer churn prediction, and advanced business analytics
+                powered by deep learning intelligence.
+            </div>
+
         </div>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # ================= MAIN CARDS =================
+    # =====================================================
+    # MAIN CARDS
+    # =====================================================
 
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
         st.markdown("""
-        <div class="card blue-card">
+        <div class="home-main-card home-blue-card">
 
-            <div class="card-title">
+            <div class="home-card-title">
                 🚗 Accident Detection
             </div>
 
-            <div class="card-text">
+            <div class="home-card-text">
                 Upload road traffic images and instantly detect accident
                 scenarios using trained deep learning CNN models.
             </div>
@@ -269,13 +274,13 @@ def render():
     with col2:
 
         st.markdown("""
-        <div class="card orange-card">
+        <div class="home-main-card home-orange-card">
 
-            <div class="card-title">
+            <div class="home-card-title">
                 📉 Churn Prediction
             </div>
 
-            <div class="card-text">
+            <div class="home-card-text">
                 Predict customer churn risk using AI-powered analytics
                 and actionable business intelligence.
             </div>
@@ -285,7 +290,9 @@ def render():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ================= FEATURES =================
+    # =====================================================
+    # FEATURES
+    # =====================================================
 
     c1, c2, c3, c4 = st.columns(4, gap="medium")
 
@@ -325,17 +332,17 @@ def render():
         with col:
 
             st.markdown(f"""
-            <div class="feature-card">
+            <div class="home-feature-card">
 
-                <div class="feature-icon">
+                <div class="home-feature-icon">
                     {icon}
                 </div>
 
-                <div class="feature-title">
+                <div class="home-feature-title">
                     {title}
                 </div>
 
-                <div class="feature-text">
+                <div class="home-feature-text">
                     {desc}
                 </div>
 
