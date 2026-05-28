@@ -4,6 +4,7 @@ import pandas as pd
 import pickle
 import os
 
+
 # =====================================================
 # LOAD MODEL + FILES
 # =====================================================
@@ -16,6 +17,7 @@ def load_assets():
     columns_path = "models/feature_columns.pkl"
 
     # CHECK FILES
+
     if (
         not os.path.exists(model_path)
         or not os.path.exists(scaler_path)
@@ -25,7 +27,9 @@ def load_assets():
 
     try:
 
-        model = tf.keras.models.load_model(model_path)
+        model = tf.keras.models.load_model(
+            model_path
+        )
 
         with open(scaler_path, "rb") as f:
             scaler = pickle.load(f)
@@ -37,7 +41,9 @@ def load_assets():
 
     except Exception as e:
 
-        st.error(f"Asset loading failed: {e}")
+        st.error(
+            f"Asset loading failed: {e}"
+        )
 
         return None, None, None
 
@@ -49,6 +55,7 @@ def load_assets():
 def render():
 
     # LOAD ASSETS
+
     model, scaler, feature_columns = load_assets()
 
     # =====================================================
@@ -68,13 +75,15 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO BANNER */
+    /* HERO */
 
     .hero-banner{
 
         background:
-        linear-gradient(rgba(15,23,42,0.78),
-        rgba(30,58,138,0.78)),
+        linear-gradient(
+            rgba(15,23,42,0.78),
+            rgba(30,58,138,0.78)
+        ),
         url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
         background-size:cover;
@@ -91,17 +100,26 @@ def render():
     }
 
     .hero-title{
+
         font-size:52px;
+
         font-weight:800;
+
         color:white;
+
         margin-bottom:14px;
     }
 
     .hero-text{
+
         font-size:20px;
+
         color:rgba(255,255,255,0.95);
+
         line-height:1.8;
+
         max-width:850px;
+
         font-weight:500;
     }
 
@@ -110,7 +128,11 @@ def render():
     .form-card{
 
         background:
-        linear-gradient(135deg,#ffffff,#eef4ff);
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef4ff
+        );
 
         padding:28px;
 
@@ -123,21 +145,34 @@ def render():
     }
 
     .orange-card{
+
         background:
-        linear-gradient(135deg,#ffffff,#fff7ed);
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff7ed
+        );
     }
 
     .card-title{
+
         color:#1e3a8a;
+
         font-size:32px;
+
         font-weight:800;
+
         margin-bottom:10px;
     }
 
     .card-subtitle{
+
         color:#475569;
+
         font-size:16px;
+
         line-height:1.7;
+
         font-weight:600;
     }
 
@@ -159,6 +194,7 @@ def render():
         0 8px 20px rgba(0,0,0,0.05);
 
         font-size:16px;
+
         font-weight:700;
 
         color:#0f172a;
@@ -173,13 +209,18 @@ def render():
 
     .stNumberInput label,
     .stSelectbox label{
+
         color:#1e293b !important;
+
         font-size:16px !important;
+
         font-weight:700 !important;
     }
 
     .stNumberInput input{
+
         background:white !important;
+
         color:#0f172a !important;
 
         border-radius:14px !important;
@@ -207,17 +248,24 @@ def render():
     div.stButton > button{
 
         width:100%;
+
         height:70px;
 
         border-radius:18px;
+
         border:none;
 
         background:
-        linear-gradient(135deg,#6366f1,#8b5cf6);
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
 
         color:white !important;
 
         font-size:21px;
+
         font-weight:800;
 
         box-shadow:
@@ -226,12 +274,16 @@ def render():
         margin-top:20px;
     }
 
-    /* RESULT BOX */
+    /* RESULT */
 
     .prediction-box{
 
         background:
-        linear-gradient(135deg,#dbeafe,#bfdbfe);
+        linear-gradient(
+            135deg,
+            #dbeafe,
+            #bfdbfe
+        );
 
         padding:32px;
 
@@ -243,23 +295,33 @@ def render():
     }
 
     .prediction-title{
+
         color:#1e3a8a;
+
         font-size:28px;
+
         font-weight:700;
     }
 
     .prediction-score{
+
         color:#1e3a8a;
+
         font-size:58px;
+
         font-weight:800;
     }
 
-    /* DANGER RESULT */
+    /* DANGER */
 
     .danger-box{
 
         background:
-        linear-gradient(135deg,#fee2e2,#fecaca);
+        linear-gradient(
+            135deg,
+            #fee2e2,
+            #fecaca
+        );
 
         padding:30px;
 
@@ -271,23 +333,33 @@ def render():
     }
 
     .danger-title{
+
         color:#991b1b;
+
         font-size:42px;
+
         font-weight:800;
     }
 
     .danger-sub{
+
         color:#b91c1c;
+
         font-size:30px;
+
         font-weight:700;
     }
 
-    /* SAFE RESULT */
+    /* SAFE */
 
     .safe-box{
 
         background:
-        linear-gradient(135deg,#dcfce7,#bbf7d0);
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #bbf7d0
+        );
 
         padding:30px;
 
@@ -299,14 +371,20 @@ def render():
     }
 
     .safe-title{
+
         color:#166534;
+
         font-size:42px;
+
         font-weight:800;
     }
 
     .safe-sub{
+
         color:#15803d;
+
         font-size:30px;
+
         font-weight:700;
     }
 
@@ -314,7 +392,7 @@ def render():
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO SECTION
+    # HERO
     # =====================================================
 
     st.markdown("""
@@ -341,11 +419,11 @@ def render():
         st.warning("""
         Model files not found.
 
-        Upload these files inside models/ folder:
+        Upload:
 
-        - churn_model.h5
-        - scaler.pkl
-        - feature_columns.pkl
+        - models/churn_model.h5
+        - models/scaler.pkl
+        - models/feature_columns.pkl
         """)
 
     # =====================================================
@@ -355,7 +433,7 @@ def render():
     left, right = st.columns(2)
 
     # =====================================================
-    # LEFT SIDE
+    # LEFT
     # =====================================================
 
     with left:
@@ -418,7 +496,7 @@ def render():
         )
 
     # =====================================================
-    # RIGHT SIDE
+    # RIGHT
     # =====================================================
 
     with right:
@@ -472,21 +550,31 @@ def render():
             ["Male", "Female"]
         )
 
-        has_cr_card = 1 if has_cr_card == "Yes" else 0
+        has_cr_card = (
+            1 if has_cr_card == "Yes"
+            else 0
+        )
 
-        is_active_member = 1 if is_active_member == "Yes" else 0
+        is_active_member = (
+            1 if is_active_member == "Yes"
+            else 0
+        )
 
     # =====================================================
-    # PREDICTION BUTTON
+    # PREDICTION
     # =====================================================
 
-    if st.button("✨ Analyze Customer Churn Risk"):
+    if st.button(
+        "✨ Analyze Customer Churn Risk"
+    ):
 
         if model is None:
 
-            st.error(
-                "Prediction unavailable. Upload model files first."
-            )
+            st.error("""
+            Prediction unavailable.
+
+            Upload model files first.
+            """)
 
             return
 
@@ -518,16 +606,23 @@ def render():
             1 if gender == "Male" else 0
         }
 
-        input_df = pd.DataFrame([input_data])
+        input_df = pd.DataFrame(
+            [input_data]
+        )
 
         for col in feature_columns:
 
             if col not in input_df.columns:
+
                 input_df[col] = 0
 
-        input_df = input_df[feature_columns]
+        input_df = input_df[
+            feature_columns
+        ]
 
-        scaled_data = scaler.transform(input_df)
+        scaled_data = scaler.transform(
+            input_df
+        )
 
         prediction = model.predict(
             scaled_data,
