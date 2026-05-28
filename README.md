@@ -1,4 +1,4 @@
-# 🚀 Customer Churn Prediction & Accident Detection AI Platform
+ # 🚀 Customer Churn Prediction & Accident Detection AI Platform
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Web_App-red)
@@ -275,7 +275,7 @@ This project is developed for:
 - AI deployment practice
 - Deep learning demonstration
 
----
+--- 
 
 ## 🔮 Future Improvements
 
