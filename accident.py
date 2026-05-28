@@ -13,7 +13,7 @@ import gdown
 @st.cache_resource
 def load_accident_model():
 
-    # FULL MODEL FILE
+    # MODEL FILE PATH
 
     model_path = "best_accident_model.keras"
 
@@ -21,13 +21,11 @@ def load_accident_model():
 
     file_id = "1PH-D7uz2f9dzcbW0u7hLqtMGwSH81ljr"
 
-    # DIRECT DOWNLOAD URL
+    # DOWNLOAD URL
 
     url = f"https://drive.google.com/uc?id={file_id}"
 
-    # =====================================================
     # DOWNLOAD MODEL IF NOT EXISTS
-    # =====================================================
 
     if not os.path.exists(model_path):
 
@@ -39,9 +37,7 @@ def load_accident_model():
                 quiet=False
             )
 
-    # =====================================================
     # LOAD MODEL
-    # =====================================================
 
     try:
 
@@ -61,7 +57,7 @@ def load_accident_model():
 
 
 # =====================================================
-# IMAGE PREPROCESS
+# IMAGE PREPROCESSING
 # =====================================================
 
 def preprocess_image(uploaded_file):
@@ -80,19 +76,27 @@ def preprocess_image(uploaded_file):
 
         return None, None
 
+    # CONVERT BGR TO RGB
+
     img_rgb = cv2.cvtColor(
         img,
         cv2.COLOR_BGR2RGB
     )
+
+    # RESIZE
 
     resized = cv2.resize(
         img_rgb,
         (224, 224)
     )
 
+    # NORMALIZE
+
     resized = resized.astype(
         np.float32
     ) / 255.0
+
+    # EXPAND DIMENSION
 
     img_input = np.expand_dims(
         resized,
@@ -109,7 +113,7 @@ def preprocess_image(uploaded_file):
 def render():
 
     # =====================================================
-    # CSS
+    # PAGE CSS
     # =====================================================
 
     st.markdown("""
@@ -343,7 +347,7 @@ def render():
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO
+    # HERO SECTION
     # =====================================================
 
     st.markdown("""
@@ -462,7 +466,7 @@ def render():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        b1, b2, b3 = st.columns([1,2,1])
+        b1, b2, b3 = st.columns([1, 2, 1])
 
         with b2:
 
