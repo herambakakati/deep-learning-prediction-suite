@@ -4,9 +4,10 @@ import pandas as pd
 import pickle
 import os
 
-# =========================
-# LOAD MODEL + ASSETS
-# =========================
+# =====================================================
+# LOAD MODEL + FILES
+# =====================================================
+
 @st.cache_resource
 def load_assets():
 
@@ -14,7 +15,7 @@ def load_assets():
     scaler_path = "models/scaler.pkl"
     columns_path = "models/feature_columns.pkl"
 
-    # FILES NOT UPLOADED YET
+    # CHECK FILES
     if (
         not os.path.exists(model_path)
         or not os.path.exists(scaler_path)
@@ -35,45 +36,58 @@ def load_assets():
         return model, scaler, feature_columns
 
     except Exception as e:
+
         st.error(f"Asset loading failed: {e}")
+
         return None, None, None
 
 
-# =========================
+# =====================================================
 # MAIN UI
-# =========================
+# =====================================================
+
 def render():
 
     # LOAD ASSETS
     model, scaler, feature_columns = load_assets()
 
-    # =========================
+    # =====================================================
     # CUSTOM CSS
-    # =========================
+    # =====================================================
+
     st.markdown("""
     <style>
+
+    .stApp{
+        background-color:#f1f5f9;
+    }
 
     .block-container{
         max-width:1450px;
         padding-top:2rem;
+        padding-bottom:2rem;
     }
 
-    /* HERO */
+    /* HERO BANNER */
+
     .hero-banner{
+
         background:
-        linear-gradient(rgba(15,23,42,0.75),
-        rgba(30,58,138,0.75)),
+        linear-gradient(rgba(15,23,42,0.78),
+        rgba(30,58,138,0.78)),
         url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
         background-size:cover;
         background-position:center;
 
         border-radius:28px;
+
         padding:55px;
 
         margin-bottom:35px;
 
-        box-shadow:0 18px 45px rgba(0,0,0,0.18);
+        box-shadow:
+        0 18px 45px rgba(0,0,0,0.18);
     }
 
     .hero-title{
@@ -88,22 +102,29 @@ def render():
         color:rgba(255,255,255,0.95);
         line-height:1.8;
         max-width:850px;
+        font-weight:500;
     }
 
     /* FORM CARDS */
+
     .form-card{
-        background:linear-gradient(135deg,#ffffff,#eef4ff);
+
+        background:
+        linear-gradient(135deg,#ffffff,#eef4ff);
 
         padding:28px;
+
         border-radius:24px;
 
-        box-shadow:0 12px 35px rgba(0,0,0,0.08);
+        box-shadow:
+        0 12px 35px rgba(0,0,0,0.08);
 
         margin-bottom:22px;
     }
 
     .orange-card{
-        background:linear-gradient(135deg,#ffffff,#fff7ed);
+        background:
+        linear-gradient(135deg,#ffffff,#fff7ed);
     }
 
     .card-title{
@@ -121,7 +142,9 @@ def render():
     }
 
     /* INFO BOX */
+
     .info-box{
+
         background:white;
 
         border:1px solid #e2e8f0;
@@ -132,7 +155,8 @@ def render():
 
         margin-bottom:14px;
 
-        box-shadow:0 8px 20px rgba(0,0,0,0.05);
+        box-shadow:
+        0 8px 20px rgba(0,0,0,0.05);
 
         font-size:16px;
         font-weight:700;
@@ -141,12 +165,45 @@ def render():
     }
 
     /* INPUTS */
+
     .stNumberInput,
     .stSelectbox{
         margin-bottom:16px;
     }
 
+    .stNumberInput label,
+    .stSelectbox label{
+        color:#1e293b !important;
+        font-size:16px !important;
+        font-weight:700 !important;
+    }
+
+    .stNumberInput input{
+        background:white !important;
+        color:#0f172a !important;
+
+        border-radius:14px !important;
+
+        border:1px solid #dbeafe !important;
+
+        min-height:52px !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] > div{
+
+        background:white !important;
+
+        color:#0f172a !important;
+
+        border-radius:14px !important;
+
+        border:1px solid #dbeafe !important;
+
+        min-height:52px !important;
+    }
+
     /* BUTTON */
+
     div.stButton > button{
 
         width:100%;
@@ -155,21 +212,26 @@ def render():
         border-radius:18px;
         border:none;
 
-        background:linear-gradient(135deg,#6366f1,#8b5cf6);
+        background:
+        linear-gradient(135deg,#6366f1,#8b5cf6);
 
         color:white !important;
 
         font-size:21px;
         font-weight:800;
 
-        box-shadow:0 14px 30px rgba(99,102,241,0.28);
+        box-shadow:
+        0 14px 30px rgba(99,102,241,0.28);
 
         margin-top:20px;
     }
 
-    /* RESULTS */
+    /* RESULT BOX */
+
     .prediction-box{
-        background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+
+        background:
+        linear-gradient(135deg,#dbeafe,#bfdbfe);
 
         padding:32px;
 
@@ -192,8 +254,12 @@ def render():
         font-weight:800;
     }
 
+    /* DANGER RESULT */
+
     .danger-box{
-        background:linear-gradient(135deg,#fee2e2,#fecaca);
+
+        background:
+        linear-gradient(135deg,#fee2e2,#fecaca);
 
         padding:30px;
 
@@ -216,8 +282,12 @@ def render():
         font-weight:700;
     }
 
+    /* SAFE RESULT */
+
     .safe-box{
-        background:linear-gradient(135deg,#dcfce7,#bbf7d0);
+
+        background:
+        linear-gradient(135deg,#dcfce7,#bbf7d0);
 
         padding:30px;
 
@@ -243,9 +313,10 @@ def render():
     </style>
     """, unsafe_allow_html=True)
 
-    # =========================
+    # =====================================================
     # HERO SECTION
-    # =========================
+    # =====================================================
+
     st.markdown("""
     <div class="hero-banner">
 
@@ -261,29 +332,32 @@ def render():
     </div>
     """, unsafe_allow_html=True)
 
-    # =========================
+    # =====================================================
     # MODEL WARNING
-    # =========================
+    # =====================================================
+
     if model is None:
 
         st.warning("""
-        Churn prediction model files are missing.
+        Model files not found.
 
-        Upload later:
+        Upload these files inside models/ folder:
 
-        - models/churn_model.h5
-        - models/scaler.pkl
-        - models/feature_columns.pkl
+        - churn_model.h5
+        - scaler.pkl
+        - feature_columns.pkl
         """)
 
-    # =========================
+    # =====================================================
     # LAYOUT
-    # =========================
+    # =====================================================
+
     left, right = st.columns(2)
 
-    # =========================
+    # =====================================================
     # LEFT SIDE
-    # =========================
+    # =====================================================
+
     with left:
 
         st.markdown("""
@@ -343,9 +417,10 @@ def render():
             1
         )
 
-    # =========================
+    # =====================================================
     # RIGHT SIDE
-    # =========================
+    # =====================================================
+
     with right:
 
         st.markdown("""
@@ -367,7 +442,6 @@ def render():
             "🌍 Geographic segmentation",
 
             "🎯 Retention intelligence signals"
-
         ]
 
         for item in banking_features:
@@ -402,14 +476,18 @@ def render():
 
         is_active_member = 1 if is_active_member == "Yes" else 0
 
-    # =========================
+    # =====================================================
     # PREDICTION BUTTON
-    # =========================
+    # =====================================================
+
     if st.button("✨ Analyze Customer Churn Risk"):
 
-        # MODEL NOT AVAILABLE
         if model is None:
-            st.error("Prediction unavailable. Upload model files first.")
+
+            st.error(
+                "Prediction unavailable. Upload model files first."
+            )
+
             return
 
         input_data = {
@@ -430,11 +508,14 @@ def render():
 
             'IsActiveMember': is_active_member,
 
-            'Geography_Germany': 1 if geography == "Germany" else 0,
+            'Geography_Germany':
+            1 if geography == "Germany" else 0,
 
-            'Geography_Spain': 1 if geography == "Spain" else 0,
+            'Geography_Spain':
+            1 if geography == "Spain" else 0,
 
-            'Gender_Male': 1 if gender == "Male" else 0
+            'Gender_Male':
+            1 if gender == "Male" else 0
         }
 
         input_df = pd.DataFrame([input_data])
@@ -453,9 +534,8 @@ def render():
             verbose=0
         )[0][0]
 
-        # =========================
-        # SCORE
-        # =========================
+        # RESULT SCORE
+
         st.markdown(f"""
         <div class="prediction-box">
 
@@ -470,9 +550,8 @@ def render():
         </div>
         """, unsafe_allow_html=True)
 
-        # =========================
-        # RESULT
-        # =========================
+        # FINAL RESULT
+
         if prediction > 0.5:
 
             st.markdown(f"""
