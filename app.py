@@ -17,7 +17,7 @@ st.set_page_config(
 
 
 # =====================================================
-# GLOBAL PREMIUM CSS
+# GLOBAL CSS
 # =====================================================
 
 st.markdown("""
@@ -25,7 +25,7 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* GLOBAL */
+/* GLOBAL FONT */
 
 html,
 body,
@@ -33,17 +33,13 @@ body,
     font-family:'Inter',sans-serif;
 }
 
+/* MAIN APP */
+
 .stApp{
-    background:
-    linear-gradient(
-        135deg,
-        #f8fbff 0%,
-        #eef4ff 50%,
-        #fdfcff 100%
-    );
+    background-color:#f1f5f9;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 
 .block-container{
     max-width:1450px;
@@ -56,23 +52,23 @@ body,
 section[data-testid="stSidebar"]{
 
     background:
-    rgba(255,255,255,0.90);
-
-    backdrop-filter:blur(18px);
+    linear-gradient(
+        180deg,
+        #ffffff,
+        #eef4ff
+    );
 
     border-right:
-    1px solid rgba(99,102,241,0.12);
+    1px solid rgba(99,102,241,0.10);
 }
+
+/* SIDEBAR TEXT */
 
 section[data-testid="stSidebar"] *{
     color:#1e3a8a !important;
 }
 
-/* NAVIGATION */
-
-.stRadio > div{
-    gap:10px;
-}
+/* RADIO */
 
 .stRadio label{
 
@@ -80,50 +76,18 @@ section[data-testid="stSidebar"] *{
 
     font-weight:700 !important;
 
-    padding:10px 12px;
-
-    border-radius:14px;
-
-    transition:0.3s ease;
+    padding:6px 4px;
 }
 
 /* BUTTONS */
 
 .stButton > button{
 
-    width:100%;
-
-    border-radius:18px;
-
-    height:56px;
-
-    font-size:18px;
-
-    font-weight:700;
+    border-radius:16px;
 
     border:none;
 
-    color:white;
-
-    background:
-    linear-gradient(
-        135deg,
-        #6366f1,
-        #8b5cf6
-    );
-
-    box-shadow:
-    0 12px 30px rgba(99,102,241,0.30);
-
-    transition:0.3s ease;
-}
-
-.stButton > button:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 16px 35px rgba(99,102,241,0.40);
+    font-weight:700;
 }
 
 /* INPUTS */
@@ -132,63 +96,23 @@ section[data-testid="stSidebar"] *{
 .stNumberInput input,
 .stSelectbox div[data-baseweb="select"] > div{
 
-    border-radius:16px !important;
-
-    border:
-    1px solid rgba(99,102,241,0.18) !important;
-
-    background:
-    rgba(255,255,255,0.96) !important;
+    border-radius:14px !important;
 }
 
 /* FILE UPLOADER */
 
 [data-testid="stFileUploader"]{
 
-    background:
-    rgba(255,255,255,0.92);
-
-    border:
-    2px dashed rgba(99,102,241,0.28);
-
-    border-radius:22px;
-
-    padding:18px;
+    border-radius:18px;
 }
 
-/* ALERT BOXES */
+/* ALERTS */
 
 .stSuccess,
 .stError,
 .stWarning{
+
     border-radius:18px;
-}
-
-/* SCROLLBAR */
-
-::-webkit-scrollbar{
-    width:10px;
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:
-    rgba(99,102,241,0.35);
-
-    border-radius:20px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width: 992px){
-
-    .block-container{
-        padding-top:1rem;
-    }
-
-    section[data-testid="stSidebar"]{
-        width:100% !important;
-    }
 }
 
 </style>
@@ -224,7 +148,7 @@ st.sidebar.markdown("""
 
     <p style="
         font-size:16px;
-        color:#5b6f99;
+        color:#64748b;
         margin-top:6px;
     ">
         Smart Detection & Analytics
@@ -235,31 +159,31 @@ st.sidebar.markdown("""
 
 
 # =====================================================
-# SIDEBAR NAVIGATION
+# NAVIGATION
 # =====================================================
 
-page = st.sidebar.radio(
+module = st.sidebar.radio(
     "📌 Navigation",
     [
         "🏠 Home",
         "🚗 Accident Detection",
-        "📉 Churn Prediction"
+        "📉 Customer Churn Prediction"
     ]
 )
 
 
 # =====================================================
-# PAGE ROUTING
+# ROUTING
 # =====================================================
 
-if page == "🏠 Home":
+if module == "🏠 Home":
 
     home.render()
 
-elif page == "🚗 Accident Detection":
+elif module == "🚗 Accident Detection":
 
     accident.render()
 
-elif page == "📉 Churn Prediction":
+elif module == "📉 Customer Churn Prediction":
 
     churn.render()
