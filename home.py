@@ -1,6 +1,4 @@
-```python
 import streamlit as st
-
 
 def render():
 
@@ -290,8 +288,3 @@ def render():
 
             </div>
             """, unsafe_allow_html=True)
-
-
-# RUN FUNCTION
-render()
-```
