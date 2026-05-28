@@ -1,14 +1,9 @@
 import streamlit as st
 
-
 def render():
-
-    # ================= CUSTOM CSS =================
 
     st.markdown("""
     <style>
-
-    /* MAIN PAGE */
 
     .stApp{
         background-color:#f1f5f9;
@@ -20,7 +15,7 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO SECTION */
+    /* HERO */
 
     .hero{
 
@@ -48,7 +43,6 @@ def render():
         font-size:58px;
         font-weight:800;
         margin-bottom:20px;
-        line-height:1.2;
     }
 
     .hero p{
@@ -56,10 +50,9 @@ def render():
         font-size:22px;
         line-height:1.9;
         max-width:1000px;
-        font-weight:500;
     }
 
-    /* MAIN CARDS */
+    /* CARDS */
 
     .custom-card{
 
@@ -104,12 +97,11 @@ def render():
         color:#334155;
         font-size:19px;
         line-height:1.9;
-        font-weight:500;
     }
 
     /* FEATURES */
 
-    .feature-heading{
+    .feature-title{
         font-size:34px;
         font-weight:800;
         color:#0f172a;
@@ -154,39 +146,10 @@ def render():
         font-weight:700;
     }
 
-    /* RESPONSIVE */
-
-    @media(max-width: 992px){
-
-        .hero{
-            padding:40px 30px;
-        }
-
-        .hero h1{
-            font-size:40px;
-        }
-
-        .hero p{
-            font-size:18px;
-        }
-
-        .card-title{
-            font-size:26px;
-        }
-
-        .card-text{
-            font-size:17px;
-        }
-
-        .feature-text{
-            font-size:16px;
-        }
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
-    # ================= HERO SECTION =================
+    # HERO
 
     st.markdown("""
     <div class="hero">
@@ -197,16 +160,15 @@ def render():
 
         <p>
             Premium intelligent platform for accident detection,
-            customer churn prediction, and AI analytics powered
-            by advanced deep learning intelligence systems.
+            customer churn prediction, and AI analytics.
         </p>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # ================= MAIN CARDS =================
+    # CARDS
 
-    col1, col2 = st.columns(2, gap="large")
+    col1, col2 = st.columns(2)
 
     with col1:
 
@@ -219,8 +181,7 @@ def render():
 
             <div class="card-text">
                 Upload traffic images and detect accident scenarios
-                using powerful deep learning CNN models with
-                real-time intelligent prediction systems.
+                using deep learning CNN models.
             </div>
 
         </div>
@@ -237,89 +198,52 @@ def render():
 
             <div class="card-text">
                 Predict customer churn probability using
-                AI-powered analytics systems and advanced
-                business intelligence prediction models.
+                AI-powered analytics systems.
             </div>
 
         </div>
         """, unsafe_allow_html=True)
 
-    # ================= SPACE =================
-
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ================= FEATURES TITLE =================
+    # FEATURES
 
     st.markdown("""
-    <div class="feature-heading">
+    <div class="feature-title">
         ✨ Features
     </div>
     """, unsafe_allow_html=True)
 
-    # ================= FEATURE BOXES =================
-
-    c1, c2, c3, c4 = st.columns(4, gap="medium")
+    c1, c2, c3, c4 = st.columns(4)
 
     with c1:
-
         st.markdown("""
         <div class="feature-box">
-
-            <div class="feature-icon">
-                🚀
-            </div>
-
-            <div class="feature-text">
-                Fast
-            </div>
-
+            <div class="feature-icon">🚀</div>
+            <div class="feature-text">Fast</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c2:
-
         st.markdown("""
         <div class="feature-box">
-
-            <div class="feature-icon">
-                🧠
-            </div>
-
-            <div class="feature-text">
-                Deep Learning
-            </div>
-
+            <div class="feature-icon">🧠</div>
+            <div class="feature-text">Deep Learning</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
-
         st.markdown("""
         <div class="feature-box">
-
-            <div class="feature-icon">
-                📊
-            </div>
-
-            <div class="feature-text">
-                Analytics
-            </div>
-
+            <div class="feature-icon">📊</div>
+            <div class="feature-text">Analytics</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c4:
-
         st.markdown("""
         <div class="feature-box">
-
-            <div class="feature-icon">
-                🔒
-            </div>
-
-            <div class="feature-text">
-                Reliable
-            </div>
-
+            <div class="feature-icon">🔒</div>
+            <div class="feature-text">Reliable</div>
         </div>
         """, unsafe_allow_html=True)
