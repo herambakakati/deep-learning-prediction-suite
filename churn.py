@@ -18,16 +18,19 @@ def load_assets():
     # CHECK FILES
 
     if not os.path.exists(model_path):
+
         raise FileNotFoundError(
             f"Missing model file: {model_path}"
         )
 
     if not os.path.exists(scaler_path):
+
         raise FileNotFoundError(
             f"Missing scaler file: {scaler_path}"
         )
 
     if not os.path.exists(columns_path):
+
         raise FileNotFoundError(
             f"Missing feature columns file: {columns_path}"
         )
