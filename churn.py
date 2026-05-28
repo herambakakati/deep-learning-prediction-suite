@@ -3,77 +3,61 @@ import tensorflow as tf
 import pandas as pd
 import pickle
 import os
-import gdown
 
 # =====================================================
-# DOWNLOAD REQUIRED FILES
-# =====================================================
-
-def download_assets():
-
-    os.makedirs("models", exist_ok=True)
-
-    files = {
-
-        # CHURN MODEL (.h5)
-        "models/churn_model.h5":
-        "14ilGcptvnDwmrrx8FzZuRN4WRoLhLDD3",
-
-        # SCALER FILE
-        "models/scaler.pkl":
-        "1aLjkPl5i8h_jhCAjB6oly0ckX-bxkDFK",
-
-        # FEATURE COLUMNS FILE
-        "models/feature_columns.pkl":
-        "1HmIgx9lTcdlFXUcymLd-QHskgKisIFSX"
-    }
-
-    for path, file_id in files.items():
-
-        if not os.path.exists(path):
-
-            with st.spinner(
-                f"Downloading {os.path.basename(path)}..."
-            ):
-
-                url = (
-                    f"https://drive.google.com/uc?id={file_id}"
-                )
-
-                gdown.download(
-                    url,
-                    path,
-                    quiet=False
-                )
-
-# =====================================================
-# LOAD ASSETS
+# LOAD MODEL
 # =====================================================
 
 @st.cache_resource
 def load_assets():
 
-    download_assets()
+    model_path = "models/churn_model.h5"
+    scaler_path = "models/scaler.pkl"
+    columns_path = "models/feature_columns.pkl"
+
+    # CHECK FILES
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(
+            f"Missing model file: {model_path}"
+        )
+
+    if not os.path.exists(scaler_path):
+        raise FileNotFoundError(
+            f"Missing scaler file: {scaler_path}"
+        )
+
+    if not os.path.exists(columns_path):
+        raise FileNotFoundError(
+            f"Missing feature columns file: {columns_path}"
+        )
+
+    # LOAD MODEL
 
     model = tf.keras.models.load_model(
-        "models/churn_model.h5"
+        model_path
     )
 
+    # LOAD SCALER
+
     with open(
-        "models/scaler.pkl",
+        scaler_path,
         "rb"
     ) as f:
 
         scaler = pickle.load(f)
 
+    # LOAD FEATURE COLUMNS
+
     with open(
-        "models/feature_columns.pkl",
+        columns_path,
         "rb"
     ) as f:
 
         feature_columns = pickle.load(f)
 
     return model, scaler, feature_columns
+
 
 # =====================================================
 # MAIN PAGE
@@ -82,7 +66,7 @@ def load_assets():
 def render():
 
     # =====================================================
-    # PREMIUM CSS
+    # CSS
     # =====================================================
 
     st.markdown("""
@@ -158,25 +142,43 @@ def render():
         font-weight:800;
     }
 
-    .result-safe{
+    .prediction-box{
 
         background:
         linear-gradient(
             135deg,
-            #dcfce7,
-            #bbf7d0
+            #dbeafe,
+            #bfdbfe
         );
 
-        padding:35px;
+        padding:32px;
 
-        border-radius:24px;
+        border-radius:22px;
 
         text-align:center;
 
-        margin-top:20px;
+        margin-top:30px;
     }
 
-    .result-danger{
+    .prediction-title{
+
+        color:#1e3a8a;
+
+        font-size:28px;
+
+        font-weight:700;
+    }
+
+    .prediction-score{
+
+        color:#1e3a8a;
+
+        font-size:58px;
+
+        font-weight:800;
+    }
+
+    .danger-box{
 
         background:
         linear-gradient(
@@ -185,43 +187,73 @@ def render():
             #fecaca
         );
 
-        padding:35px;
+        padding:30px;
 
-        border-radius:24px;
+        border-radius:22px;
 
         text-align:center;
 
         margin-top:20px;
     }
 
-    .result-title{
+    .safe-box{
 
-        font-size:40px;
+        background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #bbf7d0
+        );
 
-        font-weight:800;
+        padding:30px;
 
-        color:#1e293b;
+        border-radius:22px;
 
-        margin-bottom:10px;
+        text-align:center;
+
+        margin-top:20px;
     }
 
-    .result-text{
+    .danger-title,
+    .safe-title{
 
-        font-size:28px;
+        font-size:42px;
+
+        font-weight:800;
+    }
+
+    .danger-sub,
+    .safe-sub{
+
+        font-size:30px;
 
         font-weight:700;
+    }
 
-        color:#334155;
+    .danger-title{
+        color:#991b1b;
+    }
+
+    .danger-sub{
+        color:#b91c1c;
+    }
+
+    .safe-title{
+        color:#166534;
+    }
+
+    .safe-sub{
+        color:#15803d;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO SECTION
+    # HERO
     # =====================================================
 
-    st.html("""
+    st.markdown("""
     <div class="hero-banner">
 
         <div class="hero-title">
@@ -230,15 +262,15 @@ def render():
 
         <div class="hero-text">
             Predict customer churn risk using intelligent
-            deep learning analytics and business-focused
-            prediction intelligence.
+            deep learning analytics and business-ready
+            customer retention intelligence.
         </div>
 
     </div>
-    """)
+    """, unsafe_allow_html=True)
 
     # =====================================================
-    # LOAD MODEL
+    # LOAD FILES
     # =====================================================
 
     try:
@@ -254,22 +286,20 @@ def render():
         return
 
     # =====================================================
-    # INPUT SECTIONS
+    # INPUTS
     # =====================================================
 
     left, right = st.columns(2)
 
     with left:
 
-        st.html("""
+        st.markdown("""
         <div class="form-card">
-
             <div class="card-title">
                 👤 Customer Profile
             </div>
-
         </div>
-        """)
+        """, unsafe_allow_html=True)
 
         credit_score = st.number_input(
             "Credit Score",
@@ -306,27 +336,22 @@ def render():
             50000.0
         )
 
+        num_products = st.number_input(
+            "Number of Products",
+            1,
+            4,
+            1
+        )
+
     with right:
 
-        st.html("""
+        st.markdown("""
         <div class="form-card">
-
             <div class="card-title">
                 🏦 Banking Attributes
             </div>
-
         </div>
-        """)
-
-        geography = st.selectbox(
-            "Geography",
-            ["France", "Germany", "Spain"]
-        )
-
-        gender = st.selectbox(
-            "Gender",
-            ["Male", "Female"]
-        )
+        """, unsafe_allow_html=True)
 
         has_cr_card = st.selectbox(
             "Has Credit Card",
@@ -338,6 +363,16 @@ def render():
             ["No", "Yes"]
         )
 
+        geography = st.selectbox(
+            "Geography",
+            ["France", "Germany", "Spain"]
+        )
+
+        gender = st.selectbox(
+            "Gender",
+            ["Male", "Female"]
+        )
+
     # =====================================================
     # PREDICTION
     # =====================================================
@@ -346,101 +381,107 @@ def render():
         "✨ Analyze Customer Churn Risk"
     ):
 
-        try:
+        input_data = {
 
-            input_data = {
+            "CreditScore":
+            credit_score,
 
-                "CreditScore":
-                credit_score,
+            "Age":
+            age,
 
-                "Age":
-                age,
+            "Tenure":
+            tenure,
 
-                "Tenure":
-                tenure,
+            "Balance":
+            balance,
 
-                "Balance":
-                balance,
+            "EstimatedSalary":
+            estimated_salary,
 
-                "EstimatedSalary":
-                estimated_salary,
+            "NumOfProducts":
+            num_products,
 
-                "NumOfProducts":
-                1,
+            "HasCrCard":
+            1 if has_cr_card == "Yes" else 0,
 
-                "HasCrCard":
-                1 if has_cr_card == "Yes" else 0,
+            "IsActiveMember":
+            1 if is_active_member == "Yes" else 0,
 
-                "IsActiveMember":
-                1 if is_active_member == "Yes" else 0,
+            "Geography_Germany":
+            1 if geography == "Germany" else 0,
 
-                "Geography_Germany":
-                1 if geography == "Germany" else 0,
+            "Geography_Spain":
+            1 if geography == "Spain" else 0,
 
-                "Geography_Spain":
-                1 if geography == "Spain" else 0,
+            "Gender_Male":
+            1 if gender == "Male" else 0
+        }
 
-                "Gender_Male":
-                1 if gender == "Male" else 0
-            }
+        input_df = pd.DataFrame(
+            [input_data]
+        )
 
-            input_df = pd.DataFrame(
-                [input_data]
-            )
+        for col in feature_columns:
 
-            for col in feature_columns:
+            if col not in input_df.columns:
 
-                if col not in input_df.columns:
+                input_df[col] = 0
 
-                    input_df[col] = 0
+        input_df = input_df[
+            feature_columns
+        ]
 
-            input_df = input_df[
-                feature_columns
-            ]
+        scaled_data = scaler.transform(
+            input_df
+        )
 
-            scaled_data = scaler.transform(
-                input_df
-            )
+        prediction = model.predict(
+            scaled_data,
+            verbose=0
+        )[0][0]
 
-            prediction = model.predict(
-                scaled_data,
-                verbose=0
-            )[0][0]
+        st.markdown(f"""
+        <div class="prediction-box">
 
-            if prediction > 0.5:
+            <div class="prediction-title">
+                Prediction Score
+            </div>
 
-                st.html(f"""
-                <div class="result-danger">
+            <div class="prediction-score">
+                {prediction:.4f}
+            </div>
 
-                    <div class="result-title">
-                        ⚠️ High Churn Risk
-                    </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-                    <div class="result-text">
-                        {prediction*100:.2f}% Probability
-                    </div>
+        if prediction > 0.5:
 
+            st.markdown(f"""
+            <div class="danger-box">
+
+                <div class="danger-title">
+                    ⚠️ High Churn Risk
                 </div>
-                """)
 
-            else:
-
-                st.html(f"""
-                <div class="result-safe">
-
-                    <div class="result-title">
-                        ✅ Customer Likely To Stay
-                    </div>
-
-                    <div class="result-text">
-                        {(1-prediction)*100:.2f}% Confidence
-                    </div>
-
+                <div class="danger-sub">
+                    {prediction * 100:.2f}% Probability
                 </div>
-                """)
 
-        except Exception as e:
+            </div>
+            """, unsafe_allow_html=True)
 
-            st.error(
-                f"Prediction failed: {str(e)}"
-            )
+        else:
+
+            st.markdown(f"""
+            <div class="safe-box">
+
+                <div class="safe-title">
+                    ✅ Customer Likely To Stay
+                </div>
+
+                <div class="safe-sub">
+                    {(1 - prediction) * 100:.2f}% Confidence
+                </div>
+
+            </div>
+            """, unsafe_allow_html=True)
