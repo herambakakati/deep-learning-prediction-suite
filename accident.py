@@ -5,170 +5,206 @@ import cv2
 import os
 import gdown
 
-
 # =====================================================
 # PAGE CSS
 # =====================================================
 
 def load_css():
 
-    st.markdown(
-        """
-        <style>
+    st.markdown("""
+    <style>
 
-        .hero-banner{
+    .hero-banner{
 
-            background:
-                linear-gradient(
-                    rgba(15,23,42,0.78),
-                    rgba(30,58,138,0.78)
-                ),
-                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+        background:
+            linear-gradient(
+                rgba(15,23,42,0.78),
+                rgba(30,58,138,0.78)
+            ),
+            url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
 
-            background-size:cover;
-            background-position:center;
+        background-size:cover;
+        background-position:center;
 
-            padding:65px;
+        padding:65px;
 
-            border-radius:28px;
+        border-radius:28px;
 
-            margin-bottom:35px;
+        margin-bottom:35px;
 
-            box-shadow:
-                0 18px 45px rgba(0,0,0,0.18);
-        }
+        box-shadow:
+            0 18px 45px rgba(0,0,0,0.18);
+    }
 
-        .hero-title{
+    .hero-title{
 
-            color:white;
+        color:white;
 
-            font-size:54px;
+        font-size:54px;
 
-            font-weight:800;
+        font-weight:800;
 
-            margin-bottom:16px;
-        }
+        margin-bottom:16px;
+    }
 
-        .hero-text{
+    .hero-text{
 
-            color:rgba(255,255,255,0.95);
+        color:rgba(255,255,255,0.95);
 
-            font-size:20px;
+        font-size:20px;
 
-            line-height:1.9;
+        line-height:1.9;
 
-            max-width:900px;
-        }
+        max-width:900px;
+    }
 
-        .glass-card{
+    .glass-card{
 
-            background:
-                rgba(255,255,255,0.92);
+        background:
+            rgba(255,255,255,0.92);
 
-            padding:28px;
+        padding:28px;
 
-            border-radius:24px;
+        border-radius:24px;
 
-            box-shadow:
-                0 12px 30px rgba(0,0,0,0.08);
+        box-shadow:
+            0 12px 30px rgba(0,0,0,0.08);
 
-            margin-bottom:20px;
-        }
+        margin-bottom:20px;
+    }
 
-        .section-title{
+    .section-title{
 
-            color:#1e3a8a;
+        color:#1e3a8a;
 
-            font-size:30px;
+        font-size:30px;
 
-            font-weight:800;
+        font-weight:800;
 
-            margin-bottom:12px;
-        }
+        margin-bottom:12px;
+    }
 
-        .section-text{
+    .section-text{
 
-            color:#475569;
+        color:#475569;
 
-            font-size:17px;
+        font-size:17px;
 
-            line-height:1.8;
-        }
+        line-height:1.8;
+    }
 
-        .feature-box{
+    .feature-box{
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ecfeff,
-                    #dbeafe
-                );
+        background:
+            linear-gradient(
+                135deg,
+                #ecfeff,
+                #dbeafe
+            );
 
-            padding:18px;
+        padding:18px;
 
-            border-radius:16px;
+        border-radius:16px;
 
-            margin-bottom:14px;
+        margin-bottom:14px;
 
-            color:#1e3a8a;
+        color:#1e3a8a;
 
-            font-weight:700;
+        font-weight:700;
 
-            font-size:16px;
-        }
+        font-size:16px;
+    }
 
-        .danger-result{
+    .danger-result{
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #fee2e2,
-                    #fecaca
-                );
+        background:
+            linear-gradient(
+                135deg,
+                #fee2e2,
+                #fecaca
+            );
 
-            padding:35px;
+        padding:35px;
 
-            border-radius:24px;
+        border-radius:24px;
 
-            text-align:center;
-        }
+        text-align:center;
+    }
 
-        .safe-result{
+    .safe-result{
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #dcfce7,
-                    #bbf7d0
-                );
+        background:
+            linear-gradient(
+                135deg,
+                #dcfce7,
+                #bbf7d0
+            );
 
-            padding:35px;
+        padding:35px;
 
-            border-radius:24px;
+        border-radius:24px;
 
-            text-align:center;
-        }
+        text-align:center;
+    }
 
-        .score-box{
+    .score-box{
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #dbeafe,
-                    #bfdbfe
-                );
+        background:
+            linear-gradient(
+                135deg,
+                #dbeafe,
+                #bfdbfe
+            );
 
-            padding:35px;
+        padding:35px;
 
-            border-radius:24px;
+        border-radius:24px;
 
-            text-align:center;
-        }
+        text-align:center;
+    }
 
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    .result-title{
+
+        font-size:42px;
+
+        font-weight:800;
+
+        color:#1e293b;
+
+        margin-bottom:10px;
+    }
+
+    .result-subtitle{
+
+        font-size:28px;
+
+        font-weight:700;
+
+        color:#334155;
+    }
+
+    .score-title{
+
+        font-size:30px;
+
+        font-weight:700;
+
+        color:#1e293b;
+
+        margin-bottom:18px;
+    }
+
+    .score-value{
+
+        font-size:52px;
+
+        font-weight:800;
+
+        color:#1e3a8a;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
 
 
 # =====================================================
@@ -201,7 +237,7 @@ def download_model():
 # =====================================================
 
 @st.cache_resource
-def load_model():
+def load_model_file():
 
     model_path = download_model()
 
@@ -255,59 +291,55 @@ def preprocess_image(uploaded_file):
 
 
 # =====================================================
-# MAIN RENDER FUNCTION
+# MAIN RENDER
 # =====================================================
 
 def render():
 
     load_css()
 
-    # HERO
+    # =====================================================
+    # HERO SECTION
+    # =====================================================
 
-    st.markdown(
-        """
-        <div class="hero-banner">
+    st.html("""
+    <div class="hero-banner">
 
-            <div class="hero-title">
-                🚗 AI Accident Detection Intelligence
-            </div>
-
-            <div class="hero-text">
-                Upload traffic images and let the AI engine instantly
-                detect accident scenarios using advanced deep learning
-                intelligence and CNN-powered classification.
-            </div>
-
+        <div class="hero-title">
+            🚗 AI Accident Detection Intelligence
         </div>
-        """,
-        unsafe_allow_html=True
-    )
 
-    # MAIN SECTION
+        <div class="hero-text">
+            Upload traffic images and let the AI engine instantly
+            detect accident scenarios using advanced deep learning
+            intelligence and CNN-powered classification.
+        </div>
 
-    left, right = st.columns(
-        [1.2, 1]
-    )
+    </div>
+    """)
+
+    # =====================================================
+    # MAIN CONTENT
+    # =====================================================
+
+    left, right = st.columns([1.2, 1])
 
     with left:
 
-        st.markdown(
-            """
-            <div class="glass-card">
+        st.html("""
+        <div class="glass-card">
 
-                <div class="section-title">
-                    📤 Upload Traffic Image
-                </div>
-
-                <div class="section-text">
-                    Supported image formats:
-                    JPG, JPEG, PNG
-                </div>
-
+            <div class="section-title">
+                📤 Upload Traffic Image
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+
+            <div class="section-text">
+                Supported image formats:
+                JPG, JPEG, PNG
+            </div>
+
+        </div>
+        """)
 
         uploaded_file = st.file_uploader(
             "Choose an image",
@@ -316,42 +348,36 @@ def render():
 
     with right:
 
-        st.markdown(
-            """
-            <div class="glass-card">
+        st.html("""
+        <div class="glass-card">
 
-                <div class="section-title">
-                    🧠 AI Detection Engine
-                </div>
-
+            <div class="section-title">
+                🧠 AI Detection Engine
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+
+        </div>
+        """)
 
         features = [
 
             "⚡ Real-time CNN inference",
-
             "🎯 Confidence-based prediction",
-
             "🚀 Fast image classification",
-
             "🧠 Deep learning intelligence"
+
         ]
 
         for item in features:
 
-            st.markdown(
-                f"""
-                <div class="feature-box">
-                    {item}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            st.html(f"""
+            <div class="feature-box">
+                {item}
+            </div>
+            """)
 
+    # =====================================================
     # IMAGE DISPLAY
+    # =====================================================
 
     if uploaded_file is not None:
 
@@ -361,10 +387,7 @@ def render():
 
         if display_image is None:
 
-            st.error(
-                "Invalid image uploaded."
-            )
-
+            st.error("Invalid image uploaded.")
             return
 
         st.image(
@@ -372,19 +395,17 @@ def render():
             use_column_width=True
         )
 
+        # =====================================================
         # PREDICTION BUTTON
+        # =====================================================
 
-        if st.button(
-            "✨ Analyze Accident Risk"
-        ):
+        if st.button("✨ Analyze Accident Risk"):
 
             try:
 
-                model = load_model()
+                model = load_model_file()
 
-                with st.spinner(
-                    "AI analyzing image..."
-                ):
+                with st.spinner("AI analyzing image..."):
 
                     prediction = model.predict(
                         processed_image,
@@ -393,28 +414,29 @@ def render():
 
                 score_col, result_col = st.columns(2)
 
-                # SCORE
+                # =====================================================
+                # SCORE BOX
+                # =====================================================
 
                 with score_col:
 
-                    st.markdown(
-                        f"""
-                        <div class="score-box">
+                    st.html(f"""
+                    <div class="score-box">
 
-                            <h2>
-                                Prediction Score
-                            </h2>
-
-                            <h1>
-                                {prediction:.4f}
-                            </h1>
-
+                        <div class="score-title">
+                            Prediction Score
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
 
-                # RESULT
+                        <div class="score-value">
+                            {prediction:.4f}
+                        </div>
+
+                    </div>
+                    """)
+
+                # =====================================================
+                # RESULT BOX
+                # =====================================================
 
                 with result_col:
 
@@ -424,22 +446,19 @@ def render():
                             1 - prediction
                         ) * 100
 
-                        st.markdown(
-                            f"""
-                            <div class="danger-result">
+                        st.html(f"""
+                        <div class="danger-result">
 
-                                <h1>
-                                    ⚠️ Accident Detected
-                                </h1>
-
-                                <h2>
-                                    {confidence:.2f}% Confidence
-                                </h2>
-
+                            <div class="result-title">
+                                ⚠️ Accident Detected
                             </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
+
+                            <div class="result-subtitle">
+                                {confidence:.2f}% Confidence
+                            </div>
+
+                        </div>
+                        """)
 
                     else:
 
@@ -447,25 +466,22 @@ def render():
                             prediction
                         ) * 100
 
-                        st.markdown(
-                            f"""
-                            <div class="safe-result">
+                        st.html(f"""
+                        <div class="safe-result">
 
-                                <h1>
-                                    ✅ No Accident Detected
-                                </h1>
-
-                                <h2>
-                                    {confidence:.2f}% Confidence
-                                </h2>
-
+                            <div class="result-title">
+                                ✅ No Accident Detected
                             </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
+
+                            <div class="result-subtitle">
+                                {confidence:.2f}% Confidence
+                            </div>
+
+                        </div>
+                        """)
 
             except Exception as e:
 
                 st.error(
-                    f"Prediction failed: {e}"
+                    f"Prediction failed: {str(e)}"
                 )
