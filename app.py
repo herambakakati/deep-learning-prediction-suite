@@ -1,17 +1,12 @@
-# =========================================================
-# app.py
-# FINAL STREAMLIT CLOUD READY VERSION
-# =========================================================
-
 import streamlit as st
 import home
 import accident
 import churn
 
 
-# =========================================================
+# =====================================================
 # PAGE CONFIG
-# =========================================================
+# =====================================================
 
 st.set_page_config(
     page_title="AI Smart Analytics Dashboard",
@@ -21,88 +16,82 @@ st.set_page_config(
 )
 
 
-# =========================================================
-# GLOBAL PREMIUM CSS
-# =========================================================
+# =====================================================
+# PREMIUM GLOBAL CSS
+# =====================================================
 
 st.markdown("""
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-html, body, [class*="css"]{
-    font-family:'Inter',sans-serif;
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
 }
 
-/* MAIN APP */
+/* APP BACKGROUND */
 
-.stApp{
-
+.stApp {
     background:
     linear-gradient(
         135deg,
         #f8fbff 0%,
-        #eef4ff 45%,
-        #ffffff 100%
+        #eef4ff 50%,
+        #fdfcff 100%
     );
 }
 
 /* MAIN CONTAINER */
 
 .block-container{
-
     max-width:1450px;
-
-    padding-top:1.8rem;
-
+    padding-top:2rem;
     padding-bottom:2rem;
 }
 
 /* SIDEBAR */
 
-section[data-testid="stSidebar"]{
+section[data-testid="stSidebar"] {
 
     background:
-    linear-gradient(
-        180deg,
-        #0f172a,
-        #1e3a8a
-    );
+    rgba(255,255,255,0.88);
+
+    backdrop-filter: blur(20px);
+
+    border-right:
+    1px solid rgba(99,102,241,0.12);
 }
 
 /* SIDEBAR TEXT */
 
-section[data-testid="stSidebar"] *{
-
-    color:white !important;
+section[data-testid="stSidebar"] * {
+    color: #1e3a8a !important;
 }
 
 /* SIDEBAR RADIO */
 
 .stRadio label{
-
     font-size:16px !important;
-
     font-weight:700 !important;
 }
 
-/* BUTTON */
+/* BUTTONS */
 
-.stButton > button{
+.stButton > button {
 
-    width:100%;
+    width: 100%;
 
-    height:55px;
+    border-radius: 18px;
 
-    border:none;
+    height: 56px;
 
-    border-radius:18px;
+    font-size: 18px;
 
-    font-size:17px;
+    font-weight: 700;
 
-    font-weight:700;
+    border: none;
 
-    color:white;
+    color: white;
 
     background:
     linear-gradient(
@@ -112,53 +101,66 @@ section[data-testid="stSidebar"] *{
     );
 
     box-shadow:
-    0 10px 25px rgba(99,102,241,0.30);
+    0 12px 30px rgba(99,102,241,0.30);
 
-    transition:0.3s;
+    transition: 0.3s ease;
 }
 
-.stButton > button:hover{
+/* BUTTON HOVER */
 
-    transform:translateY(-2px);
-}
+.stButton > button:hover {
 
-/* FILE UPLOADER */
+    transform: translateY(-2px);
 
-[data-testid="stFileUploader"]{
-
-    border-radius:18px;
-
-    border:
-    2px dashed rgba(99,102,241,0.25);
-
-    background:white;
+    box-shadow:
+    0 16px 35px rgba(99,102,241,0.40);
 }
 
 /* INPUTS */
 
 .stTextInput input,
 .stNumberInput input,
-.stSelectbox div[data-baseweb="select"] > div{
+.stSelectbox div[data-baseweb="select"] > div {
 
-    border-radius:14px !important;
+    border-radius: 16px !important;
+
+    border:
+    1px solid rgba(99,102,241,0.18) !important;
+
+    background:
+    rgba(255,255,255,0.95) !important;
 }
 
-/* SUCCESS */
+/* FILE UPLOADER */
+
+[data-testid="stFileUploader"] {
+
+    background:
+    rgba(255,255,255,0.92);
+
+    border:
+    2px dashed rgba(99,102,241,0.28);
+
+    border-radius: 22px;
+
+    padding: 18px;
+}
+
+/* SUCCESS / ERROR */
 
 .stSuccess,
 .stError,
-.stWarning{
-
-    border-radius:16px;
+.stWarning {
+    border-radius: 18px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 
-# =========================================================
-# SIDEBAR HEADER
-# =========================================================
+# =====================================================
+# SIDEBAR
+# =====================================================
 
 st.sidebar.markdown("""
 
@@ -168,24 +170,21 @@ padding-top:20px;
 padding-bottom:20px;
 ">
 
-<h1 style="
-font-size:50px;
-margin-bottom:0;
-">
+<h1 style="font-size:40px;">
 🤖
 </h1>
 
 <h1 style="
-font-size:32px;
-font-weight:800;
-margin-top:0;
+font-size:34px;
+color:#1e3a8a;
+margin:0;
 ">
 AI Suite
 </h1>
 
 <p style="
-font-size:14px;
-opacity:0.85;
+font-size:16px;
+color:#5b6f99;
 ">
 Smart Detection & Analytics
 </p>
@@ -195,12 +194,12 @@ Smart Detection & Analytics
 """, unsafe_allow_html=True)
 
 
-# =========================================================
+# =====================================================
 # NAVIGATION
-# =========================================================
+# =====================================================
 
-page = st.sidebar.radio(
-    "📌 Navigation",
+module = st.sidebar.radio(
+    "Navigation",
     [
         "🏠 Home",
         "🚗 Accident Detection",
@@ -209,18 +208,18 @@ page = st.sidebar.radio(
 )
 
 
-# =========================================================
+# =====================================================
 # ROUTING
-# =========================================================
+# =====================================================
 
-if page == "🏠 Home":
+if module == "🏠 Home":
 
     home.render()
 
-elif page == "🚗 Accident Detection":
+elif module == "🚗 Accident Detection":
 
     accident.render()
 
-elif page == "📉 Customer Churn Prediction":
+elif module == "📉 Customer Churn Prediction":
 
     churn.render()
