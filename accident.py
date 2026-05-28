@@ -20,8 +20,6 @@ def load_accident_model():
             f"Model file not found: {model_path}"
         )
 
-    # MODEL ARCHITECTURE
-
     model = tf.keras.Sequential([
 
         tf.keras.layers.Input(
@@ -75,7 +73,7 @@ def load_accident_model():
 
 
 # =====================================================
-# PREPROCESS IMAGE
+# IMAGE PREPROCESS
 # =====================================================
 
 def preprocess_image(uploaded_file):
@@ -122,19 +120,8 @@ def preprocess_image(uploaded_file):
 
 def render():
 
-    # =====================================================
-    # CSS
-    # =====================================================
-
     st.markdown("""
     <style>
-
-    .block-container{
-        max-width:1450px;
-        padding-top:2rem;
-    }
-
-    /* HERO */
 
     .hero-banner{
 
@@ -182,8 +169,6 @@ def render():
         font-weight:500;
     }
 
-    /* CARD */
-
     .card{
 
         background:white;
@@ -218,8 +203,6 @@ def render():
         margin-top:8px;
     }
 
-    /* ENGINE */
-
     .engine-item{
 
         background:
@@ -240,41 +223,7 @@ def render():
         font-size:16px;
 
         font-weight:700;
-
-        box-shadow:
-            0 8px 18px rgba(0,0,0,0.05);
     }
-
-    /* BUTTON */
-
-    div.stButton > button{
-
-        width:100%;
-
-        height:70px;
-
-        border-radius:18px;
-
-        border:none;
-
-        background:
-            linear-gradient(
-                135deg,
-                #6366f1,
-                #8b5cf6
-            );
-
-        color:white !important;
-
-        font-size:20px;
-
-        font-weight:800;
-
-        box-shadow:
-            0 14px 30px rgba(99,102,241,0.28);
-    }
-
-    /* PREDICTION */
 
     .prediction-box{
 
@@ -290,30 +239,7 @@ def render():
         border-radius:24px;
 
         text-align:center;
-
-        box-shadow:
-            0 12px 25px rgba(0,0,0,0.08);
     }
-
-    .prediction-box h3{
-
-        color:#1e3a8a;
-
-        font-size:30px;
-
-        font-weight:700;
-    }
-
-    .prediction-box h1{
-
-        color:#1e40af;
-
-        font-size:64px;
-
-        font-weight:900;
-    }
-
-    /* DANGER */
 
     .danger-box{
 
@@ -329,30 +255,7 @@ def render():
         border-radius:24px;
 
         text-align:center;
-
-        box-shadow:
-            0 12px 25px rgba(0,0,0,0.08);
     }
-
-    .danger-box h1{
-
-        color:#991b1b;
-
-        font-size:42px;
-
-        font-weight:800;
-    }
-
-    .danger-box h2{
-
-        color:#b91c1c;
-
-        font-size:30px;
-
-        font-weight:700;
-    }
-
-    /* SAFE */
 
     .safe-box{
 
@@ -368,35 +271,10 @@ def render():
         border-radius:24px;
 
         text-align:center;
-
-        box-shadow:
-            0 12px 25px rgba(0,0,0,0.08);
-    }
-
-    .safe-box h1{
-
-        color:#166534;
-
-        font-size:42px;
-
-        font-weight:800;
-    }
-
-    .safe-box h2{
-
-        color:#15803d;
-
-        font-size:30px;
-
-        font-weight:700;
     }
 
     </style>
     """, unsafe_allow_html=True)
-
-    # =====================================================
-    # HERO
-    # =====================================================
 
     st.markdown("""
     <div class="hero-banner">
@@ -412,10 +290,6 @@ def render():
 
     </div>
     """, unsafe_allow_html=True)
-
-    # =====================================================
-    # TOP SECTION
-    # =====================================================
 
     left, right = st.columns([1.2, 1])
 
@@ -470,10 +344,6 @@ def render():
                 unsafe_allow_html=True
             )
 
-    # =====================================================
-    # PROCESS IMAGE
-    # =====================================================
-
     if uploaded_file is not None:
 
         display_img, img_input = preprocess_image(
@@ -486,42 +356,14 @@ def render():
 
             return
 
-        st.markdown("---")
-
-        st.markdown("""
-        <div class="card">
-
-            <div class="card-title">
-                🖼 Uploaded Preview
-            </div>
-
-            <div class="card-text">
-                Uploaded image ready for intelligent accident analysis
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
-
         st.image(
             display_img,
             width=950
         )
 
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        b1, b2, b3 = st.columns([1, 2, 1])
-
-        with b2:
-
-            analyze = st.button(
-                "✨ Analyze Accident Risk"
-            )
-
-        # =====================================================
-        # PREDICTION
-        # =====================================================
-
-        if analyze:
+        if st.button(
+            "✨ Analyze Accident Risk"
+        ):
 
             try:
 
@@ -536,8 +378,6 @@ def render():
                         verbose=0
                     )[0][0]
 
-                st.markdown("<br>", unsafe_allow_html=True)
-
                 col1, col2 = st.columns(2)
 
                 with col1:
@@ -545,9 +385,13 @@ def render():
                     st.markdown(f"""
                     <div class="prediction-box">
 
-                        <h3>Prediction Score</h3>
+                        <h2>
+                            Prediction Score
+                        </h2>
 
-                        <h1>{prediction:.4f}</h1>
+                        <h1>
+                            {prediction:.4f}
+                        </h1>
 
                     </div>
                     """, unsafe_allow_html=True)
