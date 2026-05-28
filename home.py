@@ -2,8 +2,12 @@ import streamlit as st
 
 def render():
 
+    # ================= CUSTOM CSS =================
+
     st.markdown("""
     <style>
+
+    /* PAGE */
 
     .stApp{
         background-color:#f1f5f9;
@@ -15,12 +19,12 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO */
+    /* HERO BANNER */
 
     .hero{
 
         background-image:
-        linear-gradient(rgba(15,23,42,0.82),
+        linear-gradient(rgba(15,23,42,0.78),
         rgba(30,58,138,0.78)),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
@@ -43,6 +47,7 @@ def render():
         font-size:58px;
         font-weight:800;
         margin-bottom:20px;
+        line-height:1.2;
     }
 
     .hero p{
@@ -50,9 +55,10 @@ def render():
         font-size:22px;
         line-height:1.9;
         max-width:1000px;
+        font-weight:500;
     }
 
-    /* CARDS */
+    /* MAIN CARDS */
 
     .custom-card{
 
@@ -60,7 +66,7 @@ def render():
 
         border-radius:24px;
 
-        min-height:230px;
+        min-height:240px;
 
         box-shadow:
         0 10px 30px rgba(0,0,0,0.08);
@@ -78,7 +84,7 @@ def render():
 
     .blue-card{
         background:
-        linear-gradient(135deg,#edf4ff,#dbeafe);
+        linear-gradient(135deg,#eef4ff,#dbeafe);
     }
 
     .orange-card{
@@ -88,28 +94,29 @@ def render():
 
     .card-title{
         color:#1e3a8a;
-        font-size:34px;
+        font-size:32px;
         font-weight:800;
         margin-bottom:18px;
     }
 
     .card-text{
         color:#334155;
-        font-size:19px;
-        line-height:1.9;
+        font-size:18px;
+        line-height:1.8;
+        font-weight:500;
     }
 
     /* FEATURES */
 
-    .feature-title{
+    .feature-heading{
         font-size:34px;
         font-weight:800;
         color:#0f172a;
         margin-top:15px;
-        margin-bottom:22px;
+        margin-bottom:24px;
     }
 
-    .feature-box{
+    .feature-card{
 
         background:white;
 
@@ -119,7 +126,7 @@ def render():
 
         text-align:center;
 
-        min-height:120px;
+        min-height:230px;
 
         box-shadow:
         0 8px 24px rgba(0,0,0,0.08);
@@ -127,29 +134,61 @@ def render():
         transition:0.3s ease;
     }
 
-    .feature-box:hover{
+    .feature-card:hover{
 
-        transform:translateY(-6px);
+        transform:translateY(-8px);
 
         box-shadow:
-        0 16px 32px rgba(0,0,0,0.12);
+        0 14px 30px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
-        font-size:38px;
-        margin-bottom:10px;
+        font-size:42px;
+        margin-bottom:14px;
+    }
+
+    .feature-title{
+        color:#1e3a8a;
+        font-size:22px;
+        font-weight:700;
+        margin-bottom:14px;
     }
 
     .feature-text{
-        color:#1e3a8a;
-        font-size:20px;
-        font-weight:700;
+        color:#475569;
+        font-size:16px;
+        line-height:1.7;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 992px){
+
+        .hero{
+            padding:40px 30px;
+        }
+
+        .hero h1{
+            font-size:40px;
+        }
+
+        .hero p{
+            font-size:18px;
+        }
+
+        .card-title{
+            font-size:26px;
+        }
+
+        .card-text{
+            font-size:17px;
+        }
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # HERO
+    # ================= HERO SECTION =================
 
     st.markdown("""
     <div class="hero">
@@ -159,16 +198,17 @@ def render():
         </h1>
 
         <p>
-            Premium intelligent platform for accident detection,
-            customer churn prediction, and AI analytics.
+            Premium intelligent platform for real-time accident detection,
+            customer churn prediction, and advanced business analytics
+            powered by deep learning intelligence.
         </p>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # CARDS
+    # ================= MAIN CARDS =================
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
@@ -180,8 +220,8 @@ def render():
             </div>
 
             <div class="card-text">
-                Upload traffic images and detect accident scenarios
-                using deep learning CNN models.
+                Upload road traffic images and instantly detect accident
+                scenarios using trained deep learning CNN models.
             </div>
 
         </div>
@@ -198,7 +238,7 @@ def render():
 
             <div class="card-text">
                 Predict customer churn probability using
-                AI-powered analytics systems.
+                AI-powered analytics systems and business intelligence.
             </div>
 
         </div>
@@ -206,44 +246,67 @@ def render():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # FEATURES
+    # ================= FEATURES TITLE =================
 
     st.markdown("""
-    <div class="feature-title">
+    <div class="feature-heading">
         ✨ Features
     </div>
     """, unsafe_allow_html=True)
 
-    c1, c2, c3, c4 = st.columns(4)
+    # ================= FEATURE CARDS =================
 
-    with c1:
-        st.markdown("""
-        <div class="feature-box">
-            <div class="feature-icon">🚀</div>
-            <div class="feature-text">Fast</div>
-        </div>
-        """, unsafe_allow_html=True)
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
 
-    with c2:
-        st.markdown("""
-        <div class="feature-box">
-            <div class="feature-icon">🧠</div>
-            <div class="feature-text">Deep Learning</div>
-        </div>
-        """, unsafe_allow_html=True)
+    features = [
 
-    with c3:
-        st.markdown("""
-        <div class="feature-box">
-            <div class="feature-icon">📊</div>
-            <div class="feature-text">Analytics</div>
-        </div>
-        """, unsafe_allow_html=True)
+        (
+            "🚀",
+            "Fast Performance",
+            "Optimized AI inference for smooth prediction performance."
+        ),
 
-    with c4:
-        st.markdown("""
-        <div class="feature-box">
-            <div class="feature-icon">🔒</div>
-            <div class="feature-text">Reliable</div>
-        </div>
-        """, unsafe_allow_html=True)
+        (
+            "🧠",
+            "Deep Learning",
+            "Advanced neural networks for intelligent classification."
+        ),
+
+        (
+            "📊",
+            "Analytics Ready",
+            "Business-focused prediction output and probability scoring."
+        ),
+
+        (
+            "🔒",
+            "Reliable",
+            "Stable production-ready Streamlit deployment architecture."
+        )
+    ]
+
+    cols = [c1, c2, c3, c4]
+
+    for col, feature in zip(cols, features):
+
+        icon, title, desc = feature
+
+        with col:
+
+            st.markdown(f"""
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    {icon}
+                </div>
+
+                <div class="feature-title">
+                    {title}
+                </div>
+
+                <div class="feature-text">
+                    {desc}
+                </div>
+
+            </div>
+            """, unsafe_allow_html=True)
