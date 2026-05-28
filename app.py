@@ -156,31 +156,6 @@ footer{
     border-radius:18px;
 }
 
-/* SIDEBAR LOGO */
-
-.sidebar-logo{
-    text-align:center;
-    padding-top:20px;
-    padding-bottom:20px;
-}
-
-.sidebar-emoji{
-    font-size:48px;
-    margin-bottom:8px;
-}
-
-.sidebar-title{
-    font-size:36px;
-    color:#1e3a8a;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.sidebar-subtitle{
-    font-size:16px;
-    color:#5b6f99;
-}
-
 </style>
 """
 
@@ -193,23 +168,36 @@ st.markdown(
 # SIDEBAR
 # =====================================================
 
+st.sidebar.markdown("")
+
+st.sidebar.markdown(
+    "# 🤖"
+)
+
 st.sidebar.markdown(
     """
-    <div class="sidebar-logo">
+    <h1 style="
+        color:#1e3a8a;
+        font-size:34px;
+        font-weight:800;
+        margin-bottom:0;
+    ">
+        AI Suite
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
 
-        <div class="sidebar-emoji">
-            🤖
-        </div>
-
-        <div class="sidebar-title">
-            AI Suite
-        </div>
-
-        <div class="sidebar-subtitle">
-            Smart Detection & Analytics
-        </div>
-
-    </div>
+st.sidebar.markdown(
+    """
+    <p style="
+        color:#5b6f99;
+        font-size:15px;
+        margin-top:-10px;
+        margin-bottom:30px;
+    ">
+        Smart Detection & Analytics
+    </p>
     """,
     unsafe_allow_html=True
 )
