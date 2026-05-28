@@ -1,9 +1,10 @@
+```python
 import streamlit as st
 
 
 def render():
 
-    # ================= CSS =================
+    # ================= PAGE STYLE =================
     st.markdown("""
     <style>
 
@@ -38,25 +39,17 @@ def render():
     }
 
     .hero-text{
-        color:rgba(255,255,255,0.95);
+        color:white;
         font-size:21px;
         line-height:1.8;
-        font-weight:500;
         max-width:900px;
     }
 
     .card{
         padding:32px;
         border-radius:24px;
-        min-height:240px;
-
+        min-height:220px;
         box-shadow:0 12px 30px rgba(0,0,0,0.08);
-
-        transition:0.3s ease;
-    }
-
-    .card:hover{
-        transform:translateY(-6px);
     }
 
     .blue-card{
@@ -78,25 +71,15 @@ def render():
         color:#334155;
         font-size:18px;
         line-height:1.8;
-        font-weight:500;
     }
 
     .feature-card{
         background:white;
         padding:24px;
         border-radius:22px;
-        min-height:250px;
-
         text-align:center;
-
+        min-height:220px;
         box-shadow:0 10px 24px rgba(0,0,0,0.08);
-
-        transition:0.3s ease;
-    }
-
-    .feature-card:hover{
-        transform:translateY(-8px);
-        box-shadow:0 14px 30px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
@@ -121,63 +104,72 @@ def render():
     """, unsafe_allow_html=True)
 
     # ================= HERO =================
-    st.markdown("""
-    <div class="hero-box">
+    st.markdown(
+        """
+        <div class="hero-box">
 
-        <div class="hero-title">
-            🤖 AI Smart Analytics Dashboard
+            <div class="hero-title">
+                🤖 AI Smart Analytics Dashboard
+            </div>
+
+            <div class="hero-text">
+                Premium intelligent platform for real-time accident detection,
+                customer churn prediction, and advanced business analytics
+                powered by deep learning intelligence.
+            </div>
+
         </div>
-
-        <div class="hero-text">
-            Premium intelligent platform for real-time accident detection,
-            customer churn prediction, and advanced business analytics
-            powered by deep learning intelligence.
-        </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     # ================= MAIN CARDS =================
-    col1, col2 = st.columns(2, gap="large")
+    col1, col2 = st.columns(2)
 
     with col1:
 
-        st.markdown("""
-        <div class="card blue-card">
+        st.markdown(
+            """
+            <div class="card blue-card">
 
-            <div class="card-title">
-                🚗 Accident Detection
+                <div class="card-title">
+                    🚗 Accident Detection
+                </div>
+
+                <div class="card-text">
+                    Upload road traffic images and instantly detect
+                    accident scenarios using trained deep learning CNN models.
+                </div>
+
             </div>
-
-            <div class="card-text">
-                Upload road traffic images and instantly detect
-                accident scenarios using trained deep learning CNN models.
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
     with col2:
 
-        st.markdown("""
-        <div class="card orange-card">
+        st.markdown(
+            """
+            <div class="card orange-card">
 
-            <div class="card-title">
-                📉 Churn Prediction
+                <div class="card-title">
+                    📉 Churn Prediction
+                </div>
+
+                <div class="card-text">
+                    Predict customer churn risk using AI-powered analytics
+                    and actionable business intelligence.
+                </div>
+
             </div>
-
-            <div class="card-text">
-                Predict customer churn risk using AI-powered analytics
-                and actionable business intelligence.
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ================= FEATURES =================
-    c1, c2, c3, c4 = st.columns(4, gap="medium")
+    c1, c2, c3, c4 = st.columns(4)
 
     features = [
 
@@ -215,20 +207,24 @@ def render():
 
         with col:
 
-            st.markdown(f"""
-            <div class="feature-card">
+            st.markdown(
+                f"""
+                <div class="feature-card">
 
-                <div class="feature-icon">
-                    {icon}
+                    <div class="feature-icon">
+                        {icon}
+                    </div>
+
+                    <div class="feature-title">
+                        {title}
+                    </div>
+
+                    <div class="feature-text">
+                        {desc}
+                    </div>
+
                 </div>
-
-                <div class="feature-title">
-                    {title}
-                </div>
-
-                <div class="feature-text">
-                    {desc}
-                </div>
-
-            </div>
-            """, unsafe_allow_html=True)
+                """,
+                unsafe_allow_html=True
+            )
+```
