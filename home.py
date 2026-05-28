@@ -4,7 +4,7 @@ import streamlit as st
 def render():
 
     # =====================================================
-    # PREMIUM CSS
+    # CSS
     # =====================================================
 
     HOME_CSS = """
@@ -16,133 +16,99 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO SECTION */
-
     .hero-box{
-
         background-image:
-        linear-gradient(
-            rgba(15,23,42,0.82),
-            rgba(30,58,138,0.82)
-        ),
-        url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
+            linear-gradient(
+                rgba(15,23,42,0.78),
+                rgba(30,58,138,0.78)
+            ),
+            url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
         background-size:cover;
         background-position:center;
         background-repeat:no-repeat;
 
         padding:70px;
-
-        border-radius:30px;
+        border-radius:28px;
 
         margin-bottom:40px;
 
         box-shadow:
-        0 18px 45px rgba(0,0,0,0.18);
+            0 18px 45px rgba(0,0,0,0.18);
     }
 
     .hero-title{
-
         font-size:56px;
-
         font-weight:800;
-
         color:white;
-
         margin-bottom:18px;
-
         line-height:1.2;
     }
 
     .hero-text{
-
         font-size:20px;
-
         color:white;
-
         line-height:1.9;
-
         max-width:900px;
     }
 
-    /* MAIN CARDS */
-
     .main-card{
-
         padding:35px;
-
         border-radius:24px;
-
         min-height:240px;
 
         box-shadow:
-        0 10px 28px rgba(0,0,0,0.08);
+            0 10px 28px rgba(0,0,0,0.08);
 
         transition:0.3s ease;
     }
 
     .main-card:hover{
-
         transform:translateY(-6px);
 
         box-shadow:
-        0 18px 40px rgba(0,0,0,0.12);
+            0 18px 40px rgba(0,0,0,0.12);
     }
 
     .blue-card{
-
         background:
-        linear-gradient(
-            135deg,
-            #eef4ff,
-            #dbeafe
-        );
+            linear-gradient(
+                135deg,
+                #eef4ff,
+                #dbeafe
+            );
     }
 
     .orange-card{
-
         background:
-        linear-gradient(
-            135deg,
-            #fff7ed,
-            #ffedd5
-        );
+            linear-gradient(
+                135deg,
+                #fff7ed,
+                #ffedd5
+            );
     }
 
     .card-title{
-
         font-size:30px;
-
         font-weight:800;
-
         color:#1e3a8a;
-
         margin-bottom:18px;
     }
 
     .card-text{
-
         font-size:18px;
-
         color:#334155;
-
         line-height:1.9;
     }
 
-    /* FEATURE CARDS */
-
     .feature-card{
-
         background:white;
-
         padding:28px;
-
         border-radius:22px;
-
         text-align:center;
 
         box-shadow:
-        0 10px 25px rgba(0,0,0,0.08);
+            0 10px 25px rgba(0,0,0,0.08);
 
         min-height:250px;
 
@@ -150,53 +116,40 @@ def render():
     }
 
     .feature-card:hover{
-
         transform:translateY(-8px);
 
         box-shadow:
-        0 18px 40px rgba(0,0,0,0.12);
+            0 18px 40px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
-
         font-size:44px;
-
         margin-bottom:15px;
     }
 
     .feature-title{
-
         font-size:24px;
-
         font-weight:700;
-
         color:#1e3a8a;
-
         margin-bottom:14px;
     }
 
     .feature-text{
-
         font-size:15px;
-
         color:#475569;
-
         line-height:1.8;
     }
 
     </style>
     """
 
-    st.markdown(
-        HOME_CSS,
-        unsafe_allow_html=True
-    )
+    st.markdown(HOME_CSS, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO SECTION
+    # HERO
     # =====================================================
 
-    hero_html = """
+    st.html("""
     <div class="hero-box">
 
         <div class="hero-title">
@@ -210,12 +163,7 @@ def render():
         </div>
 
     </div>
-    """
-
-    st.markdown(
-        hero_html,
-        unsafe_allow_html=True
-    )
+    """)
 
     # =====================================================
     # MAIN CARDS
@@ -225,7 +173,7 @@ def render():
 
     with col1:
 
-        accident_card = """
+        st.html("""
         <div class="main-card blue-card">
 
             <div class="card-title">
@@ -239,16 +187,11 @@ def render():
             </div>
 
         </div>
-        """
-
-        st.markdown(
-            accident_card,
-            unsafe_allow_html=True
-        )
+        """)
 
     with col2:
 
-        churn_card = """
+        st.html("""
         <div class="main-card orange-card">
 
             <div class="card-title">
@@ -261,17 +204,12 @@ def render():
             </div>
 
         </div>
-        """
+        """)
 
-        st.markdown(
-            churn_card,
-            unsafe_allow_html=True
-        )
-
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.write("")
 
     # =====================================================
-    # FEATURE SECTION
+    # FEATURES
     # =====================================================
 
     c1, c2, c3, c4 = st.columns(4)
@@ -304,33 +242,28 @@ def render():
 
     ]
 
-    columns = [c1, c2, c3, c4]
+    cols = [c1, c2, c3, c4]
 
-    for col, feature in zip(columns, features):
+    for col, feature in zip(cols, features):
 
         icon, title, desc = feature
 
-        feature_html = f"""
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                {icon}
-            </div>
-
-            <div class="feature-title">
-                {title}
-            </div>
-
-            <div class="feature-text">
-                {desc}
-            </div>
-
-        </div>
-        """
-
         with col:
 
-            st.markdown(
-                feature_html,
-                unsafe_allow_html=True
-            )
+            st.html(f"""
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    {icon}
+                </div>
+
+                <div class="feature-title">
+                    {title}
+                </div>
+
+                <div class="feature-text">
+                    {desc}
+                </div>
+
+            </div>
+            """)
