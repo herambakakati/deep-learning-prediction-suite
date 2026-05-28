@@ -15,7 +15,7 @@ st.set_page_config(
 )
 
 # =====================================================
-# SAFE GLOBAL CSS
+# GLOBAL CSS
 # =====================================================
 
 GLOBAL_CSS = """
@@ -23,13 +23,13 @@ GLOBAL_CSS = """
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* FONT */
-
-html, body, [class*="css"]{
+html,
+body,
+[class*="css"]{
     font-family:'Inter',sans-serif;
 }
 
-/* APP BACKGROUND */
+/* APP */
 
 .stApp{
     background:
@@ -62,6 +62,16 @@ section[data-testid="stSidebar"]{
     1px solid rgba(99,102,241,0.12);
 }
 
+/* REMOVE STREAMLIT HEADER */
+
+header{
+    visibility:hidden;
+}
+
+footer{
+    visibility:hidden;
+}
+
 /* RADIO */
 
 .stRadio label{
@@ -75,6 +85,7 @@ section[data-testid="stSidebar"]{
 .stButton > button{
 
     width:100%;
+
     height:56px;
 
     border:none;
@@ -108,59 +119,98 @@ section[data-testid="stSidebar"]{
     0 18px 35px rgba(99,102,241,0.40);
 }
 
-/* REMOVE STREAMLIT DEFAULT TOP SPACE */
+/* INPUTS */
 
-header{
-    visibility:hidden;
+.stTextInput input,
+.stNumberInput input,
+.stSelectbox div[data-baseweb="select"] > div{
+
+    border-radius:16px !important;
+
+    border:
+    1px solid rgba(99,102,241,0.18) !important;
+
+    background:
+    rgba(255,255,255,0.95) !important;
 }
 
-footer{
-    visibility:hidden;
+/* FILE UPLOADER */
+
+[data-testid="stFileUploader"]{
+
+    background:
+    rgba(255,255,255,0.92);
+
+    border:
+    2px dashed rgba(99,102,241,0.28);
+
+    border-radius:22px;
+
+    padding:18px;
 }
 
-/* FIX MARKDOWN HTML RENDERING */
+/* ALERTS */
 
-div[data-testid="stMarkdownContainer"] p{
-    margin-bottom:0px;
+.stSuccess,
+.stError{
+    border-radius:18px;
+}
+
+/* SIDEBAR LOGO */
+
+.sidebar-logo{
+    text-align:center;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-emoji{
+    font-size:48px;
+    margin-bottom:8px;
+}
+
+.sidebar-title{
+    font-size:36px;
+    color:#1e3a8a;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.sidebar-subtitle{
+    font-size:16px;
+    color:#5b6f99;
 }
 
 </style>
 """
 
-st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
+st.markdown(
+    GLOBAL_CSS,
+    unsafe_allow_html=True
+)
 
 # =====================================================
 # SIDEBAR
 # =====================================================
 
-sidebar_html = """
-<div style="text-align:center;padding-top:25px;padding-bottom:25px;">
-
-    <div style="font-size:48px;margin-bottom:8px;">
-        🤖
-    </div>
-
-    <div style="
-        font-size:38px;
-        color:#1e3a8a;
-        font-weight:800;
-        margin-bottom:8px;
-    ">
-        AI Suite
-    </div>
-
-    <div style="
-        font-size:16px;
-        color:#5b6f99;
-    ">
-        Smart Detection & Analytics
-    </div>
-
-</div>
-"""
-
 st.sidebar.markdown(
-    sidebar_html,
+    """
+    <div class="sidebar-logo">
+
+        <div class="sidebar-emoji">
+            🤖
+        </div>
+
+        <div class="sidebar-title">
+            AI Suite
+        </div>
+
+        <div class="sidebar-subtitle">
+            Smart Detection & Analytics
+        </div>
+
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
@@ -168,7 +218,7 @@ st.sidebar.markdown(
 # NAVIGATION
 # =====================================================
 
-page = st.sidebar.radio(
+module = st.sidebar.radio(
     "Navigation",
     [
         "🏠 Home",
@@ -183,13 +233,16 @@ page = st.sidebar.radio(
 
 try:
 
-    if page == "🏠 Home":
+    if module == "🏠 Home":
+
         home.render()
 
-    elif page == "🚗 Accident Detection":
+    elif module == "🚗 Accident Detection":
+
         accident.render()
 
-    elif page == "📉 Customer Churn Prediction":
+    elif module == "📉 Customer Churn Prediction":
+
         churn.render()
 
 except Exception as e:
