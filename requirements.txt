@@ -1,4 +1,3 @@
-```txt id="jlwmfj"
 streamlit==1.35.0
 tensorflow==2.19.0
 numpy==1.26.4
