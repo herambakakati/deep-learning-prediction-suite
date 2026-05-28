@@ -15,9 +15,9 @@ def download_assets():
 
     files = {
 
-        # CHURN MODEL
-        "models/churn_model.keras":
-        "1L0nfzsarjH-dK9_pqNxeCKa5d7_YvVzX",
+        # CHURN MODEL (.h5)
+        "models/churn_model.h5":
+        "14ilGcptvnDwmrrx8FzZuRN4WRoLhLDD3",
 
         # SCALER FILE
         "models/scaler.pkl":
@@ -56,7 +56,7 @@ def load_assets():
     download_assets()
 
     model = tf.keras.models.load_model(
-        "models/churn_model.keras"
+        "models/churn_model.h5"
     )
 
     with open(
