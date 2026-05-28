@@ -1,8 +1,6 @@
 import streamlit as st
 
-
 def render():
-
     st.markdown("""
     <style>
 
@@ -12,70 +10,261 @@ def render():
         padding-bottom:2rem;
     }
 
-    .hero{
-        background:#0f172a;
-        padding:50px;
-        border-radius:24px;
-        margin-bottom:35px;
+    /* REMOVE STREAMLIT TOP GAP */
+    .main > div {
+        padding-top: 0rem;
     }
 
-    .hero h1{
-        color:white;
-        font-size:50px;
-        margin-bottom:15px;
+    /* HERO SECTION */
+    .hero-box{
+        background-image:
+            linear-gradient(
+                rgba(15,23,42,0.78),
+                rgba(30,58,138,0.78)
+            ),
+            url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        padding: 70px 60px;
+
+        border-radius: 28px;
+
+        margin-bottom: 40px;
+
+        box-shadow: 0 16px 40px rgba(0,0,0,0.20);
     }
 
-    .hero p{
-        color:#e2e8f0;
-        font-size:20px;
-        line-height:1.8;
+    .hero-title{
+        color: white !important;
+        font-size: 56px;
+        font-weight: 800;
+        margin-bottom: 18px;
+        line-height: 1.2;
+    }
+
+    .hero-text{
+        color: rgba(255,255,255,0.96) !important;
+        font-size: 21px;
+        line-height: 1.8;
+        max-width: 900px;
+        font-weight: 500;
+    }
+
+    /* MAIN CARDS */
+    .card{
+        padding: 32px;
+
+        border-radius: 24px;
+
+        min-height: 240px;
+
+        box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+
+        transition: all 0.3s ease;
+    }
+
+    .card:hover{
+        transform: translateY(-6px);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    }
+
+    .blue-card{
+        background: linear-gradient(
+            135deg,
+            #eef4ff,
+            #dbeafe
+        );
+    }
+
+    .orange-card{
+        background: linear-gradient(
+            135deg,
+            #fff7ed,
+            #ffedd5
+        );
+    }
+
+    .card-title{
+        color: #1e3a8a !important;
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 18px;
+    }
+
+    .card-text{
+        color: #334155 !important;
+        font-size: 18px;
+        line-height: 1.8;
+        font-weight: 500;
+    }
+
+    /* FEATURE CARDS */
+    .feature-card{
+        background: white;
+
+        padding: 26px;
+
+        border-radius: 22px;
+
+        text-align: center;
+
+        min-height: 240px;
+
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover{
+        transform: translateY(-8px);
+
+        box-shadow: 0 16px 34px rgba(0,0,0,0.12);
+    }
+
+    .feature-icon{
+        font-size: 44px;
+        margin-bottom: 16px;
+    }
+
+    .feature-title{
+        color: #1e293b !important;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 14px;
+    }
+
+    .feature-text{
+        color: #475569 !important;
+        font-size: 16px;
+        line-height: 1.7;
+        font-weight: 500;
+    }
+
+    /* SIDEBAR IMPROVEMENT */
+    section[data-testid="stSidebar"]{
+        background: linear-gradient(
+            180deg,
+            #111827,
+            #1e293b
+        );
+    }
+
+    section[data-testid="stSidebar"] *{
+        color: white !important;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
+    # ================= HERO =================
     st.markdown("""
-    <div class="hero">
-        <h1>🤖 AI Smart Analytics Dashboard</h1>
-        <p>
-        Premium intelligent platform for accident detection,
-        customer churn prediction, and AI analytics.
-        </p>
+    <div class="hero-box">
+
+        <div class="hero-title">
+            🤖 AI Smart Analytics Dashboard
+        </div>
+
+        <div class="hero-text">
+            Premium intelligent platform for real-time accident detection,
+            customer churn prediction, and advanced business analytics
+            powered by deep learning intelligence systems.
+        </div>
+
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
+    # ================= MAIN CARDS =================
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
-        st.info("""
-🚗 Accident Detection
+        st.markdown("""
+        <div class="card blue-card">
 
-Upload traffic images and detect accident scenarios
-using deep learning CNN models.
-""")
+            <div class="card-title">
+                🚗 Accident Detection
+            </div>
+
+            <div class="card-text">
+                Upload road traffic images and instantly detect
+                accident scenarios using trained deep learning
+                convolutional neural network models.
+            </div>
+
+        </div>
+        """, unsafe_allow_html=True)
 
     with col2:
 
-        st.warning("""
-📉 Customer Churn Prediction
+        st.markdown("""
+        <div class="card orange-card">
 
-Predict customer churn probability using
-AI-powered analytics systems.
-""")
+            <div class="card-title">
+                📉 Customer Churn Prediction
+            </div>
 
-    st.markdown("## Features")
+            <div class="card-text">
+                Predict customer churn probability using
+                AI-powered analytics and business intelligence
+                prediction systems.
+            </div>
 
-    c1, c2, c3, c4 = st.columns(4)
+        </div>
+        """, unsafe_allow_html=True)
 
-    with c1:
-        st.success("🚀 Fast")
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    with c2:
-        st.success("🧠 Deep Learning")
+    # ================= FEATURES =================
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
 
-    with c3:
-        st.success("📊 Analytics")
+    features = [
+        (
+            "🚀",
+            "Fast Performance",
+            "Optimized AI inference engine for smooth real-time prediction."
+        ),
+        (
+            "🧠",
+            "Deep Learning",
+            "Advanced neural network architecture for intelligent analytics."
+        ),
+        (
+            "📊",
+            "Analytics Ready",
+            "Business-focused prediction outputs with smart insights."
+        ),
+        (
+            "🔒",
+            "Reliable",
+            "Stable production-ready Streamlit deployment architecture."
+        )
+    ]
 
-    with c4:
-        st.success("🔒 Reliable")
+    cols = [c1, c2, c3, c4]
+
+    for col, feature in zip(cols, features):
+
+        icon, title, desc = feature
+
+        with col:
+
+            st.markdown(f"""
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    {icon}
+                </div>
+
+                <div class="feature-title">
+                    {title}
+                </div>
+
+                <div class="feature-text">
+                    {desc}
+                </div>
+
+            </div>
+            """, unsafe_allow_html=True)
