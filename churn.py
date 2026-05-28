@@ -1,49 +1,15 @@
 import streamlit as st
 import tensorflow as tf
+import numpy as np
 import pandas as pd
-import pickle
 import os
-
-
-# =====================================================
-# LOAD ASSETS
-# =====================================================
-
-@st.cache_resource
-def load_assets():
-
-    model_path = "models/churn_model.h5"
-
-    scaler_path = "models/scaler.pkl"
-
-    columns_path = "models/feature_columns.pkl"
-
-    if not os.path.exists(model_path):
-
-        raise FileNotFoundError(
-            f"Missing model file: {model_path}"
-        )
-
-    model = tf.keras.models.load_model(
-        model_path
-    )
-
-    with open(scaler_path, "rb") as f:
-
-        scaler = pickle.load(f)
-
-    with open(columns_path, "rb") as f:
-
-        feature_columns = pickle.load(f)
-
-    return model, scaler, feature_columns
-
+import gdown
 
 # =====================================================
-# MAIN PAGE
+# CSS
 # =====================================================
 
-def render():
+def load_css():
 
     st.markdown("""
     <style>
@@ -51,101 +17,165 @@ def render():
     .hero-banner{
 
         background:
-        linear-gradient(
-            rgba(15,23,42,0.75),
-            rgba(30,58,138,0.75)
-        ),
-        url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
+            linear-gradient(
+                rgba(15,23,42,0.80),
+                rgba(30,58,138,0.80)
+            ),
+            url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
         background-size:cover;
         background-position:center;
 
+        padding:65px;
+
         border-radius:28px;
 
-        padding:55px;
-
         margin-bottom:35px;
+
+        box-shadow:
+            0 18px 45px rgba(0,0,0,0.18);
     }
 
     .hero-title{
 
-        font-size:52px;
+        color:white;
+
+        font-size:54px;
 
         font-weight:800;
 
-        color:white;
+        margin-bottom:16px;
     }
 
     .hero-text{
 
-        font-size:20px;
-
         color:rgba(255,255,255,0.95);
 
-        line-height:1.8;
+        font-size:20px;
+
+        line-height:1.9;
+
+        max-width:900px;
     }
 
-    .form-card{
+    .glass-card{
 
         background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #eef4ff
-        );
+            rgba(255,255,255,0.92);
 
         padding:28px;
 
         border-radius:24px;
 
-        margin-bottom:22px;
-    }
+        box-shadow:
+            0 12px 30px rgba(0,0,0,0.08);
 
-    .card-title{
-
-        color:#1e3a8a;
-
-        font-size:32px;
-
-        font-weight:800;
-    }
-
-    .result-safe{
-
-        background:
-        linear-gradient(
-            135deg,
-            #dcfce7,
-            #bbf7d0
-        );
-
-        padding:30px;
-
-        border-radius:24px;
-
-        text-align:center;
+        margin-bottom:20px;
     }
 
     .result-danger{
 
         background:
-        linear-gradient(
-            135deg,
-            #fee2e2,
-            #fecaca
-        );
+            linear-gradient(
+                135deg,
+                #fee2e2,
+                #fecaca
+            );
 
-        padding:30px;
+        padding:35px;
 
         border-radius:24px;
 
         text-align:center;
     }
 
+    .result-safe{
+
+        background:
+            linear-gradient(
+                135deg,
+                #dcfce7,
+                #bbf7d0
+            );
+
+        padding:35px;
+
+        border-radius:24px;
+
+        text-align:center;
+    }
+
+    .result-title{
+
+        font-size:42px;
+
+        font-weight:800;
+
+        margin-bottom:10px;
+
+        color:#1e293b;
+    }
+
+    .result-subtitle{
+
+        font-size:26px;
+
+        font-weight:700;
+
+        color:#334155;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
+# =====================================================
+# DOWNLOAD MODEL
+# =====================================================
+
+def download_model():
+
+    model_path = "churn_model.keras"
+
+    if not os.path.exists(model_path):
+
+        with st.spinner("Downloading churn model..."):
+
+            file_id = "YOUR_GOOGLE_DRIVE_FILE_ID"
+
+            url = f"https://drive.google.com/uc?id={file_id}"
+
+            gdown.download(
+                url,
+                model_path,
+                quiet=False
+            )
+
+    return model_path
+
+# =====================================================
+# LOAD MODEL
+# =====================================================
+
+@st.cache_resource
+def load_model():
+
+    model_path = download_model()
+
+    model = tf.keras.models.load_model(
+        model_path
+    )
+
+    return model
+
+# =====================================================
+# MAIN RENDER
+# =====================================================
+
+def render():
+
+    load_css()
+
+    st.html("""
     <div class="hero-banner">
 
         <div class="hero-title">
@@ -154,37 +184,24 @@ def render():
 
         <div class="hero-text">
             Predict customer churn risk using intelligent
-            deep learning analytics.
+            deep learning analytics and business-focused
+            prediction intelligence.
         </div>
 
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
-    try:
+    st.html("""
+    <div class="glass-card">
+        <h2 style="color:#1e3a8a;">
+            Customer Information
+        </h2>
+    </div>
+    """)
 
-        model, scaler, feature_columns = load_assets()
+    col1, col2 = st.columns(2)
 
-    except Exception as e:
-
-        st.error(
-            f"Model loading failed: {e}"
-        )
-
-        return
-
-    left, right = st.columns(2)
-
-    with left:
-
-        st.markdown("""
-        <div class="form-card">
-
-            <div class="card-title">
-                👤 Customer Profile
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
+    with col1:
 
         credit_score = st.number_input(
             "Credit Score",
@@ -200,13 +217,6 @@ def render():
             35
         )
 
-        tenure = st.number_input(
-            "Tenure",
-            0,
-            10,
-            5
-        )
-
         balance = st.number_input(
             "Balance",
             0.0,
@@ -214,138 +224,85 @@ def render():
             50000.0
         )
 
-        estimated_salary = st.number_input(
+    with col2:
+
+        products = st.number_input(
+            "Products",
+            1,
+            4,
+            2
+        )
+
+        active = st.selectbox(
+            "Is Active Member",
+            [0, 1]
+        )
+
+        salary = st.number_input(
             "Estimated Salary",
             0.0,
             300000.0,
-            50000.0
+            70000.0
         )
 
-    with right:
-
-        st.markdown("""
-        <div class="form-card">
-
-            <div class="card-title">
-                🏦 Banking Attributes
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
-
-        geography = st.selectbox(
-            "Geography",
-            ["France", "Germany", "Spain"]
-        )
-
-        gender = st.selectbox(
-            "Gender",
-            ["Male", "Female"]
-        )
-
-        has_cr_card = st.selectbox(
-            "Has Credit Card",
-            ["No", "Yes"]
-        )
-
-        is_active_member = st.selectbox(
-            "Is Active Member",
-            ["No", "Yes"]
-        )
-
-    if st.button(
-        "✨ Analyze Customer Churn Risk"
-    ):
+    if st.button("✨ Predict Churn Risk"):
 
         try:
 
-            input_data = {
+            model = load_model()
 
-                'CreditScore': credit_score,
-
-                'Age': age,
-
-                'Tenure': tenure,
-
-                'Balance': balance,
-
-                'EstimatedSalary': estimated_salary,
-
-                'NumOfProducts': 1,
-
-                'HasCrCard':
-                1 if has_cr_card == "Yes" else 0,
-
-                'IsActiveMember':
-                1 if is_active_member == "Yes" else 0,
-
-                'Geography_Germany':
-                1 if geography == "Germany" else 0,
-
-                'Geography_Spain':
-                1 if geography == "Spain" else 0,
-
-                'Gender_Male':
-                1 if gender == "Male" else 0
-            }
-
-            input_df = pd.DataFrame(
-                [input_data]
-            )
-
-            for col in feature_columns:
-
-                if col not in input_df.columns:
-
-                    input_df[col] = 0
-
-            input_df = input_df[
-                feature_columns
-            ]
-
-            scaled_data = scaler.transform(
-                input_df
-            )
+            input_data = np.array([[
+                credit_score,
+                age,
+                balance,
+                products,
+                active,
+                salary
+            ]])
 
             prediction = model.predict(
-                scaled_data,
+                input_data,
                 verbose=0
             )[0][0]
 
             if prediction > 0.5:
 
-                st.markdown(f"""
+                confidence = prediction * 100
+
+                st.html(f"""
                 <div class="result-danger">
 
-                    <h1>
+                    <div class="result-title">
                         ⚠️ High Churn Risk
-                    </h1>
+                    </div>
 
-                    <h2>
-                        {prediction*100:.2f}% Probability
-                    </h2>
+                    <div class="result-subtitle">
+                        {confidence:.2f}% Confidence
+                    </div>
 
                 </div>
-                """, unsafe_allow_html=True)
+                """)
 
             else:
 
-                st.markdown(f"""
+                confidence = (1 - prediction) * 100
+
+                st.html(f"""
                 <div class="result-safe">
 
-                    <h1>
-                        ✅ Customer Likely To Stay
-                    </h1>
+                    <div class="result-title">
+                        ✅ Customer Retained
+                    </div>
 
-                    <h2>
-                        {(1-prediction)*100:.2f}% Confidence
-                    </h2>
+                    <div class="result-subtitle">
+                        {confidence:.2f}% Confidence
+                    </div>
 
                 </div>
-                """, unsafe_allow_html=True)
+                """)
 
         except Exception as e:
 
             st.error(
-                f"Prediction failed: {e}"
+                f"Prediction failed: {str(e)}"
             )
