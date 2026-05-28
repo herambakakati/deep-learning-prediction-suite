@@ -3,7 +3,6 @@ import home
 import accident
 import churn
 
-
 # =====================================================
 # PAGE CONFIG
 # =====================================================
@@ -15,21 +14,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-
 # =====================================================
 # SAFE GLOBAL CSS
 # =====================================================
 
-st.markdown("""
+GLOBAL_CSS = """
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* FONT */
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
 }
 
-/* APP */
+/* APP BACKGROUND */
 
 .stApp{
     background:
@@ -62,9 +62,6 @@ section[data-testid="stSidebar"]{
     1px solid rgba(99,102,241,0.12);
 }
 
-/* REMOVE GLOBAL STAR SELECTOR */
-/* THIS CAUSED HTML RENDER FAILURE */
-
 /* RADIO */
 
 .stRadio label{
@@ -78,7 +75,6 @@ section[data-testid="stSidebar"]{
 .stButton > button{
 
     width:100%;
-
     height:56px;
 
     border:none;
@@ -112,43 +108,61 @@ section[data-testid="stSidebar"]{
     0 18px 35px rgba(99,102,241,0.40);
 }
 
-</style>
-""", unsafe_allow_html=True)
+/* REMOVE STREAMLIT DEFAULT TOP SPACE */
 
+header{
+    visibility:hidden;
+}
+
+footer{
+    visibility:hidden;
+}
+
+/* FIX MARKDOWN HTML RENDERING */
+
+div[data-testid="stMarkdownContainer"] p{
+    margin-bottom:0px;
+}
+
+</style>
+"""
+
+st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
 
 # =====================================================
 # SIDEBAR
 # =====================================================
 
-st.sidebar.markdown(
-    """
-    <div style="text-align:center;padding-top:25px;padding-bottom:25px;">
+sidebar_html = """
+<div style="text-align:center;padding-top:25px;padding-bottom:25px;">
 
-        <div style="font-size:48px;margin-bottom:8px;">
-            🤖
-        </div>
-
-        <div style="
-            font-size:38px;
-            color:#1e3a8a;
-            font-weight:800;
-            margin-bottom:8px;
-        ">
-            AI Suite
-        </div>
-
-        <div style="
-            font-size:16px;
-            color:#5b6f99;
-        ">
-            Smart Detection & Analytics
-        </div>
-
+    <div style="font-size:48px;margin-bottom:8px;">
+        🤖
     </div>
-    """,
+
+    <div style="
+        font-size:38px;
+        color:#1e3a8a;
+        font-weight:800;
+        margin-bottom:8px;
+    ">
+        AI Suite
+    </div>
+
+    <div style="
+        font-size:16px;
+        color:#5b6f99;
+    ">
+        Smart Detection & Analytics
+    </div>
+
+</div>
+"""
+
+st.sidebar.markdown(
+    sidebar_html,
     unsafe_allow_html=True
 )
-
 
 # =====================================================
 # NAVIGATION
@@ -163,7 +177,6 @@ page = st.sidebar.radio(
     ]
 )
 
-
 # =====================================================
 # ROUTING
 # =====================================================
@@ -171,17 +184,14 @@ page = st.sidebar.radio(
 try:
 
     if page == "🏠 Home":
-
         home.render()
 
     elif page == "🚗 Accident Detection":
-
         accident.render()
 
     elif page == "📉 Customer Churn Prediction":
-
         churn.render()
 
 except Exception as e:
 
-    st.error(f"Application Error: {e}")
+    st.error(f"Application Error: {str(e)}")
