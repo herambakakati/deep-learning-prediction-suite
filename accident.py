@@ -5,15 +5,6 @@ import cv2
 import os
 
 # =========================
-# PAGE CONFIG
-# =========================
-st.set_page_config(
-    page_title="AI Accident Detection",
-    page_icon="🚗",
-    layout="wide"
-)
-
-# =========================
 # LOAD MODEL
 # =========================
 @st.cache_resource
