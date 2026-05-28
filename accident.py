@@ -5,6 +5,15 @@ import cv2
 import os
 
 # =========================
+# PAGE CONFIG
+# =========================
+st.set_page_config(
+    page_title="AI Accident Detection",
+    page_icon="🚗",
+    layout="wide"
+)
+
+# =========================
 # LOAD MODEL
 # =========================
 @st.cache_resource
@@ -55,6 +64,7 @@ def preprocess_image(uploaded_file):
 # =========================
 def render():
 
+    # ================= CSS =================
     st.markdown("""
     <style>
 
@@ -199,9 +209,10 @@ def render():
     </style>
     """, unsafe_allow_html=True)
 
-    # HERO
+    # ================= HERO =================
     st.markdown("""
     <div class="hero-banner">
+
         <div class="hero-title">
             🚗 AI Accident Detection Intelligence
         </div>
@@ -210,14 +221,16 @@ def render():
             Upload traffic images and let the AI engine instantly
             detect accident scenarios using deep learning intelligence.
         </div>
+
     </div>
     """, unsafe_allow_html=True)
 
-    # LOAD MODEL
+    # ================= LOAD MODEL =================
     model = load_accident_model()
 
-    # MODEL NOT FOUND
+    # ================= MODEL MISSING =================
     if model is None:
+
         st.warning("""
         Accident model file is missing.
 
@@ -225,13 +238,15 @@ def render():
         models/best_accident_model.keras
         """)
 
-    # TOP SECTION
+    # ================= TOP SECTION =================
     left, right = st.columns([1.2, 1])
 
+    # ================= LEFT =================
     with left:
 
         st.markdown("""
         <div class="card">
+
             <div class="card-title">
                 📤 Upload Traffic Image
             </div>
@@ -239,21 +254,26 @@ def render():
             <div class="card-text">
                 Supported formats: JPG, JPEG, PNG
             </div>
+
         </div>
         """, unsafe_allow_html=True)
 
         uploaded_file = st.file_uploader(
             "Choose traffic image",
-            type=["jpg", "jpeg", "png"]
+            type=["jpg", "jpeg", "png"],
+            key="accident_upload"
         )
 
+    # ================= RIGHT =================
     with right:
 
         st.markdown("""
         <div class="card">
+
             <div class="card-title">
                 🧠 AI Detection Engine
             </div>
+
         </div>
         """, unsafe_allow_html=True)
 
@@ -265,12 +285,13 @@ def render():
         ]
 
         for item in features:
+
             st.markdown(
                 f'<div class="engine-item">{item}</div>',
                 unsafe_allow_html=True
             )
 
-    # PROCESS IMAGE
+    # ================= PROCESS IMAGE =================
     if uploaded_file is not None:
 
         display_img, img_input = preprocess_image(uploaded_file)
@@ -283,6 +304,7 @@ def render():
 
         st.markdown("""
         <div class="card">
+
             <div class="card-title">
                 🖼 Uploaded Preview
             </div>
@@ -290,6 +312,7 @@ def render():
             <div class="card-text">
                 Uploaded image ready for intelligent analysis
             </div>
+
         </div>
         """, unsafe_allow_html=True)
 
@@ -300,19 +323,25 @@ def render():
         b1, b2, b3 = st.columns([1,2,1])
 
         with b2:
-            analyze = st.button("✨ Analyze Accident Risk")
 
-        # PREDICTION
+            analyze = st.button(
+                "✨ Analyze Accident Risk",
+                key="analyze_accident_button"
+            )
+
+        # ================= PREDICTION =================
         if analyze:
 
             # MODEL MISSING
             if model is None:
+
                 st.error("""
                 Prediction unavailable.
 
                 Upload model file:
                 models/best_accident_model.keras
                 """)
+
                 return
 
             with st.spinner("AI analyzing image..."):
@@ -326,15 +355,20 @@ def render():
 
                 col1, col2 = st.columns(2)
 
+                # ================= SCORE =================
                 with col1:
 
                     st.markdown(f"""
                     <div class="prediction-box">
+
                         <h3>Prediction Score</h3>
+
                         <h1>{prediction:.4f}</h1>
+
                     </div>
                     """, unsafe_allow_html=True)
 
+                # ================= RESULT =================
                 with col2:
 
                     if prediction < 0.5:
@@ -343,8 +377,11 @@ def render():
 
                         st.markdown(f"""
                         <div class="danger-box">
+
                             <h1>⚠️ Accident Detected</h1>
+
                             <h2>{confidence:.2f}% Confidence</h2>
+
                         </div>
                         """, unsafe_allow_html=True)
 
@@ -354,9 +391,11 @@ def render():
 
                         st.markdown(f"""
                         <div class="safe-box">
+
                             <h1>✅ No Accident Detected</h1>
+
                             <h2>{confidence:.2f}% Confidence</h2>
+
                         </div>
                         """, unsafe_allow_html=True)
-
 
