@@ -17,122 +17,103 @@ st.set_page_config(
 
 
 # =====================================================
-# GLOBAL CSS
+# SAFE GLOBAL CSS
 # =====================================================
 
-st.markdown(
-    """
-    <style>
+st.markdown("""
+<style>
 
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-    html, body, [class*="css"]{
-        font-family:'Inter',sans-serif;
-    }
+html, body, [class*="css"]{
+    font-family:'Inter',sans-serif;
+}
 
-    .stApp{
-        background:
-            linear-gradient(
-                135deg,
-                #f8fbff 0%,
-                #eef4ff 50%,
-                #fdfcff 100%
-            );
-    }
+/* APP */
 
-    .block-container{
-        max-width:1450px;
-        padding-top:2rem;
-        padding-bottom:2rem;
-    }
+.stApp{
+    background:
+    linear-gradient(
+        135deg,
+        #f8fbff 0%,
+        #eef4ff 50%,
+        #fdfcff 100%
+    );
+}
 
-    section[data-testid="stSidebar"]{
+/* MAIN CONTAINER */
 
-        background:
-            rgba(255,255,255,0.92);
+.block-container{
+    max-width:1450px;
+    padding-top:2rem;
+    padding-bottom:2rem;
+}
 
-        backdrop-filter:blur(18px);
+/* SIDEBAR */
 
-        border-right:
-            1px solid rgba(99,102,241,0.12);
-    }
+section[data-testid="stSidebar"]{
 
-    section[data-testid="stSidebar"] *{
-        color:#1e3a8a !important;
-    }
+    background:
+    rgba(255,255,255,0.92);
 
-    .stRadio label{
-        font-size:16px !important;
-        font-weight:700 !important;
-    }
+    backdrop-filter:blur(18px);
 
-    .stButton > button{
+    border-right:
+    1px solid rgba(99,102,241,0.12);
+}
 
-        width:100%;
+/* REMOVE GLOBAL STAR SELECTOR */
+/* THIS CAUSED HTML RENDER FAILURE */
 
-        height:56px;
+/* RADIO */
 
-        border:none;
+.stRadio label{
+    font-size:16px !important;
+    font-weight:700 !important;
+    color:#1e3a8a !important;
+}
 
-        border-radius:18px;
+/* BUTTON */
 
-        font-size:18px;
+.stButton > button{
 
-        font-weight:700;
+    width:100%;
 
-        color:white;
+    height:56px;
 
-        background:
-            linear-gradient(
-                135deg,
-                #6366f1,
-                #8b5cf6
-            );
+    border:none;
 
-        box-shadow:
-            0 12px 30px rgba(99,102,241,0.30);
+    border-radius:18px;
 
-        transition:0.3s ease;
-    }
+    font-size:18px;
 
-    .stButton > button:hover{
+    font-weight:700;
 
-        transform:translateY(-3px);
+    color:white;
 
-        box-shadow:
-            0 18px 35px rgba(99,102,241,0.40);
-    }
+    background:
+    linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
 
-    .stTextInput input,
-    .stNumberInput input,
-    .stSelectbox div[data-baseweb="select"] > div{
+    box-shadow:
+    0 12px 30px rgba(99,102,241,0.30);
 
-        border-radius:16px !important;
+    transition:0.3s ease;
+}
 
-        border:
-            1px solid rgba(99,102,241,0.18) !important;
+.stButton > button:hover{
 
-        background:
-            rgba(255,255,255,0.95) !important;
-    }
+    transform:translateY(-3px);
 
-    [data-testid="stFileUploader"]{
+    box-shadow:
+    0 18px 35px rgba(99,102,241,0.40);
+}
 
-        background:
-            rgba(255,255,255,0.92);
-
-        border:
-            2px dashed rgba(99,102,241,0.28);
-
-        border-radius:22px;
-
-        padding:18px;
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+</style>
+""", unsafe_allow_html=True)
 
 
 # =====================================================
@@ -141,35 +122,27 @@ st.markdown(
 
 st.sidebar.markdown(
     """
-    <div style="
-        text-align:center;
-        padding-top:25px;
-        padding-bottom:25px;
-    ">
+    <div style="text-align:center;padding-top:25px;padding-bottom:25px;">
 
-        <h1 style="
-            font-size:48px;
-            margin-bottom:8px;
-        ">
+        <div style="font-size:48px;margin-bottom:8px;">
             🤖
-        </h1>
+        </div>
 
-        <h1 style="
+        <div style="
             font-size:38px;
             color:#1e3a8a;
-            margin:0;
             font-weight:800;
+            margin-bottom:8px;
         ">
             AI Suite
-        </h1>
+        </div>
 
-        <p style="
+        <div style="
             font-size:16px;
             color:#5b6f99;
-            margin-top:10px;
         ">
             Smart Detection & Analytics
-        </p>
+        </div>
 
     </div>
     """,
@@ -211,6 +184,4 @@ try:
 
 except Exception as e:
 
-    st.error(
-        f"Application Error: {e}"
-    )
+    st.error(f"Application Error: {e}")
