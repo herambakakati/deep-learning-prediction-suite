@@ -6,7 +6,7 @@ import os
 
 
 # =====================================================
-# LOAD MODEL
+# LOAD ASSETS
 # =====================================================
 
 @st.cache_resource
@@ -51,11 +51,11 @@ def render():
     .hero-banner{
 
         background:
-            linear-gradient(
-                rgba(15,23,42,0.75),
-                rgba(30,58,138,0.75)
-            ),
-            url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
+        linear-gradient(
+            rgba(15,23,42,0.75),
+            rgba(30,58,138,0.75)
+        ),
+        url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
         background-size:cover;
         background-position:center;
@@ -88,11 +88,11 @@ def render():
     .form-card{
 
         background:
-            linear-gradient(
-                135deg,
-                #ffffff,
-                #eef4ff
-            );
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef4ff
+        );
 
         padding:28px;
 
@@ -110,18 +110,36 @@ def render():
         font-weight:800;
     }
 
-    .info-box{
+    .result-safe{
 
-        background:white;
+        background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #bbf7d0
+        );
 
-        border:
-            1px solid #e2e8f0;
+        padding:30px;
 
-        padding:16px;
+        border-radius:24px;
 
-        border-radius:16px;
+        text-align:center;
+    }
 
-        margin-bottom:12px;
+    .result-danger{
+
+        background:
+        linear-gradient(
+            135deg,
+            #fee2e2,
+            #fecaca
+        );
+
+        padding:30px;
+
+        border-radius:24px;
+
+        text-align:center;
     }
 
     </style>
@@ -296,15 +314,35 @@ def render():
 
             if prediction > 0.5:
 
-                st.error(
-                    f"⚠️ High Churn Risk ({prediction*100:.2f}%)"
-                )
+                st.markdown(f"""
+                <div class="result-danger">
+
+                    <h1>
+                        ⚠️ High Churn Risk
+                    </h1>
+
+                    <h2>
+                        {prediction*100:.2f}% Probability
+                    </h2>
+
+                </div>
+                """, unsafe_allow_html=True)
 
             else:
 
-                st.success(
-                    f"✅ Customer Likely To Stay ({(1-prediction)*100:.2f}%)"
-                )
+                st.markdown(f"""
+                <div class="result-safe">
+
+                    <h1>
+                        ✅ Customer Likely To Stay
+                    </h1>
+
+                    <h2>
+                        {(1-prediction)*100:.2f}% Confidence
+                    </h2>
+
+                </div>
+                """, unsafe_allow_html=True)
 
         except Exception as e:
 
