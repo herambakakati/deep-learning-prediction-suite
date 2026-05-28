@@ -17,21 +17,11 @@ st.set_page_config(
 
 
 # =====================================================
-# GLOBAL CSS
+# MINIMAL GLOBAL CSS
 # =====================================================
 
 st.markdown("""
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-/* GLOBAL FONT */
-
-html,
-body,
-[class*="css"]{
-    font-family:'Inter',sans-serif;
-}
 
 /* MAIN APP */
 
@@ -39,7 +29,7 @@ body,
     background-color:#f1f5f9;
 }
 
-/* CONTAINER */
+/* MAIN CONTAINER */
 
 .block-container{
     max-width:1450px;
@@ -68,7 +58,7 @@ section[data-testid="stSidebar"] *{
     color:#1e3a8a !important;
 }
 
-/* RADIO */
+/* SIDEBAR RADIO */
 
 .stRadio label{
 
@@ -83,11 +73,11 @@ section[data-testid="stSidebar"] *{
 
 .stButton > button{
 
-    border-radius:16px;
+    border-radius:16px !important;
 
-    border:none;
+    border:none !important;
 
-    font-weight:700;
+    font-weight:700 !important;
 }
 
 /* INPUTS */
@@ -113,6 +103,20 @@ section[data-testid="stSidebar"] *{
 .stWarning{
 
     border-radius:18px;
+}
+
+/* REMOVE STREAMLIT MENU */
+
+#MainMenu{
+    visibility:hidden;
+}
+
+footer{
+    visibility:hidden;
+}
+
+header{
+    visibility:hidden;
 }
 
 </style>
@@ -159,10 +163,10 @@ st.sidebar.markdown("""
 
 
 # =====================================================
-# NAVIGATION
+# SIDEBAR NAVIGATION
 # =====================================================
 
-module = st.sidebar.radio(
+page = st.sidebar.radio(
     "📌 Navigation",
     [
         "🏠 Home",
@@ -173,17 +177,21 @@ module = st.sidebar.radio(
 
 
 # =====================================================
-# ROUTING
+# PAGE ROUTING
 # =====================================================
 
-if module == "🏠 Home":
+if page == "🏠 Home":
 
     home.render()
 
-elif module == "🚗 Accident Detection":
+elif page == "🚗 Accident Detection":
 
     accident.render()
 
-elif module == "📉 Customer Churn Prediction":
+elif page == "📉 Customer Churn Prediction":
 
     churn.render()
+
+else:
+
+    st.error("Page not found.")
