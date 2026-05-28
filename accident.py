@@ -3,6 +3,197 @@ import tensorflow as tf
 import numpy as np
 import cv2
 import os
+import gdown
+
+
+# =====================================================
+# PAGE CSS
+# =====================================================
+
+def load_css():
+
+    st.markdown(
+        """
+        <style>
+
+        .hero-banner{
+
+            background:
+                linear-gradient(
+                    rgba(15,23,42,0.78),
+                    rgba(30,58,138,0.78)
+                ),
+                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+
+            background-size:cover;
+            background-position:center;
+
+            padding:65px;
+
+            border-radius:28px;
+
+            margin-bottom:35px;
+
+            box-shadow:
+                0 18px 45px rgba(0,0,0,0.18);
+        }
+
+        .hero-title{
+
+            color:white;
+
+            font-size:54px;
+
+            font-weight:800;
+
+            margin-bottom:16px;
+        }
+
+        .hero-text{
+
+            color:rgba(255,255,255,0.95);
+
+            font-size:20px;
+
+            line-height:1.9;
+
+            max-width:900px;
+        }
+
+        .glass-card{
+
+            background:
+                rgba(255,255,255,0.92);
+
+            padding:28px;
+
+            border-radius:24px;
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.08);
+
+            margin-bottom:20px;
+        }
+
+        .section-title{
+
+            color:#1e3a8a;
+
+            font-size:30px;
+
+            font-weight:800;
+
+            margin-bottom:12px;
+        }
+
+        .section-text{
+
+            color:#475569;
+
+            font-size:17px;
+
+            line-height:1.8;
+        }
+
+        .feature-box{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ecfeff,
+                    #dbeafe
+                );
+
+            padding:18px;
+
+            border-radius:16px;
+
+            margin-bottom:14px;
+
+            color:#1e3a8a;
+
+            font-weight:700;
+
+            font-size:16px;
+        }
+
+        .danger-result{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fee2e2,
+                    #fecaca
+                );
+
+            padding:35px;
+
+            border-radius:24px;
+
+            text-align:center;
+        }
+
+        .safe-result{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dcfce7,
+                    #bbf7d0
+                );
+
+            padding:35px;
+
+            border-radius:24px;
+
+            text-align:center;
+        }
+
+        .score-box{
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dbeafe,
+                    #bfdbfe
+                );
+
+            padding:35px;
+
+            border-radius:24px;
+
+            text-align:center;
+        }
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# =====================================================
+# DOWNLOAD MODEL
+# =====================================================
+
+def download_model():
+
+    model_path = "best_accident_model.keras"
+
+    if not os.path.exists(model_path):
+
+        with st.spinner("Downloading AI model..."):
+
+            file_id = "1PH-D7uz2f9dzcbW0u7hLqtMGwSH81ljr"
+
+            url = f"https://drive.google.com/uc?id={file_id}"
+
+            gdown.download(
+                url,
+                model_path,
+                quiet=False
+            )
+
+    return model_path
 
 
 # =====================================================
@@ -10,15 +201,9 @@ import os
 # =====================================================
 
 @st.cache_resource
-def load_accident_model():
+def load_model():
 
-    model_path = "models/best_accident_model.keras"
-
-    if not os.path.exists(model_path):
-
-        raise FileNotFoundError(
-            f"Model file not found: {model_path}"
-        )
+    model_path = download_model()
 
     model = tf.keras.models.load_model(
         model_path
@@ -38,248 +223,111 @@ def preprocess_image(uploaded_file):
         dtype=np.uint8
     )
 
-    img = cv2.imdecode(
+    image = cv2.imdecode(
         file_bytes,
         cv2.IMREAD_COLOR
     )
 
-    if img is None:
+    if image is None:
 
         return None, None
 
-    img_rgb = cv2.cvtColor(
-        img,
+    image_rgb = cv2.cvtColor(
+        image,
         cv2.COLOR_BGR2RGB
     )
 
     resized = cv2.resize(
-        img_rgb,
+        image_rgb,
         (224, 224)
     )
 
-    resized = resized.astype(
+    normalized = resized.astype(
         np.float32
     ) / 255.0
 
-    img_input = np.expand_dims(
-        resized,
+    input_image = np.expand_dims(
+        normalized,
         axis=0
     )
 
-    return img_rgb, img_input
+    return image_rgb, input_image
 
 
 # =====================================================
-# MAIN PAGE
+# MAIN RENDER FUNCTION
 # =====================================================
 
 def render():
 
-    st.markdown("""
-    <style>
+    load_css()
 
-    .hero-banner{
+    # HERO
 
-        background:
-        linear-gradient(
-            rgba(15,23,42,0.75),
-            rgba(30,58,138,0.75)
-        ),
-        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+    st.markdown(
+        """
+        <div class="hero-banner">
 
-        background-size:cover;
-        background-position:center;
+            <div class="hero-title">
+                🚗 AI Accident Detection Intelligence
+            </div>
 
-        border-radius:28px;
+            <div class="hero-text">
+                Upload traffic images and let the AI engine instantly
+                detect accident scenarios using advanced deep learning
+                intelligence and CNN-powered classification.
+            </div>
 
-        padding:60px;
-
-        margin-bottom:30px;
-
-        box-shadow:
-        0 18px 45px rgba(0,0,0,0.18);
-    }
-
-    .hero-title{
-
-        color:white;
-
-        font-size:52px;
-
-        font-weight:800;
-
-        margin-bottom:12px;
-    }
-
-    .hero-text{
-
-        color:rgba(255,255,255,0.95);
-
-        font-size:20px;
-
-        line-height:1.8;
-
-        max-width:850px;
-
-        font-weight:500;
-    }
-
-    .card{
-
-        background:white;
-
-        padding:24px;
-
-        border-radius:24px;
-
-        box-shadow:
-        0 10px 25px rgba(0,0,0,0.08);
-
-        margin-bottom:18px;
-    }
-
-    .card-title{
-
-        color:#1e3a8a;
-
-        font-size:30px;
-
-        font-weight:800;
-    }
-
-    .card-text{
-
-        color:#475569;
-
-        font-size:16px;
-
-        font-weight:600;
-
-        margin-top:8px;
-    }
-
-    .engine-item{
-
-        background:
-        linear-gradient(
-            135deg,
-            #ecfdf5,
-            #d1fae5
-        );
-
-        color:#065f46;
-
-        padding:18px;
-
-        border-radius:16px;
-
-        margin-bottom:14px;
-
-        font-size:16px;
-
-        font-weight:700;
-    }
-
-    .prediction-box{
-
-        background:
-        linear-gradient(
-            135deg,
-            #dbeafe,
-            #bfdbfe
-        );
-
-        padding:35px;
-
-        border-radius:24px;
-
-        text-align:center;
-    }
-
-    .danger-box{
-
-        background:
-        linear-gradient(
-            135deg,
-            #fee2e2,
-            #fecaca
-        );
-
-        padding:35px;
-
-        border-radius:24px;
-
-        text-align:center;
-    }
-
-    .safe-box{
-
-        background:
-        linear-gradient(
-            135deg,
-            #dcfce7,
-            #bbf7d0
-        );
-
-        padding:35px;
-
-        border-radius:24px;
-
-        text-align:center;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="hero-banner">
-
-        <div class="hero-title">
-            🚗 AI Accident Detection Intelligence
         </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-        <div class="hero-text">
-            Upload traffic images and let the AI engine instantly detect
-            accident scenarios using real-time deep learning intelligence.
-        </div>
+    # MAIN SECTION
 
-    </div>
-    """, unsafe_allow_html=True)
-
-    left, right = st.columns([1.2, 1])
+    left, right = st.columns(
+        [1.2, 1]
+    )
 
     with left:
 
-        st.markdown("""
-        <div class="card">
+        st.markdown(
+            """
+            <div class="glass-card">
 
-            <div class="card-title">
-                📤 Upload Traffic Image
+                <div class="section-title">
+                    📤 Upload Traffic Image
+                </div>
+
+                <div class="section-text">
+                    Supported image formats:
+                    JPG, JPEG, PNG
+                </div>
+
             </div>
-
-            <div class="card-text">
-                Supported formats: JPG, JPEG, PNG
-            </div>
-
-        </div>
-        """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
         uploaded_file = st.file_uploader(
-            "Choose traffic image",
+            "Choose an image",
             type=["jpg", "jpeg", "png"]
         )
 
     with right:
 
-        st.markdown("""
-        <div class="card">
+        st.markdown(
+            """
+            <div class="glass-card">
 
-            <div class="card-title">
-                🧠 AI Detection Engine
+                <div class="section-title">
+                    🧠 AI Detection Engine
+                </div>
+
             </div>
-
-        </div>
-        """, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
         features = [
 
@@ -287,7 +335,7 @@ def render():
 
             "🎯 Confidence-based prediction",
 
-            "🚀 Fast local processing",
+            "🚀 Fast image classification",
 
             "🧠 Deep learning intelligence"
         ]
@@ -295,26 +343,36 @@ def render():
         for item in features:
 
             st.markdown(
-                f'<div class="engine-item">{item}</div>',
+                f"""
+                <div class="feature-box">
+                    {item}
+                </div>
+                """,
                 unsafe_allow_html=True
             )
 
+    # IMAGE DISPLAY
+
     if uploaded_file is not None:
 
-        display_img, img_input = preprocess_image(
+        display_image, processed_image = preprocess_image(
             uploaded_file
         )
 
-        if display_img is None:
+        if display_image is None:
 
-            st.error("Invalid image uploaded.")
+            st.error(
+                "Invalid image uploaded."
+            )
 
             return
 
         st.image(
-            display_img,
+            display_image,
             use_column_width=True
         )
+
+        # PREDICTION BUTTON
 
         if st.button(
             "✨ Analyze Accident Risk"
@@ -322,36 +380,43 @@ def render():
 
             try:
 
-                model = load_accident_model()
+                model = load_model()
 
                 with st.spinner(
                     "AI analyzing image..."
                 ):
 
                     prediction = model.predict(
-                        img_input,
+                        processed_image,
                         verbose=0
                     )[0][0]
 
-                col1, col2 = st.columns(2)
+                score_col, result_col = st.columns(2)
 
-                with col1:
+                # SCORE
 
-                    st.markdown(f"""
-                    <div class="prediction-box">
+                with score_col:
 
-                        <h2>
-                            Prediction Score
-                        </h2>
+                    st.markdown(
+                        f"""
+                        <div class="score-box">
 
-                        <h1>
-                            {prediction:.4f}
-                        </h1>
+                            <h2>
+                                Prediction Score
+                            </h2>
 
-                    </div>
-                    """, unsafe_allow_html=True)
+                            <h1>
+                                {prediction:.4f}
+                            </h1>
 
-                with col2:
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+                # RESULT
+
+                with result_col:
 
                     if prediction < 0.5:
 
@@ -359,37 +424,45 @@ def render():
                             1 - prediction
                         ) * 100
 
-                        st.markdown(f"""
-                        <div class="danger-box">
+                        st.markdown(
+                            f"""
+                            <div class="danger-result">
 
-                            <h1>
-                                ⚠️ Accident Detected
-                            </h1>
+                                <h1>
+                                    ⚠️ Accident Detected
+                                </h1>
 
-                            <h2>
-                                {confidence:.2f}% Confidence
-                            </h2>
+                                <h2>
+                                    {confidence:.2f}% Confidence
+                                </h2>
 
-                        </div>
-                        """, unsafe_allow_html=True)
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
 
                     else:
 
-                        confidence = prediction * 100
+                        confidence = (
+                            prediction
+                        ) * 100
 
-                        st.markdown(f"""
-                        <div class="safe-box">
+                        st.markdown(
+                            f"""
+                            <div class="safe-result">
 
-                            <h1>
-                                ✅ No Accident Detected
-                            </h1>
+                                <h1>
+                                    ✅ No Accident Detected
+                                </h1>
 
-                            <h2>
-                                {confidence:.2f}% Confidence
-                            </h2>
+                                <h2>
+                                    {confidence:.2f}% Confidence
+                                </h2>
 
-                        </div>
-                        """, unsafe_allow_html=True)
+                            </div>
+                            """,
+                            unsafe_allow_html=True
+                        )
 
             except Exception as e:
 
