@@ -3,12 +3,10 @@ import home
 import accident
 import churn
 
-# ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="AI Smart Analytics Dashboard",
     page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="wide"
 )
 
 # ---------------- PREMIUM GLOBAL CSS ----------------
