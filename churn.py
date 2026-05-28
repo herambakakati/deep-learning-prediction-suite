@@ -16,8 +16,6 @@ def load_assets():
     scaler_path = "models/scaler.pkl"
     columns_path = "models/feature_columns.pkl"
 
-    # CHECK FILES
-
     if (
         not os.path.exists(model_path)
         or not os.path.exists(scaler_path)
@@ -54,30 +52,22 @@ def load_assets():
 
 def render():
 
+    # =====================================================
     # LOAD ASSETS
+    # =====================================================
 
     model, scaler, feature_columns = load_assets()
 
     # =====================================================
-    # CUSTOM CSS
+    # UNIQUE CHURN CSS
     # =====================================================
 
     st.markdown("""
     <style>
 
-    .stApp{
-        background-color:#f1f5f9;
-    }
-
-    .block-container{
-        max-width:1450px;
-        padding-top:2rem;
-        padding-bottom:2rem;
-    }
-
     /* HERO */
 
-    .hero-banner{
+    .churn-hero-banner{
 
         background:
         linear-gradient(
@@ -99,7 +89,7 @@ def render():
         0 18px 45px rgba(0,0,0,0.18);
     }
 
-    .hero-title{
+    .churn-hero-title{
 
         font-size:52px;
 
@@ -110,7 +100,7 @@ def render():
         margin-bottom:14px;
     }
 
-    .hero-text{
+    .churn-hero-text{
 
         font-size:20px;
 
@@ -123,9 +113,9 @@ def render():
         font-weight:500;
     }
 
-    /* FORM CARDS */
+    /* FORM CARD */
 
-    .form-card{
+    .churn-form-card{
 
         background:
         linear-gradient(
@@ -144,7 +134,7 @@ def render():
         margin-bottom:22px;
     }
 
-    .orange-card{
+    .churn-orange-card{
 
         background:
         linear-gradient(
@@ -154,7 +144,7 @@ def render():
         );
     }
 
-    .card-title{
+    .churn-card-title{
 
         color:#1e3a8a;
 
@@ -165,7 +155,7 @@ def render():
         margin-bottom:10px;
     }
 
-    .card-subtitle{
+    .churn-card-subtitle{
 
         color:#475569;
 
@@ -178,7 +168,7 @@ def render():
 
     /* INFO BOX */
 
-    .info-box{
+    .churn-info-box{
 
         background:white;
 
@@ -200,83 +190,9 @@ def render():
         color:#0f172a;
     }
 
-    /* INPUTS */
+    /* PREDICTION BOX */
 
-    .stNumberInput,
-    .stSelectbox{
-        margin-bottom:16px;
-    }
-
-    .stNumberInput label,
-    .stSelectbox label{
-
-        color:#1e293b !important;
-
-        font-size:16px !important;
-
-        font-weight:700 !important;
-    }
-
-    .stNumberInput input{
-
-        background:white !important;
-
-        color:#0f172a !important;
-
-        border-radius:14px !important;
-
-        border:1px solid #dbeafe !important;
-
-        min-height:52px !important;
-    }
-
-    .stSelectbox div[data-baseweb="select"] > div{
-
-        background:white !important;
-
-        color:#0f172a !important;
-
-        border-radius:14px !important;
-
-        border:1px solid #dbeafe !important;
-
-        min-height:52px !important;
-    }
-
-    /* BUTTON */
-
-    div.stButton > button{
-
-        width:100%;
-
-        height:70px;
-
-        border-radius:18px;
-
-        border:none;
-
-        background:
-        linear-gradient(
-            135deg,
-            #6366f1,
-            #8b5cf6
-        );
-
-        color:white !important;
-
-        font-size:21px;
-
-        font-weight:800;
-
-        box-shadow:
-        0 14px 30px rgba(99,102,241,0.28);
-
-        margin-top:20px;
-    }
-
-    /* RESULT */
-
-    .prediction-box{
+    .churn-prediction-box{
 
         background:
         linear-gradient(
@@ -294,7 +210,7 @@ def render():
         margin-top:30px;
     }
 
-    .prediction-title{
+    .churn-prediction-title{
 
         color:#1e3a8a;
 
@@ -303,7 +219,7 @@ def render():
         font-weight:700;
     }
 
-    .prediction-score{
+    .churn-prediction-score{
 
         color:#1e3a8a;
 
@@ -314,7 +230,7 @@ def render():
 
     /* DANGER */
 
-    .danger-box{
+    .churn-danger-box{
 
         background:
         linear-gradient(
@@ -332,7 +248,7 @@ def render():
         margin-top:20px;
     }
 
-    .danger-title{
+    .churn-danger-title{
 
         color:#991b1b;
 
@@ -341,7 +257,7 @@ def render():
         font-weight:800;
     }
 
-    .danger-sub{
+    .churn-danger-sub{
 
         color:#b91c1c;
 
@@ -352,7 +268,7 @@ def render():
 
     /* SAFE */
 
-    .safe-box{
+    .churn-safe-box{
 
         background:
         linear-gradient(
@@ -370,7 +286,7 @@ def render():
         margin-top:20px;
     }
 
-    .safe-title{
+    .churn-safe-title{
 
         color:#166534;
 
@@ -379,7 +295,7 @@ def render():
         font-weight:800;
     }
 
-    .safe-sub{
+    .churn-safe-sub{
 
         color:#15803d;
 
@@ -396,13 +312,13 @@ def render():
     # =====================================================
 
     st.markdown("""
-    <div class="hero-banner">
+    <div class="churn-hero-banner">
 
-        <div class="hero-title">
+        <div class="churn-hero-title">
             📉 AI Customer Churn Intelligence
         </div>
 
-        <div class="hero-text">
+        <div class="churn-hero-text">
             Predict customer churn risk using intelligent deep learning analytics,
             customer behavior intelligence, and business-ready probability insights.
         </div>
@@ -439,13 +355,13 @@ def render():
     with left:
 
         st.markdown("""
-        <div class="form-card">
+        <div class="churn-form-card">
 
-            <div class="card-title">
+            <div class="churn-card-title">
                 👤 Customer Profile
             </div>
 
-            <div class="card-subtitle">
+            <div class="churn-card-subtitle">
                 Complete customer demographic,
                 financial, and product information.
             </div>
@@ -502,16 +418,16 @@ def render():
     with right:
 
         st.markdown("""
-        <div class="form-card orange-card">
+        <div class="churn-form-card churn-orange-card">
 
-            <div class="card-title">
+            <div class="churn-card-title">
                 🏦 Banking Attributes
             </div>
 
         </div>
         """, unsafe_allow_html=True)
 
-        banking_features = [
+        info_items = [
 
             "📊 Customer engagement indicators",
 
@@ -522,10 +438,10 @@ def render():
             "🎯 Retention intelligence signals"
         ]
 
-        for item in banking_features:
+        for item in info_items:
 
             st.markdown(f"""
-            <div class="info-box">
+            <div class="churn-info-box">
                 {item}
             </div>
             """, unsafe_allow_html=True)
@@ -561,7 +477,7 @@ def render():
         )
 
     # =====================================================
-    # PREDICTION
+    # PREDICTION BUTTON
     # =====================================================
 
     if st.button(
@@ -629,34 +545,38 @@ def render():
             verbose=0
         )[0][0]
 
-        # RESULT SCORE
+        # =====================================================
+        # SCORE
+        # =====================================================
 
         st.markdown(f"""
-        <div class="prediction-box">
+        <div class="churn-prediction-box">
 
-            <div class="prediction-title">
+            <div class="churn-prediction-title">
                 Prediction Score
             </div>
 
-            <div class="prediction-score">
+            <div class="churn-prediction-score">
                 {prediction:.4f}
             </div>
 
         </div>
         """, unsafe_allow_html=True)
 
+        # =====================================================
         # FINAL RESULT
+        # =====================================================
 
         if prediction > 0.5:
 
             st.markdown(f"""
-            <div class="danger-box">
+            <div class="churn-danger-box">
 
-                <div class="danger-title">
+                <div class="churn-danger-title">
                     ⚠️ High Churn Risk
                 </div>
 
-                <div class="danger-sub">
+                <div class="churn-danger-sub">
                     {prediction * 100:.2f}% Probability
                 </div>
 
@@ -666,13 +586,13 @@ def render():
         else:
 
             st.markdown(f"""
-            <div class="safe-box">
+            <div class="churn-safe-box">
 
-                <div class="safe-title">
+                <div class="churn-safe-title">
                     ✅ Customer Likely To Stay
                 </div>
 
-                <div class="safe-sub">
+                <div class="churn-safe-sub">
                     {(1 - prediction) * 100:.2f}% Confidence
                 </div>
 
