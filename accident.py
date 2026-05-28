@@ -253,6 +253,7 @@ def render():
             "Choose traffic image",
             type=["jpg", "jpeg", "png"],
             key="accident_upload"
+            key="accident_upload"
         )
 
     # ================= RIGHT =================
