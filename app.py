@@ -17,7 +17,7 @@ st.set_page_config(
 
 
 # =====================================================
-# PREMIUM GLOBAL CSS
+# GLOBAL CSS
 # =====================================================
 
 st.markdown("""
@@ -25,13 +25,13 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
+html, body, [class*="css"]{
+    font-family:'Inter',sans-serif;
 }
 
-/* APP BACKGROUND */
+/* MAIN BACKGROUND */
 
-.stApp {
+.stApp{
     background:
     linear-gradient(
         135deg,
@@ -41,7 +41,7 @@ html, body, [class*="css"] {
     );
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 
 .block-container{
     max-width:1450px;
@@ -51,12 +51,12 @@ html, body, [class*="css"] {
 
 /* SIDEBAR */
 
-section[data-testid="stSidebar"] {
+section[data-testid="stSidebar"]{
 
     background:
     rgba(255,255,255,0.88);
 
-    backdrop-filter: blur(20px);
+    backdrop-filter:blur(20px);
 
     border-right:
     1px solid rgba(99,102,241,0.12);
@@ -64,34 +64,34 @@ section[data-testid="stSidebar"] {
 
 /* SIDEBAR TEXT */
 
-section[data-testid="stSidebar"] * {
-    color: #1e3a8a !important;
+section[data-testid="stSidebar"] *{
+    color:#1e3a8a !important;
 }
 
-/* SIDEBAR RADIO */
+/* RADIO */
 
 .stRadio label{
     font-size:16px !important;
     font-weight:700 !important;
 }
 
-/* BUTTONS */
+/* BUTTON */
 
-.stButton > button {
+.stButton > button{
 
-    width: 100%;
+    width:100%;
 
-    border-radius: 18px;
+    height:56px;
 
-    height: 56px;
+    border:none;
 
-    font-size: 18px;
+    border-radius:18px;
 
-    font-weight: 700;
+    font-size:18px;
 
-    border: none;
+    font-weight:700;
 
-    color: white;
+    color:white;
 
     background:
     linear-gradient(
@@ -103,14 +103,12 @@ section[data-testid="stSidebar"] * {
     box-shadow:
     0 12px 30px rgba(99,102,241,0.30);
 
-    transition: 0.3s ease;
+    transition:0.3s ease;
 }
 
-/* BUTTON HOVER */
+.stButton > button:hover{
 
-.stButton > button:hover {
-
-    transform: translateY(-2px);
+    transform:translateY(-2px);
 
     box-shadow:
     0 16px 35px rgba(99,102,241,0.40);
@@ -120,9 +118,9 @@ section[data-testid="stSidebar"] * {
 
 .stTextInput input,
 .stNumberInput input,
-.stSelectbox div[data-baseweb="select"] > div {
+.stSelectbox div[data-baseweb="select"] > div{
 
-    border-radius: 16px !important;
+    border-radius:16px !important;
 
     border:
     1px solid rgba(99,102,241,0.18) !important;
@@ -133,7 +131,7 @@ section[data-testid="stSidebar"] * {
 
 /* FILE UPLOADER */
 
-[data-testid="stFileUploader"] {
+[data-testid="stFileUploader"]{
 
     background:
     rgba(255,255,255,0.92);
@@ -141,17 +139,17 @@ section[data-testid="stSidebar"] * {
     border:
     2px dashed rgba(99,102,241,0.28);
 
-    border-radius: 22px;
+    border-radius:22px;
 
-    padding: 18px;
+    padding:18px;
 }
 
-/* SUCCESS / ERROR */
+/* ALERTS */
 
 .stSuccess,
 .stError,
-.stWarning {
-    border-radius: 18px;
+.stWarning{
+    border-radius:18px;
 }
 
 </style>
@@ -159,7 +157,7 @@ section[data-testid="stSidebar"] * {
 
 
 # =====================================================
-# SIDEBAR
+# SIDEBAR HEADER
 # =====================================================
 
 st.sidebar.markdown("""
@@ -170,14 +168,13 @@ padding-top:20px;
 padding-bottom:20px;
 ">
 
-<h1 style="font-size:40px;">
-🤖
-</h1>
+<h1 style="font-size:44px;">🤖</h1>
 
 <h1 style="
 font-size:34px;
 color:#1e3a8a;
 margin:0;
+font-weight:800;
 ">
 AI Suite
 </h1>
@@ -185,6 +182,7 @@ AI Suite
 <p style="
 font-size:16px;
 color:#5b6f99;
+margin-top:8px;
 ">
 Smart Detection & Analytics
 </p>
@@ -198,7 +196,7 @@ Smart Detection & Analytics
 # NAVIGATION
 # =====================================================
 
-module = st.sidebar.radio(
+page = st.sidebar.radio(
     "Navigation",
     [
         "🏠 Home",
@@ -212,14 +210,20 @@ module = st.sidebar.radio(
 # ROUTING
 # =====================================================
 
-if module == "🏠 Home":
+try:
 
-    home.render()
+    if page == "🏠 Home":
 
-elif module == "🚗 Accident Detection":
+        home.render()
 
-    accident.render()
+    elif page == "🚗 Accident Detection":
 
-elif module == "📉 Customer Churn Prediction":
+        accident.render()
 
-    churn.render()
+    elif page == "📉 Customer Churn Prediction":
+
+        churn.render()
+
+except Exception as e:
+
+    st.error(f"Application Error: {e}")
