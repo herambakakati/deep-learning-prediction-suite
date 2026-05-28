@@ -12,7 +12,7 @@ import home
 import accident
 import churn
 
-# ---------------- SIDEBAR ----------------
+# ================= SIDEBAR =================
 st.sidebar.title("🤖 AI Suite")
 st.sidebar.caption("Smart Detection & Analytics")
 
@@ -25,7 +25,7 @@ page = st.sidebar.radio(
     ]
 )
 
-# ---------------- PAGE ROUTING ----------------
+# ================= ROUTING =================
 if page == "🏠 Home":
     home.render()
 
