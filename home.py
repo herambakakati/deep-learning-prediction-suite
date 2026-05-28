@@ -12,40 +12,38 @@ def render():
         max-width:1400px;
     }
 
-    /* HERO BANNER */
+    /* HERO */
 
     .hero-box{
 
         background-image:
             linear-gradient(
-                rgba(15, 23, 42, 0.75),
-                rgba(30, 58, 138, 0.75)
+                rgba(15,23,42,0.78),
+                rgba(30,58,138,0.78)
             ),
             url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
         background-size:cover;
-
         background-position:center;
-
         background-repeat:no-repeat;
 
-        padding:60px;
+        padding:65px;
 
-        border-radius:24px;
+        border-radius:28px;
 
         box-shadow:
-            0 16px 40px rgba(0,0,0,0.20);
+        0 18px 45px rgba(0,0,0,0.20);
 
         margin-bottom:35px;
     }
 
     .hero-title{
 
-        font-size:54px;
+        font-size:56px;
 
         font-weight:800;
 
-        color:white !important;
+        color:white;
 
         margin-bottom:18px;
     }
@@ -54,7 +52,7 @@ def render():
 
         font-size:21px;
 
-        color:rgba(255,255,255,0.95) !important;
+        color:rgba(255,255,255,0.95);
 
         line-height:1.8;
 
@@ -67,14 +65,14 @@ def render():
 
     .card{
 
-        padding:30px;
+        padding:32px;
 
-        border-radius:22px;
+        border-radius:24px;
 
         box-shadow:
-            0 10px 30px rgba(0,0,0,0.08);
+        0 12px 30px rgba(0,0,0,0.08);
 
-        min-height:240px;
+        min-height:250px;
 
         transition:0.3s ease;
     }
@@ -87,28 +85,28 @@ def render():
     .blue-card{
 
         background:
-            linear-gradient(
-                135deg,
-                #eef4ff,
-                #dbeafe
-            );
+        linear-gradient(
+            135deg,
+            #eef4ff,
+            #dbeafe
+        );
     }
 
     .orange-card{
 
         background:
-            linear-gradient(
-                135deg,
-                #fff7ed,
-                #ffedd5
-            );
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #ffedd5
+        );
     }
 
     .card-title{
 
-        color:#1e3a8a !important;
+        color:#1e3a8a;
 
-        font-size:30px;
+        font-size:32px;
 
         font-weight:800;
 
@@ -117,7 +115,7 @@ def render():
 
     .card-text{
 
-        color:#334155 !important;
+        color:#334155;
 
         font-size:18px;
 
@@ -126,7 +124,7 @@ def render():
         font-weight:500;
     }
 
-    /* FEATURE CARDS */
+    /* FEATURE */
 
     .feature-card{
 
@@ -134,14 +132,14 @@ def render():
 
         padding:24px;
 
-        border-radius:20px;
+        border-radius:22px;
 
         box-shadow:
-            0 8px 24px rgba(0,0,0,0.08);
+        0 8px 24px rgba(0,0,0,0.08);
 
         text-align:center;
 
-        min-height:250px;
+        min-height:260px;
 
         transition:0.3s ease;
     }
@@ -151,21 +149,21 @@ def render():
         transform:translateY(-8px);
 
         box-shadow:
-            0 14px 30px rgba(0,0,0,0.12);
+        0 14px 35px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
 
-        font-size:42px;
+        font-size:46px;
 
-        margin-bottom:14px;
+        margin-bottom:16px;
     }
 
     .feature-title{
 
-        color:#1e3a8a !important;
+        color:#1e3a8a;
 
-        font-size:22px;
+        font-size:24px;
 
         font-weight:700;
 
@@ -174,17 +172,17 @@ def render():
 
     .feature-text{
 
-        color:#475569 !important;
+        color:#475569;
 
         font-size:16px;
 
-        line-height:1.7;
+        line-height:1.8;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # HERO SECTION
+    # HERO
 
     st.markdown("""
     <div class="hero-box">
@@ -195,8 +193,8 @@ def render():
 
         <div class="hero-text">
             Premium intelligent platform for real-time accident detection,
-            customer churn prediction, and advanced business analytics
-            powered by deep learning intelligence.
+            customer churn prediction, and advanced AI-powered business analytics
+            using deep learning intelligence.
         </div>
 
     </div>
@@ -204,10 +202,7 @@ def render():
 
     # MAIN CARDS
 
-    col1, col2 = st.columns(
-        2,
-        gap="large"
-    )
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
 
@@ -220,7 +215,7 @@ def render():
 
             <div class="card-text">
                 Upload road traffic images and instantly detect accident
-                scenarios using trained deep learning CNN models.
+                scenarios using advanced CNN deep learning models.
             </div>
 
         </div>
@@ -232,12 +227,12 @@ def render():
         <div class="card orange-card">
 
             <div class="card-title">
-                📉 Churn Prediction
+                📉 Customer Churn Prediction
             </div>
 
             <div class="card-text">
-                Predict customer churn risk using AI-powered analytics
-                and actionable business intelligence.
+                Predict customer churn risk using intelligent neural
+                network analytics and business intelligence.
             </div>
 
         </div>
@@ -247,29 +242,26 @@ def render():
 
     # FEATURES
 
-    c1, c2, c3, c4 = st.columns(
-        4,
-        gap="medium"
-    )
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
 
     features = [
 
         (
             "🚀",
             "Fast Performance",
-            "Optimized AI inference for smooth prediction performance."
+            "Optimized AI inference for smooth and fast predictions."
         ),
 
         (
             "🧠",
             "Deep Learning",
-            "Advanced neural networks for intelligent classification."
+            "Advanced neural network architecture for accurate results."
         ),
 
         (
             "📊",
             "Analytics Ready",
-            "Business-focused prediction output and probability scoring."
+            "Business-focused prediction outputs and scoring systems."
         ),
 
         (
