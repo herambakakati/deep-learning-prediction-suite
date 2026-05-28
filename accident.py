@@ -360,7 +360,3 @@ def render():
                         """, unsafe_allow_html=True)
 
 
-# =========================
-# RUN PAGE
-# =========================
-render()
