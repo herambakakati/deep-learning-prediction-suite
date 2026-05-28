@@ -23,73 +23,46 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* APP */
-
 .stApp{
-    background-color:#f1f5f9;
+    background: linear-gradient(
+        135deg,
+        #f8fbff 0%,
+        #eef4ff 50%,
+        #ffffff 100%
+    );
 }
 
-/* CONTAINER */
-
 .block-container{
-    max-width:1450px;
+    max-width:1400px;
     padding-top:2rem;
     padding-bottom:2rem;
 }
 
-/* SIDEBAR */
-
 section[data-testid="stSidebar"]{
-
     background:
     linear-gradient(
         180deg,
         #ffffff,
         #eef4ff
     );
-
-    border-right:
-    1px solid rgba(99,102,241,0.10);
 }
-
-/* SIDEBAR TEXT */
 
 section[data-testid="stSidebar"] *{
     color:#1e3a8a !important;
 }
 
-/* BUTTON */
-
 .stButton > button{
-
-    border-radius:16px !important;
-
-    border:none !important;
-
-    font-weight:700 !important;
-}
-
-/* INPUTS */
-
-.stTextInput input,
-.stNumberInput input,
-.stSelectbox div[data-baseweb="select"] > div{
-
-    border-radius:14px !important;
-}
-
-/* HIDE DEFAULT */
-
-#MainMenu{
-    visibility:hidden;
-}
-
-footer{
-    visibility:hidden;
-}
-
-header{
-    visibility:hidden;
+    border:none;
+    border-radius:18px;
+    height:55px;
+    font-weight:700;
+    color:white;
+    background:
+    linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
 }
 
 </style>
@@ -101,43 +74,28 @@ header{
 # =====================================================
 
 st.sidebar.markdown("""
-<div style="
-    text-align:center;
-    padding-top:20px;
-    padding-bottom:20px;
+<div style="text-align:center;padding-top:20px;">
+
+<h1 style="font-size:42px;">🤖</h1>
+
+<h1 style="
+font-size:34px;
+color:#1e3a8a;
+margin:0;
 ">
+AI Suite
+</h1>
 
-    <h1 style="
-        font-size:42px;
-        margin-bottom:5px;
-    ">
-        🤖
-    </h1>
-
-    <h1 style="
-        font-size:34px;
-        color:#1e3a8a;
-        margin:0;
-        font-weight:800;
-    ">
-        AI Suite
-    </h1>
-
-    <p style="
-        font-size:16px;
-        color:#64748b;
-        margin-top:6px;
-    ">
-        Smart Detection & Analytics
-    </p>
+<p style="
+color:#64748b;
+font-size:15px;
+">
+Smart Detection & Analytics
+</p>
 
 </div>
 """, unsafe_allow_html=True)
 
-
-# =====================================================
-# NAVIGATION
-# =====================================================
 
 page = st.sidebar.radio(
     "📌 Navigation",
