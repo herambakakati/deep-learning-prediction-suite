@@ -5,7 +5,7 @@ import pickle
 import os
 
 # =====================================================
-# LOAD MODEL
+# LOAD MODEL + FILES
 # =====================================================
 
 @st.cache_resource
@@ -18,19 +18,16 @@ def load_assets():
     # CHECK FILES
 
     if not os.path.exists(model_path):
-
         raise FileNotFoundError(
             f"Missing model file: {model_path}"
         )
 
     if not os.path.exists(scaler_path):
-
         raise FileNotFoundError(
             f"Missing scaler file: {scaler_path}"
         )
 
     if not os.path.exists(columns_path):
-
         raise FileNotFoundError(
             f"Missing feature columns file: {columns_path}"
         )
@@ -38,32 +35,25 @@ def load_assets():
     # LOAD MODEL
 
     model = tf.keras.models.load_model(
-        model_path
+        model_path,
+        compile=False
     )
 
     # LOAD SCALER
 
-    with open(
-        scaler_path,
-        "rb"
-    ) as f:
-
+    with open(scaler_path, "rb") as f:
         scaler = pickle.load(f)
 
     # LOAD FEATURE COLUMNS
 
-    with open(
-        columns_path,
-        "rb"
-    ) as f:
-
+    with open(columns_path, "rb") as f:
         feature_columns = pickle.load(f)
 
     return model, scaler, feature_columns
 
 
 # =====================================================
-# MAIN PAGE
+# MAIN FUNCTION
 # =====================================================
 
 def render():
@@ -79,8 +69,8 @@ def render():
 
         background:
         linear-gradient(
-            rgba(15,23,42,0.80),
-            rgba(30,58,138,0.80)
+            rgba(15,23,42,0.82),
+            rgba(30,58,138,0.82)
         ),
         url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80");
 
@@ -89,7 +79,7 @@ def render():
 
         border-radius:28px;
 
-        padding:60px;
+        padding:65px;
 
         margin-bottom:35px;
 
@@ -99,25 +89,25 @@ def render():
 
     .hero-title{
 
-        font-size:54px;
+        font-size:58px;
 
         font-weight:800;
 
         color:white;
 
-        margin-bottom:15px;
+        margin-bottom:18px;
     }
 
     .hero-text{
 
-        font-size:20px;
+        font-size:21px;
 
-        color:rgba(255,255,255,0.95);
+        color:rgba(255,255,255,0.96);
 
         line-height:1.9;
     }
 
-    .form-card{
+    .section-card{
 
         background:
         linear-gradient(
@@ -140,7 +130,7 @@ def render():
 
         color:#1e3a8a;
 
-        font-size:30px;
+        font-size:34px;
 
         font-weight:800;
     }
@@ -154,29 +144,34 @@ def render():
             #bfdbfe
         );
 
-        padding:32px;
+        padding:35px;
 
-        border-radius:22px;
+        border-radius:24px;
 
         text-align:center;
 
         margin-top:30px;
+
+        box-shadow:
+        0 10px 25px rgba(59,130,246,0.18);
     }
 
     .prediction-title{
 
         color:#1e3a8a;
 
-        font-size:28px;
+        font-size:30px;
 
         font-weight:700;
+
+        margin-bottom:15px;
     }
 
     .prediction-score{
 
         color:#1e3a8a;
 
-        font-size:58px;
+        font-size:64px;
 
         font-weight:800;
     }
@@ -190,13 +185,16 @@ def render():
             #fecaca
         );
 
-        padding:30px;
+        padding:34px;
 
-        border-radius:22px;
+        border-radius:24px;
 
         text-align:center;
 
-        margin-top:20px;
+        margin-top:24px;
+
+        box-shadow:
+        0 10px 25px rgba(239,68,68,0.15);
     }
 
     .safe-box{
@@ -208,13 +206,16 @@ def render():
             #bbf7d0
         );
 
-        padding:30px;
+        padding:34px;
 
-        border-radius:22px;
+        border-radius:24px;
 
         text-align:center;
 
-        margin-top:20px;
+        margin-top:24px;
+
+        box-shadow:
+        0 10px 25px rgba(34,197,94,0.15);
     }
 
     .danger-title,
@@ -223,12 +224,14 @@ def render():
         font-size:42px;
 
         font-weight:800;
+
+        margin-bottom:14px;
     }
 
     .danger-sub,
     .safe-sub{
 
-        font-size:30px;
+        font-size:28px;
 
         font-weight:700;
     }
@@ -249,14 +252,22 @@ def render():
         color:#15803d;
     }
 
+    div[data-baseweb="select"] > div{
+        border-radius:16px !important;
+    }
+
+    .stNumberInput input{
+        border-radius:14px !important;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
     # =====================================================
-    # HERO
+    # HERO SECTION
     # =====================================================
 
-    st.markdown("""
+    st.html("""
     <div class="hero-banner">
 
         <div class="hero-title">
@@ -265,15 +276,15 @@ def render():
 
         <div class="hero-text">
             Predict customer churn risk using intelligent
-            deep learning analytics and business-ready
+            deep learning analytics and business-focused
             customer retention intelligence.
         </div>
 
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
     # =====================================================
-    # LOAD FILES
+    # LOAD ASSETS
     # =====================================================
 
     try:
@@ -289,72 +300,84 @@ def render():
         return
 
     # =====================================================
-    # INPUTS
+    # INPUT SECTION
     # =====================================================
 
     left, right = st.columns(2)
 
+    # =====================================================
+    # LEFT SIDE
+    # =====================================================
+
     with left:
 
-        st.markdown("""
-        <div class="form-card">
+        st.html("""
+        <div class="section-card">
+
             <div class="card-title">
                 👤 Customer Profile
             </div>
+
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         credit_score = st.number_input(
             "Credit Score",
-            300,
-            900,
-            650
+            min_value=300,
+            max_value=900,
+            value=650
         )
 
         age = st.number_input(
             "Age",
-            18,
-            100,
-            35
+            min_value=18,
+            max_value=100,
+            value=35
         )
 
         tenure = st.number_input(
             "Tenure",
-            0,
-            10,
-            5
+            min_value=0,
+            max_value=10,
+            value=5
         )
 
         balance = st.number_input(
             "Balance",
-            0.0,
-            300000.0,
-            50000.0
+            min_value=0.0,
+            max_value=300000.0,
+            value=50000.0
         )
 
         estimated_salary = st.number_input(
             "Estimated Salary",
-            0.0,
-            300000.0,
-            50000.0
+            min_value=0.0,
+            max_value=300000.0,
+            value=50000.0
         )
 
         num_products = st.number_input(
             "Number of Products",
-            1,
-            4,
-            1
+            min_value=1,
+            max_value=4,
+            value=1
         )
+
+    # =====================================================
+    # RIGHT SIDE
+    # =====================================================
 
     with right:
 
-        st.markdown("""
-        <div class="form-card">
+        st.html("""
+        <div class="section-card">
+
             <div class="card-title">
                 🏦 Banking Attributes
             </div>
+
         </div>
-        """, unsafe_allow_html=True)
+        """)
 
         has_cr_card = st.selectbox(
             "Has Credit Card",
@@ -376,13 +399,19 @@ def render():
             ["Male", "Female"]
         )
 
+    st.markdown("")
+
     # =====================================================
-    # PREDICTION
+    # PREDICT BUTTON
     # =====================================================
 
     if st.button(
         "✨ Analyze Customer Churn Risk"
     ):
+
+        # =====================================================
+        # INPUT DATA
+        # =====================================================
 
         input_data = {
 
@@ -420,9 +449,17 @@ def render():
             1 if gender == "Male" else 0
         }
 
+        # =====================================================
+        # DATAFRAME
+        # =====================================================
+
         input_df = pd.DataFrame(
             [input_data]
         )
+
+        # =====================================================
+        # FEATURE ALIGNMENT
+        # =====================================================
 
         for col in feature_columns:
 
@@ -434,16 +471,28 @@ def render():
             feature_columns
         ]
 
+        # =====================================================
+        # SCALE
+        # =====================================================
+
         scaled_data = scaler.transform(
             input_df
         )
+
+        # =====================================================
+        # PREDICT
+        # =====================================================
 
         prediction = model.predict(
             scaled_data,
             verbose=0
         )[0][0]
 
-        st.markdown(f"""
+        # =====================================================
+        # SCORE BOX
+        # =====================================================
+
+        st.html(f"""
         <div class="prediction-box">
 
             <div class="prediction-title">
@@ -455,11 +504,15 @@ def render():
             </div>
 
         </div>
-        """, unsafe_allow_html=True)
+        """)
+
+        # =====================================================
+        # RESULT
+        # =====================================================
 
         if prediction > 0.5:
 
-            st.markdown(f"""
+            st.html(f"""
             <div class="danger-box">
 
                 <div class="danger-title">
@@ -471,11 +524,11 @@ def render():
                 </div>
 
             </div>
-            """, unsafe_allow_html=True)
+            """)
 
         else:
 
-            st.markdown(f"""
+            st.html(f"""
             <div class="safe-box">
 
                 <div class="safe-title">
@@ -487,4 +540,4 @@ def render():
                 </div>
 
             </div>
-            """, unsafe_allow_html=True)
+            """)
