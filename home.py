@@ -3,7 +3,6 @@ import streamlit as st
 
 def render():
 
-    # ================= PAGE STYLE =================
     st.markdown("""
     <style>
 
@@ -13,7 +12,6 @@ def render():
         padding-bottom:2rem;
     }
 
-    /* HERO SECTION */
     .hero-box{
         background-image:
         linear-gradient(
@@ -22,118 +20,91 @@ def render():
         ),
         url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
 
-        background-size:cover;
-        background-position:center;
-        background-repeat:no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
-        padding:70px 60px;
+        padding: 70px 60px;
+        border-radius: 28px;
+        margin-bottom: 40px;
 
-        border-radius:28px;
-
-        margin-bottom:40px;
-
-        box-shadow:0 16px 40px rgba(0,0,0,0.20);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.20);
     }
 
     .hero-title{
-        color:white !important;
-        font-size:54px;
-        font-weight:800;
-        margin-bottom:18px;
+        color: white;
+        font-size: 54px;
+        font-weight: 800;
+        margin-bottom: 18px;
     }
 
     .hero-text{
-        color:rgba(255,255,255,0.96) !important;
-        font-size:21px;
-        line-height:1.8;
-        max-width:900px;
-        font-weight:500;
+        color: rgba(255,255,255,0.96);
+        font-size: 21px;
+        line-height: 1.8;
+        max-width: 900px;
     }
 
-    /* MAIN CARDS */
     .card{
-        padding:32px;
+        padding: 32px;
+        border-radius: 24px;
+        min-height: 220px;
 
-        border-radius:24px;
-
-        min-height:240px;
-
-        box-shadow:0 10px 28px rgba(0,0,0,0.10);
-
-        transition:0.3s ease;
-    }
-
-    .card:hover{
-        transform:translateY(-6px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.10);
     }
 
     .blue-card{
-        background:linear-gradient(135deg,#eef4ff,#dbeafe);
+        background: linear-gradient(135deg,#eef4ff,#dbeafe);
     }
 
     .orange-card{
-        background:linear-gradient(135deg,#fff7ed,#ffedd5);
+        background: linear-gradient(135deg,#fff7ed,#ffedd5);
     }
 
     .card-title{
-        color:#1e3a8a !important;
+        color:#1e3a8a;
         font-size:30px;
         font-weight:800;
         margin-bottom:18px;
     }
 
     .card-text{
-        color:#334155 !important;
+        color:#334155;
         font-size:18px;
         line-height:1.8;
-        font-weight:500;
     }
 
-    /* FEATURE CARDS */
     .feature-card{
         background:white;
-
         padding:28px;
-
         border-radius:22px;
-
         text-align:center;
-
-        min-height:240px;
+        min-height:220px;
 
         box-shadow:0 8px 24px rgba(0,0,0,0.08);
-
-        transition:0.3s ease;
-    }
-
-    .feature-card:hover{
-        transform:translateY(-8px);
-        box-shadow:0 14px 30px rgba(0,0,0,0.12);
     }
 
     .feature-icon{
-        font-size:46px;
-        margin-bottom:16px;
-    }
-
-    .feature-title{
-        color:#1e293b !important;
-        font-size:24px;
-        font-weight:800;
+        font-size:42px;
         margin-bottom:14px;
     }
 
+    .feature-title{
+        color:#1e293b;
+        font-size:22px;
+        font-weight:700;
+        margin-bottom:10px;
+    }
+
     .feature-text{
-        color:#475569 !important;
+        color:#475569;
         font-size:16px;
         line-height:1.7;
-        font-weight:500;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # ================= HERO =================
     st.markdown("""
     <div class="hero-box">
 
@@ -150,8 +121,7 @@ def render():
     </div>
     """, unsafe_allow_html=True)
 
-    # ================= MAIN CARDS =================
-    col1, col2 = st.columns(2, gap="large")
+    col1, col2 = st.columns(2)
 
     with col1:
 
@@ -191,30 +161,13 @@ def render():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ================= FEATURES =================
-    c1, c2, c3, c4 = st.columns(4, gap="medium")
+    c1, c2, c3, c4 = st.columns(4)
 
     features = [
-        (
-            "🚀",
-            "Fast Performance",
-            "Optimized AI inference engine for real-time prediction."
-        ),
-        (
-            "🧠",
-            "Deep Learning",
-            "Advanced neural network architecture for smart analytics."
-        ),
-        (
-            "📊",
-            "Analytics Ready",
-            "Business-focused prediction and reporting intelligence."
-        ),
-        (
-            "🔒",
-            "Reliable",
-            "Stable deployment architecture with scalable design."
-        )
+        ("🚀", "Fast Performance", "Optimized AI inference engine."),
+        ("🧠", "Deep Learning", "Advanced neural network systems."),
+        ("📊", "Analytics Ready", "Business-focused AI prediction."),
+        ("🔒", "Reliable", "Stable deployment architecture.")
     ]
 
     cols = [c1, c2, c3, c4]
